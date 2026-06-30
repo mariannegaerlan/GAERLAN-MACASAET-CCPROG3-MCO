@@ -1,19 +1,26 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class Pirate {
+public class PirateCrew {
 
-    private int crewID;
+    private final int crewID;
+    private static int count;
     private String crewName;
     private String shipName;
     private String captainName;
-    private ArrayList<String> crewMembers = new ArrayList<>();
+    private List<Pirate> crewMembers = new ArrayList<>();
     private int totalBounty;
 
+    PirateCrew(String crewName, String shipName, String captainName, int totalBounty)
+    {
+        this.crewID = ++count;
+        this.crewName = crewName;
+        this.shipName = shipName;
+        this.captainName = captainName;
+        this.totalBounty = totalBounty;
+    }
     // setters
 
-    public void setCrewID(int crewID) {
-        this.crewID = crewID;
-    }
 
     public void setCrewName(String crewName)
     {
@@ -30,10 +37,6 @@ public class Pirate {
         this.captainName = captainName;
     }
 
-    public void setCrewMembers(ArrayList<String> crewMembers)
-    {
-        this.crewMembers = crewMembers;
-    }
 
     public void setTotalBounty(int totalBounty)
     {
@@ -62,10 +65,6 @@ public class Pirate {
         return this.captainName;
     }
 
-    public ArrayList<String> getCrewMembers()
-    {
-        return this.crewMembers;
-    }
 
     public int getTotalBounty()
     {
@@ -79,24 +78,40 @@ public class Pirate {
         System.out.println("Captain: " + this.captainName);
         System.out.println("Total Bounty: " + this.totalBounty);
         System.out.println("Crew Members:");
-        for (int i= 0; i< crewMembers.size(); i++)
+        for (Pirate crew: crewMembers)
         {
-            System.out.println("["+ (i +1) + "] " + crewMembers.get(i));
+            System.out.println("("+ getCrewID()+")" + crew.getName());
         }
     }
 
     // add a public void viewMemberProfile() for individual members
 
 
-    public void recruitCrewMember(String newMember)
+    public void recruitCrewMember(Pirate newMember)
     {
-        crewMembers.add(newMember);
-        System.out.println("Welcome to the Crew, " + newMember + "!");
+        if(newMember.getPirateCrew() != null)
+        {
+            throw new NullPointerException("Member already belongs to another crew.");
+        }
 
+        if (crewMembers.contains(newMember))
+        {
+            throw new IllegalArgumentException("Member already Exists!");
+        }
+
+        crewMembers.add(newMember);
+        newMember.setPirateCrew(this);
+        
+        if (newMember.getStatus().equals("Free"))
+        {
+             totalBounty += newMember.getBounty();
+        }
+
+        System.out.println("Welcome to the Crew, " + newMember.getName() + "!");
     }
 
 
-    public void removeCrewMember(String member)
+    public void removeCrewMember(Pirate member)
     {
         crewMembers.remove(member);
         System.out.println(member + " is no longer a Pirate.");

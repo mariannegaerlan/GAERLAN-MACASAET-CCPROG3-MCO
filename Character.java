@@ -1,19 +1,30 @@
-public class CharacterType {
+public abstract class Character {
     
-    private int CharacterID;
+    private final int CharacterID;
+    private static int idCount;
     private String Name;
     private String Alias;
     private String Origin;
     private String Status;
-    private String DFPower;
+    private DevilFruit DFPower;
     private int Wallet;
 
 
-// setters
-    public void setCharacterID( int CharacterID)
+// constructor
+
+    protected Character(String Name, String Alias, String Origin, String Status, int Wallet)
     {
-        this.CharacterID = CharacterID;
+        this.CharacterID = ++idCount;
+        this.Name= Name;
+        this.Alias= Alias;
+        this.Origin = Origin;
+        this.Status = Status;
+        this.DFPower = null;
+        this.Wallet = Wallet;
     }
+
+
+// setters
 
     public void setName(String Name)
     {
@@ -35,14 +46,21 @@ public class CharacterType {
         this.Status = Status;
     }
 
-    public void setDFPower(String DFPower)
+    public void setDFPower(DevilFruit DFPower)
     {
         this.DFPower = DFPower;      
     }
 
     public void setWallet(int Wallet)
     {
+        if (Wallet >= 0)
+        {
         this.Wallet = Wallet;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Wallet Balance Can't Be Negative!");
+        }
     }
 
 
@@ -73,7 +91,7 @@ public class CharacterType {
         return this.Status;
     }
 
-    public String getDFPower()
+    public DevilFruit getDFPower()
     {
         return this.DFPower;   
     }
@@ -86,7 +104,14 @@ public class CharacterType {
 
     public void DisplayProfile()
     {
-        System.out.println("Name: " + getName() + " ID| "+ getCharacterID() + "Alias: |" + getAlias() + "Origin: " + getOrigin() + "| Status: " + getStatus() + "| DF Power: " + getDFPower() + "| Wallet: " + getWallet());
+     
+        System.out.println("Name: " +getName());
+        System.out.println("ID: " + getCharacterID());
+        System.out.println("Alias: "+ getAlias());
+        System.out.println("Origin: "+ getOrigin());
+        System.out.println("Status: " + getStatus());
+        System.out.println("DF Power: "+ getDFPower());
+        System.out.println("Wallet: " + getWallet());
     }
 
 
