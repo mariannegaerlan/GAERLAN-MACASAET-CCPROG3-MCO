@@ -10,6 +10,7 @@ public class CharacterDatabase {
         this.characterMap = new HashMap<>();
     }
 
+
     public void addCharacter(Character character)
     {
         if (character == null)
@@ -48,7 +49,7 @@ public class CharacterDatabase {
         System.out.println("\n====== ONE PIECE CHARACTERS ======");
         for (Character c: characterMap.values())
         {
-            c.DisplayProfile();
+            c.getName();
             System.out.println("----------------------------");
         }
     }

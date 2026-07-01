@@ -6,12 +6,13 @@ public class Pirate extends Character{
     private boolean isCaptain;
     private PirateCrew pirateCrew;
 
-    public Pirate( String Name, String Alias, String Origin, String Status, int Wallet, int Bounty, boolean isCaptain, String PirateRole, String PirateCrew )
+    public Pirate( String Name, String Alias, String Origin, String Status, int Wallet, int Bounty, boolean isCaptain, String PirateRole )
     {
         super(Name, Alias, Origin, Status, Wallet);
         this.Bounty = Bounty;
         this.isCaptain = isCaptain;
         this.PirateRole = PirateRole;
+        
 
     }
 
