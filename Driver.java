@@ -80,6 +80,8 @@ public class Driver {
 
             }
         }
+
+     
     }
 
     public static void displayCharacterMenu()
@@ -302,7 +304,7 @@ public class Driver {
 
     }
 
-    public static void viewCharacter()
+    private static void viewCharacter() 
     {
         characterDB.displayCharacters();
 
@@ -321,7 +323,7 @@ public class Driver {
 
     }
 
-    public static void updateCharacter()
+    private static void updateCharacter()
     {
         characterDB.displayCharacters();
 
@@ -392,7 +394,7 @@ public class Driver {
 
 
 
-    public static void deleteCharacter()
+    private static void deleteCharacter()
     {
 
         characterDB.displayCharacters();
