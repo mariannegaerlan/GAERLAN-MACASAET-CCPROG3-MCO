@@ -49,7 +49,7 @@ public class AffiliationDatabase {
         System.out.println("\n====== PIRATE CREW DATABASE ======");
         for (PirateCrew p: crewMap.values())
         {
-            p.viewPirateGroup();
+           System.out.println("ID: " + p.getCrewID() + "| Name: " +  p.getCrewName());
             System.out.println("----------------------------");
         }
     }
@@ -91,7 +91,7 @@ public class AffiliationDatabase {
         System.out.println("\n====== MARINE CORPS DATABASE ======");
         for (MarineCorps m: corpMap.values())
         {
-            m.viewMarineGroup();
+           System.out.println("ID: " + m.getCorpsID() + "| Name: " +  m.getcorpsName());
             System.out.println("----------------------------");
         }
     }

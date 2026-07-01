@@ -49,7 +49,7 @@ public class CharacterDatabase {
         System.out.println("\n====== ONE PIECE CHARACTERS ======");
         for (Character c: characterMap.values())
         {
-            c.getName();
+           System.out.println("ID: " + c.getCharacterID() + "| Name: " +  c.getName());
             System.out.println("----------------------------");
         }
     }
