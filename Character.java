@@ -6,13 +6,14 @@ public abstract class Character {
     private String Alias;
     private String Origin;
     private String Status;
+    private String Type;
     private DevilFruit DFPower;
     private int Wallet;
 
 
 // constructor
 
-    protected Character(String Name, String Alias, String Origin, String Status, int Wallet)
+    protected Character(String Name, String Alias, String Origin, String Status, int Wallet, String Type)
     {
         this.CharacterID = ++idCount;
         this.Name= Name;
@@ -21,6 +22,7 @@ public abstract class Character {
         this.Status = Status;
         this.DFPower = null;
         this.Wallet = Wallet;
+        this.Type = Type;
     }
 
 
@@ -101,6 +103,11 @@ public abstract class Character {
         return this.Wallet;
     }
 
+    public String getType()
+    {
+        return this.Type;
+    }
+
 
     public void DisplayProfile()
     {
@@ -112,6 +119,7 @@ public abstract class Character {
         System.out.println("Status: " + getStatus());
         System.out.println("DF Power: "+ getDFPower());
         System.out.println("Wallet: " + getWallet());
+        System.out.println("Class: "+getType());
     }
 
 

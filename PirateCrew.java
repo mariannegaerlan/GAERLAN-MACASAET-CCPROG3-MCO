@@ -7,16 +7,15 @@ public class PirateCrew {
     private static int count;
     private String crewName;
     private String shipName;
-    private String captainName;
+    private Character captain;
     private List<Pirate> crewMembers = new ArrayList<>();
     private int totalBounty;
 
-    PirateCrew(String crewName, String shipName, String captainName, int totalBounty)
+    PirateCrew(String crewName, String shipName, int totalBounty)
     {
         this.crewID = ++count;
         this.crewName = crewName;
         this.shipName = shipName;
-        this.captainName = captainName;
         this.totalBounty = totalBounty;
     }
     // setters
@@ -32,9 +31,9 @@ public class PirateCrew {
         this.shipName = shipName;
     }
 
-    public void setCaptainName(String captainName)
+    public void setCaptain(Character captain)
     {
-        this.captainName = captainName;
+        this.captain = captain;
     }
 
 
@@ -60,9 +59,9 @@ public class PirateCrew {
         return this.shipName;
     }
 
-    public String getCaptainName()
+    public Character getCaptain()
     {
-        return this.captainName;
+        return this.captain;
     }
 
 
@@ -70,12 +69,17 @@ public class PirateCrew {
     {
         return this.totalBounty;
     }
+
+    public List<Pirate> getPirates()
+    {
+        return this.crewMembers;
+    }
     
     public void viewPirateGroup()
     {
         System.out.println("Pirate Crew: " + this.crewName);
         System.out.println("Ship Name: " + this.shipName);
-        System.out.println("Captain: " + this.captainName);
+        System.out.println("Captain: " + this.captain.getName());
         System.out.println("Total Bounty: " + this.totalBounty);
         System.out.println("Crew Members:");
         for (Pirate crew: crewMembers)

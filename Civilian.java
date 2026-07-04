@@ -6,7 +6,7 @@ public class Civilian extends Character{
 
     public Civilian(String Name, String Alias, String Origin, String Status, int Wallet, String Profession, String Residence)
     {
-        super(Name, Alias, Origin, Status, Wallet);
+        super(Name, Alias, Origin, Status, Wallet, "Civillian");
         this.Profession = Profession;
         this.Residence = Residence;
 
