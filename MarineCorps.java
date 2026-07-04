@@ -7,7 +7,7 @@ public class MarineCorps
     private final int corpsID;
     private static int count;
     private String baseLocation;
-    private Marine corpsCommander;
+    private Character corpsCommander;
     private String corpsName;
     private List<Marine> marineMembers = new ArrayList<>();
     private int operationalFunds;
@@ -28,7 +28,7 @@ public class MarineCorps
         this.baseLocation = baseLocation;
     }
 
-    public void setCorpsCommander(Marine corpsCommander)
+    public void setCorpsCommander(Character corpsCommander)
     {
         this.corpsCommander = corpsCommander;
     }
@@ -58,7 +58,7 @@ public class MarineCorps
         return this.baseLocation;
     }
 
-    public Marine getcorpsCommander()
+    public Character getcorpsCommander()
     {
         return this.corpsCommander;
     }
@@ -73,6 +73,11 @@ public class MarineCorps
     {
 
         return this.operationalFunds;
+    }
+
+    public List<Marine> getMarines()
+    {
+        return this.marineMembers;
     }
 
     public void viewMarineGroup()

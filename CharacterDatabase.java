@@ -4,12 +4,21 @@ import java.util.Map;
 public class CharacterDatabase {
     
     private final Map<Integer,Character> characterMap;
+    private final Map<Integer,Marine> marineMap;
+    private final Map<Integer,Pirate> pirateMap;
+    private final Map<Integer,PirateHunter> pirhunMap;
+    private final Map<Integer,Civilian> civilianMap;
 
     public CharacterDatabase()
     {
         this.characterMap = new HashMap<>();
+        this.marineMap = new HashMap<>();
+        this.pirateMap = new HashMap<>();
+        this.pirhunMap = new HashMap<>();
+        this.civilianMap = new HashMap<>();
     }
 
+    //add character methods
 
     public void addCharacter(Character character)
     {
@@ -26,6 +35,68 @@ public class CharacterDatabase {
 
     }
 
+    public void addMarine(Marine character)
+    {
+        if (character == null)
+        {
+            throw new IllegalArgumentException("Character doesn't Exist!");
+        }
+        if (pirateMap.containsKey(character.getCharacterID()))
+        {
+            throw new IllegalArgumentException("Character ID already exists");
+        }
+
+        marineMap.put(character.getCharacterID(), character);
+
+    }
+
+    public void addPirate(Pirate character)
+    {
+        if (character == null)
+        {
+            throw new IllegalArgumentException("Character doesn't Exist!");
+        }
+        if (pirateMap.containsKey(character.getCharacterID()))
+        {
+            throw new IllegalArgumentException("Character ID already exists");
+        }
+
+        pirateMap.put(character.getCharacterID(), character);
+
+    }
+
+    public void addPirateHunter(PirateHunter character)
+    {
+        if (character == null)
+        {
+            throw new IllegalArgumentException("Character doesn't Exist!");
+        }
+        if (pirhunMap.containsKey(character.getCharacterID()))
+        {
+            throw new IllegalArgumentException("Character ID already exists");
+        }
+
+        pirhunMap.put(character.getCharacterID(), character);
+
+    }
+
+    public void addCivlian(Civilian character, String type)
+    {
+        if (character == null)
+        {
+            throw new IllegalArgumentException("Character doesn't Exist!");
+        }
+        if (civilianMap.containsKey(character.getCharacterID()))
+        {
+            throw new IllegalArgumentException("Character ID already exists");
+        }
+
+        civilianMap.put(character.getCharacterID(), character);
+
+    }
+
+    //get character methods
+
     public Character getCharacter (int characterID)
     {
         Character character = characterMap.get(characterID);
@@ -33,11 +104,67 @@ public class CharacterDatabase {
         return character;
     }
 
+    public Marine getMarine (int characterID)
+    {
+        Marine character = marineMap.get(characterID);
+
+        return character;
+    }
+
+    public Pirate getPirate (int characterID)
+    {
+        Pirate character = pirateMap.get(characterID);
+
+        return character;
+    }
+
+    public PirateHunter getPirateHunter (int characterID)
+    {
+        PirateHunter character = pirhunMap.get(characterID);
+
+        return character;
+    }
+
+    public Civilian getCivilian (int characterID)
+    {
+        Civilian character = civilianMap.get(characterID);
+
+        return character;
+    }
+
+    //remove character methods
+
     public void removeCharacter (int characterID)
     {
         Character removedCharacter = characterMap.remove(characterID);
-        System.out.println( removedCharacter.getName() + " has been removed.");
+        System.out.println(removedCharacter.getName() + " has been removed.");
     }
+
+    public void removeMarine (int characterID)
+    {
+        Marine removedCharacter = marineMap.remove(characterID);
+        System.out.println(removedCharacter.getName() + " has been removed.");
+    }
+
+    public void removePirate (int characterID)
+    {
+        Pirate removedCharacter = pirateMap.remove(characterID);
+        System.out.println(removedCharacter.getName() + " has been removed.");
+    }
+
+    public void removePirateHunter (int characterID)
+    {
+        PirateHunter removedCharacter = pirhunMap.remove(characterID);
+        System.out.println(removedCharacter.getName() + " has been removed.");
+    }
+
+    public void removeCivilian (int characterID)
+    {
+        Civilian removedCharacter = civilianMap.remove(characterID);
+        System.out.println(removedCharacter.getName() + " has been removed.");
+    }
+
+    //display character methods
 
     public void displayCharacters()
     {
@@ -55,4 +182,63 @@ public class CharacterDatabase {
         
     }
 
+    public void displayMarines(){
+
+        if (marineMap.isEmpty())
+        {
+            System.out.println("The database is empty.");
+            return;
+        }
+        System.out.println("\n====== ONE PIECE MARINES ======");
+        for (Marine m : marineMap.values())
+        {
+           System.out.println("ID: " + m.getCharacterID() + "| Name: " +  m.getName());
+            System.out.println("----------------------------");
+        }
+    }
+
+    public void displayPirates(){
+        
+        if (pirateMap.isEmpty())
+        {
+            System.out.println("The database is empty.");
+            return;
+        }
+        System.out.println("\n====== ONE PIECE PIRATES ======");
+        for (Pirate p: pirateMap.values())
+        {
+           System.out.println("ID: " + p.getCharacterID() + "| Name: " +  p.getName());
+            System.out.println("----------------------------");
+        }
+    }
+
+    public void displayHunters(){
+        
+        if (characterMap.isEmpty())
+        {
+            System.out.println("The database is empty.");
+            return;
+        }
+        System.out.println("\n====== ONE PIECE PIRATE HUNTERS ======");
+        for (PirateHunter ph: pirhunMap.values())
+        {
+           System.out.println("ID: " + ph.getCharacterID() + "| Name: " +  ph.getName());
+            System.out.println("----------------------------");
+        }
+    }
+
+    public void displayCitizens(){
+        
+        if (civilianMap.isEmpty())
+        {
+            System.out.println("The database is empty.");
+            return;
+        }
+        System.out.println("\n====== ONE PIECE CIVILIANS ======");
+        for (Civilian c: civilianMap.values())
+        {
+           System.out.println("ID: " + c.getCharacterID() + "| Name: " +  c.getName());
+            System.out.println("----------------------------");
+        }
+    }
 }

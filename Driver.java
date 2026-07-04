@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class Driver {
     
     private static Scanner scanner = new Scanner(System.in); 
@@ -175,6 +177,305 @@ public class Driver {
 
     }
 
+    private static void removeMembers(){
+        int choice, mChoice, eChoice;
+
+        System.out.println(" --- Remove a Member from a Group ---");
+        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
+        choice = scanner.nextInt();
+
+        switch(choice){
+            case 1: 
+                affiliationDB.displayCrews();
+                System.out.println("Enter the index of the Pirate Crew you want to remove a member from: ");
+                mChoice = scanner.nextInt();
+
+                affiliationDB.getCrew(mChoice).getPirates();
+                System.out.println("Enter the index of the pirate you want to remove from the crew: ");
+                eChoice = scanner.nextInt();
+
+                affiliationDB.getCrew(mChoice).removeCrewMember(affiliationDB.getCrew(mChoice).getPirates().get(eChoice));
+
+            break;
+            case 2: 
+                affiliationDB.displayCorps();
+                System.out.println("Enter the index of the Marine Corps you want to remove a member from: ");
+                mChoice = scanner.nextInt();
+
+                affiliationDB.getCorps(mChoice).getMarines();
+                System.out.println("Enter the index of the marine you want to remove from the corps: ");
+                eChoice = scanner.nextInt();
+
+                affiliationDB.getCorps(mChoice).removeMarineMember(affiliationDB.getCorps(mChoice).getMarines().get(eChoice));
+            break;
+            default: System.out.println("Invalid choice."); break;
+        }
+    }
+
+    private static void addMembers(){
+        int choice, mChoice, eChoice;
+
+        System.out.println(" --- Add Members to a Group ---");
+        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
+        choice = scanner.nextInt();
+
+        switch(choice){
+            case 1: 
+                affiliationDB.displayCrews();
+                System.out.println("Enter the index of the Pirate Crew you want to add a member to: ");
+                mChoice = scanner.nextInt();
+
+                characterDB.displayPirates();
+                System.out.println("Enter the index of the pirate you want to add to the crew: ");
+                eChoice = scanner.nextInt();
+
+                if(checkIfInCrew(characterDB.getPirate(eChoice)))
+                    System.out.println("The Pirate is already in a crew."); 
+                else {
+                    affiliationDB.getCrew(mChoice).recruitCrewMember(characterDB.getPirate(eChoice));
+                }
+
+            break;
+            case 2: 
+                affiliationDB.displayCorps();
+                System.out.println("Enter the index of the Marine Corps you want to add a member to: ");
+                mChoice = scanner.nextInt();
+
+                characterDB.displayMarines();
+                System.out.println("Enter the index of the marine you want to add to the corps: ");
+                eChoice = scanner.nextInt();
+
+                if(checkIfInCorps(characterDB.getMarine(eChoice)))
+                    System.out.println("The Marine is already in a crew."); 
+                else {
+                    affiliationDB.getCorps(mChoice).recruitMarineMember(characterDB.getMarine(eChoice));
+                }
+            break;
+            default: System.out.println("Invalid choice."); break;
+        }
+    }
+
+    private static void viewGroups(){
+
+        System.out.println("--- All Pirate Crews and Marine Corps ---");
+        affiliationDB.displayCorps();
+        affiliationDB.displayCrews();
+
+    }
+
+    private static void editGroups(){ 
+
+        int choice, mChoice, eChoice, newMoney, captain;
+        String newName, newBase;
+
+        System.out.println(" --- Create a Group ---");
+        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
+        choice = scanner.nextInt();
+
+        switch(choice){
+            case 1: 
+            
+                affiliationDB.displayCrews();
+                System.out.println("Enter the index of the Pirate Crew you want to edit: ");
+                mChoice = scanner.nextInt();
+                affiliationDB.getCrew(mChoice).viewPirateGroup();
+                System.out.println("Edit Options for " + affiliationDB.getCrew(mChoice).getCrewName());
+                System.out.println("[1] Change Ship");
+                System.out.println("[2] Change Captain");
+                System.out.println("[3] Change Name");
+                System.out.println("[4] Delete " + affiliationDB.getCrew(mChoice).getCrewName());
+                eChoice = scanner.nextInt();
+
+                switch(eChoice){
+                    case 1: 
+                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "'s ship is currently the" 
+                        + affiliationDB.getCrew(mChoice).getShipName() + ".\n");
+                        
+                        System.out.println("Where the name of " + affiliationDB.getCrew(mChoice).getCrewName() + "'s new ship called?");
+                        newBase = scanner.nextLine();
+                        affiliationDB.getCrew(mChoice).setShipName(newBase);
+
+                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "'s ship is now the" 
+                        + affiliationDB.getCrew(mChoice).getShipName() + ".\n");
+
+                    break;
+
+                    case 2: 
+                    
+                        System.out.println("The current Captain of " + affiliationDB.getCrew(mChoice).getCrewName()
+                        + " Pirates is " + affiliationDB.getCrew(mChoice).getCaptain().getName() + ".\n");
+                        System.out.println("\n ===== LIST OF ALL PIRATES ===");
+                        characterDB.displayMarines();
+                        System.out.println();
+                        System.out.println("Select the index of the new Captain.");
+                        captain = scanner.nextInt();
+
+                        if(characterDB.getCharacter(captain).getType().equals("Pirate")){
+                            affiliationDB.getCrew(mChoice).getCaptain();
+                        } else System.out.println("Invalid choice.");
+
+                    break; 
+
+                    case 3: 
+                    
+                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "is the current name for this crew of Pirates.\n");
+                        
+                        System.out.println("What is the new name for " + affiliationDB.getCrew(mChoice).getCrewName() + "?");
+                        newName = scanner.nextLine();
+                        affiliationDB.getCrew(mChoice).setCrewName(newName);;
+
+                        System.out.println("This pirate crew is now known as" + affiliationDB.getCrew(mChoice).getCrewName() + ".\n");
+
+                    break;
+                    case 4: 
+                        
+                        System.out.println("Deleting " + affiliationDB.getCrew(mChoice).getCrewName() + "...\n");
+                        
+                        affiliationDB.removeCrew(mChoice);
+                        
+                    break;
+                    default: 
+
+                        System.out.println("Invalid choice.");
+                    
+                    break;
+                }
+            
+            break;
+            case 2: 
+
+                affiliationDB.displayCorps();
+                System.out.println("Enter the index of the Marine Corps you want to edit: ");
+                mChoice = scanner.nextInt();
+                affiliationDB.getCorps(mChoice).viewMarineGroup();
+                System.out.println("Edit Options for " + affiliationDB.getCorps(mChoice).getcorpsName());
+                System.out.println("[1] Change Base Location");
+                System.out.println("[2] Change Commander");
+                System.out.println("[3] Change Name");
+                System.out.println("[4] Change Operational Funds");
+                System.out.println("[5] Delete " + affiliationDB.getCorps(mChoice).getcorpsName());
+                eChoice = scanner.nextInt();
+
+                switch(eChoice){
+                    case 1: 
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "is currently located at" 
+                        + affiliationDB.getCorps(mChoice).getBaseLocation() + ".\n");
+                        
+                        System.out.println("Where is " + affiliationDB.getCorps(mChoice).getcorpsName() + "now located?");
+                        newBase = scanner.nextLine();
+                        affiliationDB.getCorps(mChoice).setBaseLocation(newBase);
+
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "is now located at" 
+                        + affiliationDB.getCorps(mChoice).getBaseLocation() + ".\n");
+
+                    break;
+
+                    case 2: 
+                    
+                        System.out.println("The current Commander of " + affiliationDB.getCorps(mChoice).getcorpsName()
+                        + "is " + affiliationDB.getCorps(mChoice).getcorpsCommander().getName() + ".\n");
+                        System.out.println("\n ===== LIST OF ALL MARINES ===");
+                        characterDB.displayMarines();
+                        System.out.println();
+                        System.out.println("Select the index of the new Commander.");
+                        captain = scanner.nextInt();
+
+                        if(characterDB.getCharacter(captain).getType().equals("Marine")){
+                            affiliationDB.getCorps(mChoice).setCorpsCommander(characterDB.getCharacter(captain));
+                        } else System.out.println("Invalid choice.");
+
+                    break; 
+
+                    case 3: 
+                    
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "is the current designated name for this corps of Marines.\n");
+                        
+                        System.out.println("What is the new name for " + affiliationDB.getCorps(mChoice).getcorpsName() + "?");
+                        newName = scanner.nextLine();
+                        affiliationDB.getCorps(mChoice).setcorpsName(newName);;
+
+                        System.out.println("This marine corps is now known as" + affiliationDB.getCorps(mChoice).getcorpsName() + ".\n");
+
+                    break;
+                    case 4: 
+                        
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "currently has a total of "
+                        + affiliationDB.getCorps(mChoice).getOperationalFunds() + " in operational funds.\n");
+                        
+                        System.out.println("How much operational funds does " + affiliationDB.getCorps(mChoice).getcorpsName() + " now have?");
+                        newMoney = scanner.nextInt();
+                        affiliationDB.getCorps(mChoice).setOperationalFunds(newMoney);
+
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "now has a total of "
+                        + affiliationDB.getCorps(mChoice).getOperationalFunds() + " in operational funds.\n");
+                        
+                    break;
+                    case 5:
+                        
+                        System.out.println("Deleting " + affiliationDB.getCorps(mChoice).getcorpsName() + "...\n");
+                        
+                        affiliationDB.removeCorps(mChoice);
+                        
+                    break;
+                    default: 
+
+                        System.out.println("Invalid choice.");
+                    
+                    break;
+                }
+
+                break;
+            default:
+
+                System.out.println("Invalid choice.");
+                break;
+        }
+    }
+
+
+    private static void createGroup(){
+
+        int choice, money;
+        PirateCrew newCrew;
+        MarineCorps newCorps;
+        String groupName, baseOfOperations, buffer;
+
+        System.out.println(" --- Create a Group ---");
+        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
+        choice = scanner.nextInt();
+
+        switch(choice){
+            case 1: 
+            
+            System.out.println("Enter the name of the Pirate Crew: ");
+            groupName = scanner.nextLine();
+            System.out.println("Enter the name of the Pirate Crew's ship: ");
+            baseOfOperations = scanner.nextLine();
+            System.out.println("Enter the total bounty of the Pirate Crew: ");
+            money = scanner.nextInt();
+
+            affiliationDB.addPirateCrew(newCrew = new PirateCrew(baseOfOperations, groupName, money));
+
+            break;
+            case 2: 
+
+            System.out.println("Enter the name of the Marine Corps: ");
+            groupName = scanner.nextLine();
+            System.out.println("Enter the Marine Corps' base location: ");
+            baseOfOperations = scanner.nextLine();
+            System.out.println("Enter the operational funds of the Marine Crops: ");
+            money = scanner.nextInt();
+
+            affiliationDB.addMarineCorp(newCorps = new MarineCorps(baseOfOperations, groupName, money));
+
+            break;
+
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
+    }
+
     public static void displayFruitMenu()
     {
         System.out.println("========================================");
@@ -211,6 +512,57 @@ public class Driver {
 
     }
 
+    private static void createDevilFruit()
+    {
+
+        String fruitName, fruitCategory, fruitAbility;
+
+        System.out.println(" --- Create a Devil Fruit ---");
+        System.out.println("Enter Devil Fruit Name: ");
+        fruitName = scanner.nextLine();
+        System.out.println("Enter Devil Fruit Category: ");
+        fruitCategory = scanner.nextLine();
+        System.out.println("Enter Devil Fruit Ability: ");
+        fruitAbility = scanner.nextLine();
+
+        DevilFruit newFruit = new DevilFruit(fruitName, fruitCategory, fruitAbility);
+        devilFruitDB.createDevilFruit(newFruit);
+        System.out.println("[ NEW DEVIL FRUIT: " + fruitName);
+        System.out.println("  CATEGORY: " + fruitCategory);
+        System.out.println("  ABILITY: " + fruitAbility + " ]");
+    }
+
+    private static void viewDevilFruit(){
+
+        int fruitID;
+
+        devilFruitDB.displayFruits();
+
+        System.out.println(" --- View a Devil Fruit ---");
+        System.out.println("Enter a Devil Fruit ID: ");
+        fruitID = scanner.nextInt();
+
+        devilFruitDB.viewDevilFruit(fruitID);
+    }
+
+    private static void assignDevilFruit(){
+
+        int fruitID, charID;
+
+        devilFruitDB.displayFruits();
+        System.out.println("");
+        characterDB.displayCharacters();
+
+        System.out.println(" --- Assign a Devil Fruit ---");
+        System.out.println("Enter a Devil Fruit ID: ");
+        fruitID = scanner.nextInt();
+        System.out.println("Enter a Character ID: ");
+        charID = scanner.nextInt();
+
+        //not finished, think about calling setDF to the character also in the assigning method in database
+        devilFruitDB.assignFruitToUser(fruitID, characterDB.getCharacter(charID));
+
+    }
 
     private static void createCharacter()
     {
@@ -392,8 +744,6 @@ public class Driver {
 
     }
 
-
-
     private static void deleteCharacter()
     {
 
@@ -406,4 +756,46 @@ public class Driver {
 
     }
     
+
+    //helper functions
+
+    private static boolean checkIfInCorps(Marine candidate){
+
+        int j = 0, i = 0;
+
+        for(MarineCorps m : affiliationDB.getCorpsMap().values()){
+            j++;
+            for(Marine mm : affiliationDB.getCorps(j).getMarines())
+            {
+                i++;
+                if(candidate.equals(affiliationDB.getCorps(j).getMarines().get(i)))
+                {
+                    return true;
+                };
+            }
+        }
+
+        return false;
+                
+    }
+
+    private static boolean checkIfInCrew(Pirate candidate){
+
+        int j = 0, i = 0;
+
+        for(PirateCrew m : affiliationDB.getCrewMap().values()){
+            j++;
+            for(Pirate mm : affiliationDB.getCrew(j).getPirates())
+            {
+                i++;
+                if(candidate.equals(affiliationDB.getCrew(j).getPirates().get(i)))
+                {
+                    return true;
+                };
+            }
+        }
+
+        return false;
+                
+    }
 }

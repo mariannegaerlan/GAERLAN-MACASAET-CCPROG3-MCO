@@ -54,7 +54,9 @@ public class AffiliationDatabase {
         }
     }
 
-
+    public Map<Integer, PirateCrew> getCrewMap(){
+        return crewMap;
+    }
 
     public void addMarineCorp(MarineCorps corps)
     {
@@ -73,6 +75,10 @@ public class AffiliationDatabase {
         MarineCorps marineCorps = corpMap.get(corpsID);
 
         return marineCorps;
+    }
+
+    public Map<Integer, MarineCorps> getCorpsMap(){
+        return corpMap;
     }
 
     public void removeCorps (int corpsID)
@@ -95,5 +101,6 @@ public class AffiliationDatabase {
             System.out.println("----------------------------");
         }
     }
+
 }
 
