@@ -41,15 +41,15 @@ public class AffiliationDatabase {
 
     public void displayCrews()
     {
-        if (crewMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+
         System.out.println("\n====== PIRATE CREW DATABASE ======");
+        if (getCrewMap().isEmpty())
+        {
+            System.out.println("No Members");
+        }
         for (PirateCrew p: crewMap.values())
         {
-           System.out.println("ID: " + p.getCrewID() + "| Name: " +  p.getCrewName());
+           System.out.println("ID: " + p.getCrewID() + " | Name: " +  p.getCrewName());
             System.out.println("----------------------------");
         }
     }
@@ -89,15 +89,16 @@ public class AffiliationDatabase {
 
     public void displayCorps()
     {
-        if (corpMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+
+
         System.out.println("\n====== MARINE CORPS DATABASE ======");
+        if (getCorpsMap().isEmpty())
+        {
+            System.out.println("No Members");
+        }
         for (MarineCorps m: corpMap.values())
         {
-           System.out.println("ID: " + m.getCorpsID() + "| Name: " +  m.getcorpsName());
+           System.out.println("ID: " + m.getCorpsID() + " | Name: " +  m.getcorpsName());
             System.out.println("----------------------------");
         }
     }

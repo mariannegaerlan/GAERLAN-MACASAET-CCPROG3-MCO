@@ -19,6 +19,10 @@ public class CharacterDatabase {
     }
 
     //add character methods
+    public Map<Integer, Character> getCharacterMap()
+    {
+        return characterMap;
+    }
 
     public void addCharacter(Character character)
     {
@@ -168,11 +172,7 @@ public class CharacterDatabase {
 
     public void displayCharacters()
     {
-        if (characterMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+
         System.out.println("\n====== ONE PIECE CHARACTERS ======");
         for (Character c: characterMap.values())
         {
@@ -184,11 +184,6 @@ public class CharacterDatabase {
 
     public void displayMarines(){
 
-        if (marineMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
         System.out.println("\n====== ONE PIECE MARINES ======");
         for (Marine m : marineMap.values())
         {
@@ -198,12 +193,7 @@ public class CharacterDatabase {
     }
 
     public void displayPirates(){
-        
-        if (pirateMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+
         System.out.println("\n====== ONE PIECE PIRATES ======");
         for (Pirate p: pirateMap.values())
         {
@@ -214,11 +204,7 @@ public class CharacterDatabase {
 
     public void displayHunters(){
         
-        if (characterMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+ 
         System.out.println("\n====== ONE PIECE PIRATE HUNTERS ======");
         for (PirateHunter ph: pirhunMap.values())
         {
@@ -229,11 +215,7 @@ public class CharacterDatabase {
 
     public void displayCitizens(){
         
-        if (civilianMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+ 
         System.out.println("\n====== ONE PIECE CIVILIANS ======");
         for (Civilian c: civilianMap.values())
         {

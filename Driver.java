@@ -7,9 +7,9 @@ public class Driver {
     private static Scanner scanner = new Scanner(System.in); 
     private static int choice =0;
     private static boolean running = true;
-    private static CharacterDatabase characterDB;
-    private static AffiliationDatabase affiliationDB;
-    private static DevilFruitDatabase devilFruitDB;
+    private static CharacterDatabase characterDB = new CharacterDatabase();
+    private static AffiliationDatabase affiliationDB = new AffiliationDatabase();
+    private static DevilFruitDatabase devilFruitDB = new DevilFruitDatabase();
 
     private static String CharacterName;
     private static String Alias;
@@ -137,6 +137,7 @@ public class Driver {
 
     public static void displayAffiliationMenu()
     {
+        int choice = 0;
         System.out.println("========================================");
         System.out.println("======== Affiliation Database ==========");
         System.out.println("========================================");
@@ -146,34 +147,330 @@ public class Driver {
         System.out.println("[3] Edit Group Attributes");
         System.out.println("[4] Add Members");
         System.out.println("[5] Remove Members");
-        System.out.print("[6] Back to Main Menu: ");
-        System.out.print("Choice: ");
+        System.out.println("[6] Back to Main Menu: ");
+        System.out.println("Choice: ");
 
-        int choice = scanner.nextInt();
-        switch (choice)
-        {
-            case 1:
-                createGroup();
-                break;
-            case 2:
-                viewGroups();
-                break;
-            case 3:
-                editGroups();
-                break;
-            case 4:
-                addMembers();
-                break;
-            case 5:
-                removeMembers();
-                break;
-            case 6:
-                displayMenu();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
+            if (scanner.hasNextInt())
+            {
+            choice = scanner.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                    createGroup();
+                    break;
+                case 2:
+                    viewGroups();
+                    break;
+                case 3:
+                    editGroups();
+                    break;
+                case 4:
+                    addMembers();
+                    break;
+                case 5:
+                    removeMembers();
+                    break;
+                case 6:
+                    displayMenu();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+
         }
+    }
+
+
+    public static void displayFruitMenu()
+    {
+
+        int choice = 0;
+
+        System.out.println("========================================");
+        System.out.println("======== Devil Fruit Database ==========");
+        System.out.println("========================================");
+
+        System.out.println("[1] Create Devil Fruit");
+        System.out.println("[2] View Devil Fruit");
+        System.out.println("[3] Assign Devil Fruit");
+        System.out.println("[4] Back to Main Menu: ");
+        System.out.println("Choice: ");
+        
+        
+        if (scanner.hasNextInt())
+        {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice)
+            {
+                case 1:
+                    createDevilFruit();
+                    break;
+                case 2:
+                    viewDevilFruit();
+                    break;
+                case 3:
+                    assignDevilFruit();
+                    break;
+                case 4:
+                    displayMenu();
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+                
+            }
+        }
+    }
+
+ 
+
+    private static void createCharacter()
+    {
+       int  choice = 0;
+        System.out.println(" --- Create a Character ---");
+        System.out.println("[1] Pirate");
+        System.out.println("[2] Pirate Hunter");
+        System.out.println("[3] Marine");
+        System.out.println("[4] Civillian");
+        System.out.println("[5] Back to Character Menu");
+        System.out.println("Choice: ");
+
+        if (scanner.hasNextInt())
+        {
+            choice = scanner.nextInt();
+
+            if(choice < 1 || choice > 5)
+            {
+                System.out.println("Invalid choice. Please try again.");
+                return;
+            }
+
+            if (choice == 5)
+            {
+                displayCharacterMenu();
+                return;
+            }
+
+            scanner.nextLine(); 
+                System.out.println("Enter Character Name: ");
+                CharacterName = scanner.nextLine();
+                System.out.println("Enter Character Alias: ");
+                Alias = scanner.nextLine();
+                System.out.println("Enter Character Origin: ");
+                Origin = scanner.nextLine();
+                System.out.println("Enter Character Status: ");
+                Status = scanner.nextLine();
+                System.out.println("Enter Character Wallet: ");
+               while (!scanner.hasNextInt())
+               {
+                System.out.println("Invalid Input. Please Enter a Whole Number");
+                scanner.nextLine();
+                System.out.println("Enter Character Wallet: ");
+               }
+                Wallet = scanner.nextInt();
+                scanner.nextLine(); 
+
+            Character newCharacter = null;
+
+            switch (choice)
+            {
+                case 1:
+                    System.out.println(" Enter Character Bounty: ");
+                    Bounty = scanner.nextInt();
+                    scanner.nextLine();
+                    
+                    System.out.println(" Enter Character Pirate Role: ");
+                    PirateRole = scanner.nextLine();
+
+                    scanner.nextLine();
+
+
+                    newCharacter = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, isCaptain, PirateRole);
+                    characterDB.addCharacter(newCharacter);
+                    System.out.println("Pirate Created, Hello " + CharacterName + "!");
+                    break;
+                case 2:
+
+                    System.out.println("Enter Character Combat Style: ");
+                    CombatStyle = scanner.nextLine();
+                    System.out.println("Enter Character Confirmed Captures: ");
+                    ConfirmedCaptures = scanner.nextInt();
+                    scanner.nextLine();
+
+                    newCharacter = new PirateHunter(CharacterName, Alias, Origin, Status, Wallet, CombatStyle, ConfirmedCaptures);
+                    characterDB.addCharacter(newCharacter);
+                    System.out.println("Pirate Hunter Created, Hello " + CharacterName + "!");
+                    break;
+
+                case 3:
+                    System.out.println("Enter Character Rank: ");
+                    Rank = scanner.nextLine();
+
+                    newCharacter = new Marine(CharacterName, Alias, Origin, Status, Wallet, Rank);
+                    characterDB.addCharacter(newCharacter);
+                    System.out.println("Marine Created, Hello " + CharacterName + "!");
+                    break;
+
+
+                case 4:
+                    System.out.println("Enter Character Profession: ");
+                    Profession = scanner.nextLine();
+                    System.out.println("Enter Character Residence: ");
+                    Residence = scanner.nextLine();
+
+                    newCharacter = new Civilian(CharacterName, Alias, Origin, Status, Wallet, Profession, Residence);
+                    characterDB.addCharacter(newCharacter);
+                    System.out.println("Civillian Created, Hello " + CharacterName + "!");
+                    break;
+                case 5:
+                    Driver.displayCharacterMenu();
+                    break;
+                default:
+                    System.out.println("Invalid Choice. Please try again.");
+                    break;
+                    
+            }
+
+
+
+        }
+        else
+        {
+            System.out.println("Invalid input. Please enter a number (1-5)");
+        }
+
+ 
+
+    }
+
+    private static void viewCharacter() 
+    {
+        characterDB.displayCharacters();
+
+        if (characterDB.getCharacterMap().isEmpty())
+        {
+            System.out.println("The database is empty. Please create a character first.");
+            return;
+        }
+
+        System.out.println("Enter Character ID to view: ");
+        int characterID = scanner.nextInt();
+
+        Character character = characterDB.getCharacter(characterID);
+        if (character != null)
+        {
+            character.DisplayProfile();
+        }
+        else
+        {
+            System.out.println("Character not found.");
+        }
+
+    }
+
+    private static void updateCharacter()
+    {
+        characterDB.displayCharacters();
+
+        if (characterDB.getCharacterMap().isEmpty())
+        {
+            System.out.println("The database is empty. Please create a character first.");
+            return;
+        }
+
+        System.out.println("Enter Character ID to update: ");
+        int characterID = scanner.nextInt();
+
+        Character character = characterDB.getCharacter(characterID);
+
+        if (character != null)
+        {
+            System.out.println("Choose Attribute to Update: ");
+            System.out.println("[1] Name");
+            System.out.println("[2] Alias");
+            System.out.println("[3] Origin");
+            System.out.println("[4] Status");
+            System.out.println("[5] Wallet");
+            System.out.print("Choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+
+            switch (choice)
+            {
+                case 1:
+                    System.out.println("Enter new Name:");
+                    String newName = scanner.nextLine();
+                    character.setName(newName);
+                    System.out.println("Name updated successfully.");
+                    break;
+
+                case 2:
+                    System.out.println("Enter new Alias:");
+                    String newAlias = scanner.nextLine();
+                    character.setAlias(newAlias);
+                    System.out.println("Alias updated successfully.");
+                    break;
+                case 3:
+                    System.out.println("Enter new Origin: ");
+                    String newOrigin = scanner.nextLine();
+                    character.setOrigin(newOrigin);
+                    System.out.println("Origin updated successfully.");
+                    break;
+                case 4:
+                    System.out.println("Enter new Status: ");
+                    String newStatus = scanner.nextLine();
+                    character.setAlias(newStatus);
+                    System.out.println("Status updated successfully.");
+                    break;
+                case 5: 
+                    System.out.println("Enter new Wallet: ");
+
+                    while (!scanner.hasNextInt())
+                    {
+                        System.out.println("Invalid Input. Please Enter a Whole Number");
+                        scanner.nextLine();
+                        System.out.println("Enter new Wallet: ");
+                    }
+                    
+                    int newWallet = scanner.nextInt();
+                    character.setWallet(newWallet);
+                    System.out.println("Wallet updated successfully.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    return;
+
+            }
+
+        }
+        else
+        {
+            System.out.println("Character not found.");
+        }
+
+    }
+
+    private static void deleteCharacter()
+    {
+
+        characterDB.displayCharacters();
+
+        if (characterDB.getCharacterMap().isEmpty())
+        {
+            System.out.println("The database is empty. Please create a character first.");
+            return;
+        }
+
+        System.out.println("Enter Character ID to delete:");
+        int characterID = scanner.nextInt();
+        characterDB.removeCharacter(characterID);
+
+        System.out.println("Character deleted successfully.");
 
     }
 
@@ -255,7 +552,68 @@ public class Driver {
         }
     }
 
+
+    private static void createGroup(){
+
+        int choice, money;
+        PirateCrew newCrew;
+        MarineCorps newCorps;
+        String groupName, baseOfOperations, buffer;
+
+        System.out.println(" --- Create a Group ---");
+        System.out.println("[1] Pirate Crew");
+        System.out.println("[2] Marine Corps");
+        System.out.println("[3] Back to Affiliation Menu");
+        choice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch(choice){
+            case 1: 
+            
+            System.out.println("Enter the name of the Pirate Crew: ");
+            groupName = scanner.nextLine();
+            System.out.println("Enter the name of the Pirate Crew's ship: ");
+            baseOfOperations = scanner.nextLine();
+            System.out.println("Enter the total bounty of the Pirate Crew: ");
+            money = scanner.nextInt();
+
+            System.out.println( "Pirate Crew: " + groupName + " has been created!");
+            affiliationDB.addPirateCrew(newCrew = new PirateCrew(baseOfOperations, groupName, money));
+
+            break;
+            case 2: 
+
+            System.out.println("Enter the name of the Marine Corps: ");
+            groupName = scanner.nextLine();
+            System.out.println("Enter the Marine Corps' base location: ");
+            baseOfOperations = scanner.nextLine();
+            System.out.println("Enter the operational funds of the Marine Crops: ");
+            money = scanner.nextInt();
+
+            System.out.println(  "Marine Corps: " + groupName + " has been created!");
+
+            affiliationDB.addMarineCorp(newCorps = new MarineCorps(baseOfOperations, groupName, money));
+
+            break;
+
+            case 3:
+            displayAffiliationMenu();
+            break;
+
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
+    }
+
     private static void viewGroups(){
+
+        if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
+        {
+            System.out.println("Please Create a Group First.");
+            return;
+        }
+
 
         System.out.println("--- All Pirate Crews and Marine Corps ---");
         affiliationDB.displayCorps();
@@ -268,8 +626,9 @@ public class Driver {
         int choice, mChoice, eChoice, newMoney, captain;
         String newName, newBase;
 
-        System.out.println(" --- Create a Group ---");
-        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
+        System.out.println(" --- Edit a Group ---");
+        System.out.println("[1] Pirate Crew");
+        System.out.println("[2] Marine Corps");
         choice = scanner.nextInt();
 
         switch(choice){
@@ -433,86 +792,7 @@ public class Driver {
     }
 
 
-    private static void createGroup(){
-
-        int choice, money;
-        PirateCrew newCrew;
-        MarineCorps newCorps;
-        String groupName, baseOfOperations, buffer;
-
-        System.out.println(" --- Create a Group ---");
-        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
-        choice = scanner.nextInt();
-
-        switch(choice){
-            case 1: 
-            
-            System.out.println("Enter the name of the Pirate Crew: ");
-            groupName = scanner.nextLine();
-            System.out.println("Enter the name of the Pirate Crew's ship: ");
-            baseOfOperations = scanner.nextLine();
-            System.out.println("Enter the total bounty of the Pirate Crew: ");
-            money = scanner.nextInt();
-
-            affiliationDB.addPirateCrew(newCrew = new PirateCrew(baseOfOperations, groupName, money));
-
-            break;
-            case 2: 
-
-            System.out.println("Enter the name of the Marine Corps: ");
-            groupName = scanner.nextLine();
-            System.out.println("Enter the Marine Corps' base location: ");
-            baseOfOperations = scanner.nextLine();
-            System.out.println("Enter the operational funds of the Marine Crops: ");
-            money = scanner.nextInt();
-
-            affiliationDB.addMarineCorp(newCorps = new MarineCorps(baseOfOperations, groupName, money));
-
-            break;
-
-            default:
-                System.out.println("Invalid choice.");
-                break;
-        }
-    }
-
-    public static void displayFruitMenu()
-    {
-        System.out.println("========================================");
-        System.out.println("======== Devil Fruit Database ==========");
-        System.out.println("========================================");
-
-        System.out.println("[1] Create Devil Fruit");
-        System.out.println("[2] View Devil Fruit");
-        System.out.println("[3] Assign Devil Fruit");
-        System.out.print("[4] Back to Main Menu: ");
-        System.out.print("Choice: ");
-
-        int choice = scanner.nextInt();
-
-        switch (choice)
-        {
-            case 1:
-                createDevilFruit();
-                break;
-            case 2:
-                viewDevilFruit();
-                break;
-            case 3:
-                assignDevilFruit();
-                break;
-            case 4:
-                displayMenu();
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                break;
-            
-        }
-
-    }
-
-    private static void createDevilFruit()
+   private static void createDevilFruit()
     {
 
         String fruitName, fruitCategory, fruitAbility;
@@ -537,6 +817,11 @@ public class Driver {
         int fruitID;
 
         devilFruitDB.displayFruits();
+        if (devilFruitDB.getDFMap().isEmpty())
+        {
+            System.out.println("The database is empty. Please create a devil fruit first.");
+            return;
+        }
 
         System.out.println(" --- View a Devil Fruit ---");
         System.out.println("Enter a Devil Fruit ID: ");
@@ -550,6 +835,13 @@ public class Driver {
         int fruitID, charID;
 
         devilFruitDB.displayFruits();
+
+        if (devilFruitDB.getDFMap().isEmpty())
+        {
+            System.out.println("The database is empty. Please create a devil fruit first.");
+            return;
+        }
+        
         System.out.println("");
         characterDB.displayCharacters();
 
@@ -564,198 +856,7 @@ public class Driver {
 
     }
 
-    private static void createCharacter()
-    {
-        System.out.println(" --- Create a Character ---");
-        System.out.println("[1] Pirate");
-        System.out.println("[2] Pirate Hunter");
-        System.out.println("[3] Marine");
-        System.out.println("[4] Civillian");
-        System.out.println("[5] Back to Character Menu");
-        System.out.println("Choice: ");
 
-        int choice = scanner.nextInt();
-        scanner.nextLine(); 
-
-        System.out.println("Enter Character Name: ");
-        CharacterName = scanner.nextLine();
-        System.out.println("Enter Character Alias: ");
-        Alias = scanner.nextLine();
-        System.out.println("Enter Character Origin: ");
-        Origin = scanner.nextLine();
-        System.out.println("Enter Character Status: ");
-        Status = scanner.nextLine();
-        System.out.println("Enter Character Wallet: ");
-        Wallet = scanner.nextInt();
-        scanner.nextLine(); 
-
-        Character newCharacter = null;
-
-        switch (choice)
-        {
-            case 1:
-                System.out.println(" Enter Character Bounty: ");
-                Bounty = scanner.nextInt();
-                scanner.nextLine();
-                
-                System.out.println(" Enter Character Pirate Role: ");
-                PirateRole = scanner.nextLine();
-                System.out.println(" Is the character a captain? (true/false): ");
-                isCaptain = scanner.nextBoolean();
-                scanner.nextLine();
-
-
-                newCharacter = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, isCaptain, PirateRole);
-                characterDB.addCharacter(newCharacter);
-                System.out.println("Pirate Created, Hello " + CharacterName + "!");
-                break;
-            case 2:
-
-                System.out.println("Enter Character Combat Style: ");
-                CombatStyle = scanner.nextLine();
-                System.out.println("Enter Character Confirmed Captures: ");
-                ConfirmedCaptures = scanner.nextInt();
-                scanner.nextLine();
-
-                scanner.nextLine(); // Consume the newline character
-
-                newCharacter = new PirateHunter(CharacterName, Alias, Origin, Status, Wallet, CombatStyle, ConfirmedCaptures);
-                characterDB.addCharacter(newCharacter);
-                System.out.println("Pirate Hunter Created, Hello " + CharacterName + "!");
-                break;
-
-            case 3:
-                System.out.println("Enter Character Rank: ");
-                Rank = scanner.nextLine();
-
-                newCharacter = new Marine(CharacterName, Alias, Origin, Status, Wallet, Rank);
-                characterDB.addCharacter(newCharacter);
-                System.out.println("Marine Created, Hello " + CharacterName + "!");
-                break;
-
-
-            case 4:
-                System.out.println("Enter Character Profession: ");
-                Profession = scanner.nextLine();
-                System.out.println("Enter Character Residence: ");
-                Residence = scanner.nextLine();
-
-                newCharacter = new Civilian(CharacterName, Alias, Origin, Status, Wallet, Profession, Residence);
-                characterDB.addCharacter(newCharacter);
-                System.out.println("Civillian Created, Hello " + CharacterName + "!");
-                break;
-            case 5:
-                displayCharacterMenu();
-                break;
-            default:
-                System.out.println("Invalid Choice. Please try again.");
-                return;
-                
-        }
-
-
-    }
-
-    private static void viewCharacter() 
-    {
-        characterDB.displayCharacters();
-
-        System.out.println("Enter Character ID to view: ");
-        int characterID = scanner.nextInt();
-
-        Character character = characterDB.getCharacter(characterID);
-        if (character != null)
-        {
-            character.DisplayProfile();
-        }
-        else
-        {
-            System.out.println("Character not found.");
-        }
-
-    }
-
-    private static void updateCharacter()
-    {
-        characterDB.displayCharacters();
-
-        System.out.println("Enter Character ID to update: ");
-        int characterID = scanner.nextInt();
-
-        Character character = characterDB.getCharacter(characterID);
-
-        if (character != null)
-        {
-            System.out.println("Choose Attribute to Update: ");
-            System.out.println("[1] Name");
-            System.out.println("[2] Alias");
-            System.out.println("[3] Origin");
-            System.out.println("[4] Status");
-            System.out.println("[5] Wallet");
-            System.out.print("Choice: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume the newline character
-
-            switch (choice)
-            {
-                case 1:
-                    System.out.println("Enter new Name:");
-                    String newName = scanner.nextLine();
-                    character.setName(newName);
-                    System.out.println("Name updated successfully.");
-                    break;
-
-                case 2:
-                    System.out.println("Enter new Alias:");
-                    String newAlias = scanner.nextLine();
-                    character.setAlias(newAlias);
-                    System.out.println("Alias updated successfully.");
-                    break;
-                case 3:
-                    System.out.println("Enter new Origin: ");
-                    String newOrigin = scanner.nextLine();
-                    character.setOrigin(newOrigin);
-                    System.out.println("Origin updated successfully.");
-                    break;
-                case 4:
-                    System.out.println("Enter new Status: ");
-                    String newStatus = scanner.nextLine();
-                    character.setAlias(newStatus);
-                    System.out.println("Status updated successfully.");
-                    break;
-                case 5: 
-                    System.out.println("Enter new Wallet: ");
-                    int newWallet = scanner.nextInt();
-                    character.setWallet(newWallet);
-                    System.out.println("Wallet updated successfully.");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    return;
-
-            }
-
-        }
-        else
-        {
-            System.out.println("Character not found.");
-        }
-
-    }
-
-    private static void deleteCharacter()
-    {
-
-        characterDB.displayCharacters();
-        System.out.println("Enter Character ID to delete:");
-        int characterID = scanner.nextInt();
-        characterDB.removeCharacter(characterID);
-
-        System.out.println("Character deleted successfully.");
-
-    }
-    
 
     //helper functions
 
@@ -798,4 +899,6 @@ public class Driver {
         return false;
                 
     }
+
+
 }

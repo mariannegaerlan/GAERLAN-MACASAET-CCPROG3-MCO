@@ -68,6 +68,7 @@ public class Pirate extends Character{
         return this.pirateCrew;
     }
 
+
 //methods
 
 
@@ -96,8 +97,19 @@ public class Pirate extends Character{
        super.DisplayProfile();
        System.out.println("Bounty: " + getBounty());
        System.out.println("Pirate Role: " + getPirateRole());
-      System.out.println( "Pirate Crew: " + getPirateCrew().getCrewName());
-      System.out.println("Captain: " + (getisCaptain() ? "Yes" : "No"));
+
+       
+
+       if (getPirateCrew() != null)
+       {
+        System.out.println( "Pirate Crew: " + getPirateCrew().getCrewName());
+       }
+       else
+       {
+        System.out.println("Pirate Crew: None");
+
+       }
+      
     
     }
 }

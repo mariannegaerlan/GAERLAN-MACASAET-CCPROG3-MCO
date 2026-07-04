@@ -52,8 +52,16 @@ public class Marine extends Character{
     public void DisplayProfile()
     {
        super.DisplayProfile();
+       if (getMarineCorps()!=null)
+        {
+        System.out.println("Marine Corps: " +getMarineCorps().getcorpsName());
        System.out.println("Rank: " + getRank());
-       System.out.println("MarineCorps: " +getMarineCorps().getcorpsName());
+
+        }
+        else
+        {
+            System.out.println("Marine Corps: None");
+        }
     }
 
 }

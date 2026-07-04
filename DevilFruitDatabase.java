@@ -10,6 +10,11 @@ public class DevilFruitDatabase {
         this.dfMap = new HashMap<>();
     }
 
+    public Map<Integer, DevilFruit> getDFMap()
+    {
+        return dfMap;
+    }
+
     public void createDevilFruit(DevilFruit devilFruit)
     {
 
@@ -69,15 +74,11 @@ public class DevilFruitDatabase {
 
     public void displayFruits()
     {
-        if (dfMap.isEmpty())
-        {
-            System.out.println("The database is empty.");
-            return;
-        }
+
         System.out.println("\n====== DEVIL FRUIT DATABASE ======");
         for (DevilFruit d: dfMap.values())
         {
-            System.out.println("(" + d.getFruitId() +")" + d.getFruitName());
+            System.out.println("(" + d.getFruitId() +") " + d.getFruitName());
             System.out.println("----------------------------");
         }
     }
