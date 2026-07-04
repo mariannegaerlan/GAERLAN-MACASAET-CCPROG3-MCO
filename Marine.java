@@ -7,7 +7,7 @@ public class Marine extends Character{
 
     public Marine(String Name, String Alias, String Origin, String Status, int Wallet, String Rank)
     {
-        super(Name, Alias, Origin, Status, Wallet);
+        super(Name, Alias, Origin, Status, Wallet, "Marine");
         this.Rank = Rank;
 
     }

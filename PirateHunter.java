@@ -6,7 +6,7 @@ public class PirateHunter extends Character{
     
     public PirateHunter(String Name, String Alias, String Origin, String Status, int Wallet, String CombatStyle, int ConfirmedCaptures)
     {
-        super(Name, Alias, Origin, Status, Wallet);
+        super(Name, Alias, Origin, Status, Wallet, "Pirate Hunter");
         this.CombatStyle = CombatStyle;
         this.ConfirmedCaptures = ConfirmedCaptures;
 

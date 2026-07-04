@@ -177,43 +177,11 @@ public class Driver {
 
     }
 
-    private static void removeMembers(){
-        int choice, mChoice, eChoice;
-
-        System.out.println(" --- Remove a Member from a Group ---");
-        System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
-        choice = scanner.nextInt();
-
-        switch(choice){
-            case 1: 
-                affiliationDB.displayCrews();
-                System.out.println("Enter the index of the Pirate Crew you want to remove a member from: ");
-                mChoice = scanner.nextInt();
-
-                affiliationDB.getCrew(mChoice).getPirates();
-                System.out.println("Enter the index of the pirate you want to remove from the crew: ");
-                eChoice = scanner.nextInt();
-
-                affiliationDB.getCrew(mChoice).removeCrewMember(affiliationDB.getCrew(mChoice).getPirates().get(eChoice));
-
-            break;
-            case 2: 
-                affiliationDB.displayCorps();
-                System.out.println("Enter the index of the Marine Corps you want to remove a member from: ");
-                mChoice = scanner.nextInt();
-
-                affiliationDB.getCorps(mChoice).getMarines();
-                System.out.println("Enter the index of the marine you want to remove from the corps: ");
-                eChoice = scanner.nextInt();
-
-                affiliationDB.getCorps(mChoice).removeMarineMember(affiliationDB.getCorps(mChoice).getMarines().get(eChoice));
-            break;
-            default: System.out.println("Invalid choice."); break;
-        }
-    }
-
     private static void addMembers(){
-        int choice, mChoice, eChoice;
+        int choice, mChoice, eChoice, money, i = 0, j = 0;
+        MarineCorps newCorps;
+        PirateCrew newCrew;
+        String groupName, baseOfOperations, captain;
 
         System.out.println(" --- Add Members to a Group ---");
         System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
@@ -229,29 +197,18 @@ public class Driver {
                 System.out.println("Enter the index of the pirate you want to add to the crew: ");
                 eChoice = scanner.nextInt();
 
-                if(checkIfInCrew(characterDB.getPirate(eChoice)))
-                    System.out.println("The Pirate is already in a crew."); 
-                else {
-                    affiliationDB.getCrew(mChoice).recruitCrewMember(characterDB.getPirate(eChoice));
+                for(MarineCorps m : affiliationDB.getCorps){
+                    j++;
+                    for(Character c : affiliationDB.getCorps(j).getMarines())
+                    {
+                        i++;
+                        if(characterDB.getCharacter(eChoice).equals(affiliationDB.getCorps(j).getMarines().get(i)));
+                    }
                 }
 
             break;
-            case 2: 
-                affiliationDB.displayCorps();
-                System.out.println("Enter the index of the Marine Corps you want to add a member to: ");
-                mChoice = scanner.nextInt();
-
-                characterDB.displayMarines();
-                System.out.println("Enter the index of the marine you want to add to the corps: ");
-                eChoice = scanner.nextInt();
-
-                if(checkIfInCorps(characterDB.getMarine(eChoice)))
-                    System.out.println("The Marine is already in a crew."); 
-                else {
-                    affiliationDB.getCorps(mChoice).recruitMarineMember(characterDB.getMarine(eChoice));
-                }
-            break;
-            default: System.out.println("Invalid choice."); break;
+            case 2: break;
+            default: break;
         }
     }
 
@@ -432,13 +389,13 @@ public class Driver {
         }
     }
 
-
+    //fix the souts to have the group names instead of "pirate crew" or "marine corps"
     private static void createGroup(){
 
         int choice, money;
         PirateCrew newCrew;
         MarineCorps newCorps;
-        String groupName, baseOfOperations, buffer;
+        String groupName, baseOfOperations;
 
         System.out.println(" --- Create a Group ---");
         System.out.println("Enter [1] for a Pirate Crew and [2] for a Marine Corps");
@@ -756,46 +713,4 @@ public class Driver {
 
     }
     
-
-    //helper functions
-
-    private static boolean checkIfInCorps(Marine candidate){
-
-        int j = 0, i = 0;
-
-        for(MarineCorps m : affiliationDB.getCorpsMap().values()){
-            j++;
-            for(Marine mm : affiliationDB.getCorps(j).getMarines())
-            {
-                i++;
-                if(candidate.equals(affiliationDB.getCorps(j).getMarines().get(i)))
-                {
-                    return true;
-                };
-            }
-        }
-
-        return false;
-                
-    }
-
-    private static boolean checkIfInCrew(Pirate candidate){
-
-        int j = 0, i = 0;
-
-        for(PirateCrew m : affiliationDB.getCrewMap().values()){
-            j++;
-            for(Pirate mm : affiliationDB.getCrew(j).getPirates())
-            {
-                i++;
-                if(candidate.equals(affiliationDB.getCrew(j).getPirates().get(i)))
-                {
-                    return true;
-                };
-            }
-        }
-
-        return false;
-                
-    }
 }

@@ -8,7 +8,7 @@ public class Pirate extends Character{
 
     public Pirate( String Name, String Alias, String Origin, String Status, int Wallet, int Bounty, boolean isCaptain, String PirateRole )
     {
-        super(Name, Alias, Origin, Status, Wallet);
+        super(Name, Alias, Origin, Status, Wallet, "Pirate");
         this.Bounty = Bounty;
         this.isCaptain = isCaptain;
         this.PirateRole = PirateRole;
