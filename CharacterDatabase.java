@@ -52,5 +52,7 @@ public class CharacterDatabase {
            System.out.println("ID: " + c.getCharacterID() + "| Name: " +  c.getName());
             System.out.println("----------------------------");
         }
+        
     }
+
 }

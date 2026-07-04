@@ -118,7 +118,7 @@ public class Driver {
                     deleteCharacter();
                     break;
                 case 5:
-                    displayMenu();
+                    Driver.displayMenu();
                     break;
                 default:
                     System.out.println("Invalid Choice. Please try again.");

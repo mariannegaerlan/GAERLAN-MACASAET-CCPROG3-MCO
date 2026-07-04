@@ -33,8 +33,8 @@ public class DevilFruitDatabase {
     {
         DevilFruit devilFruit = getDevilFruit(fruitID);
     
-        devilFruit.triggerReincarnation();
-        devilFruit.assignUser(character);
+        devilFruit.triggerReincarnation(); 
+        devilFruit.assignUser(character); 
 
     }
 
