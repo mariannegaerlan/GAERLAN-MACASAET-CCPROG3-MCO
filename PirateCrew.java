@@ -74,6 +74,15 @@ public class PirateCrew {
     {
         return this.crewMembers;
     }
+
+    public void viewList()
+    {
+        for(Pirate p : crewMembers)
+        {
+            System.out.println("Database ID: " + p.getCharacterID() + " Name: " + p.getName());
+        }
+        System.out.println();
+    }
     
     public void viewPirateGroup()
     {

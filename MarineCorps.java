@@ -80,6 +80,14 @@ public class MarineCorps
         return this.marineMembers;
     }
 
+    public void viewList()
+    {
+        for(Marine m : marineMembers){
+            System.out.println("Database ID: " + m.getCharacterID() + " Name: " + m.getName());
+        }
+        System.out.println();
+    }
+
     public void viewMarineGroup()
     {
         System.out.println("Marine Corps: " + this.corpsName);

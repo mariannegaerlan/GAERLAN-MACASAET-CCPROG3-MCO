@@ -27,7 +27,7 @@ public class CharacterDatabase {
     {
         return pirateMap;
     }
-    public Map<Integer, Marine> getCorpMap()
+    public Map<Integer, Marine> getMarineMap()
     {
         return marineMap;
     }

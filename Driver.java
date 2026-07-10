@@ -239,6 +239,8 @@ public class Driver {
         }
     }
 
+    //Character Functions
+
     private static void createCharacter()
     {
         int  choice = 0;
@@ -374,10 +376,6 @@ public class Driver {
         }
     }
 
- 
-
-
-
     private static void viewCharacter() 
     {
 
@@ -500,17 +498,22 @@ public class Driver {
 
         if(scanner.hasNextInt()){
             int characterID = scanner.nextInt();
+
+            if(characterDB.getCharacter(characterID).getDFPower()!=null){
+                characterDB.getCharacter(characterID).getDFPower().triggerReincarnation();
+                characterDB.getCharacter(characterID).getDFPower().setcurrentOwner(null);
+            }
             characterDB.removeCharacter(characterID);
 
             if(checkIfValidOption(1, characterDB.getCharacterMap().size(), choice)==false) deleteCharacter();
         } else {
             System.out.println("Invalid choice. Please pick again.");
-            deleteCharacter();
+            
         }
 
     }
 
-
+    //Affiliation Functions
 
     private static void createGroup(){
 
@@ -873,9 +876,9 @@ public class Driver {
 
             break;
             case 2: 
-                if (characterDB.getPirateMap().isEmpty())
+                if (characterDB.getMarineMap().isEmpty())
                 {
-                    System.out.println("No Pirates Existing in The World. Please Create one First");
+                    System.out.println("No Marines Existing in The World. Please Create one First");
                     return;
                 }
                 affiliationDB.displayCorps();
@@ -896,6 +899,7 @@ public class Driver {
             break;
         }
     }
+    
     private static void removeMembers(){
         int choice, mChoice, eChoice;
 
@@ -944,8 +948,9 @@ public class Driver {
         }
     }  
 
+    //Devil Fruit Functions
 
-   private static void createDevilFruit()
+    private static void createDevilFruit()
     {
 
         String fruitName, fruitCategory, fruitAbility;
