@@ -1,6 +1,8 @@
 public abstract class Character {
     
     private final int CharacterID;
+
+
     private static int idCount;
     private String Name;
     private String Alias;
