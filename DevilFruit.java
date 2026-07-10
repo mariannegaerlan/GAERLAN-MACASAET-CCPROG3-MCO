@@ -9,7 +9,7 @@ public class DevilFruit
     private String category;
     private String primaryAbility;
     private Character currentOwner;
-    private List<Character> historicalOwners = new ArrayList<>();
+    private List<Character> historicalOwners;
 
     DevilFruit(String fruitName, String category, String primaryAbility)
     {
@@ -17,6 +17,7 @@ public class DevilFruit
         this.fruitName = fruitName;
         this.category = category;
         this.primaryAbility = primaryAbility;
+        this.historicalOwners = new ArrayList<>();
     }
 
     // setters
@@ -106,7 +107,7 @@ public class DevilFruit
         {
             historicalOwners.add(this.currentOwner);
             this.currentOwner.setDFPower(null);
-            System.out.println(this.currentOwner.getName() + " is Dead. " + this.fruitName +" has reincarnated.");
+            System.out.println(this.currentOwner.getName() + " had a Devil Fruit and is now Dead. " + this.fruitName +" has reincarnated.");
             this.currentOwner = null;
 
         }

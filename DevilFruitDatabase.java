@@ -60,12 +60,17 @@ public class DevilFruitDatabase {
             System.out.println("Current Owner: none");
         }
 
-        if(devilFruit.getHistoricalOwners()!= null)
+        if(devilFruit.getHistoricalOwners().isEmpty())
+        {
+            System.out.println("Historical Owners: None");
+
+        }
+        else
         {
             System.out.println("---Historical Owners---");
             for (Character c: devilFruit.getHistoricalOwners())
             {
-                System.out.println("("+ c.getCharacterID()+ ")" + c.getName());
+                System.out.println("("+ c.getCharacterID()+ ") " + c.getName());
             }
         }
 

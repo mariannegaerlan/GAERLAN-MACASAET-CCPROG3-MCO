@@ -148,32 +148,32 @@ public class CharacterDatabase {
 
     public void removeCharacter (int characterID)
     {
-        Character removedCharacter = characterMap.remove(characterID);
-        System.out.println(removedCharacter.getName() + " has been removed.");
+        characterMap.remove(characterID);
+        // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
     public void removeMarine (int characterID)
     {
-        Marine removedCharacter = marineMap.remove(characterID);
-        System.out.println(removedCharacter.getName() + " has been removed.");
+        marineMap.remove(characterID);
+        // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
     public void removePirate (int characterID)
     {
-        Pirate removedCharacter = pirateMap.remove(characterID);
-        System.out.println(removedCharacter.getName() + " has been removed.");
+        pirateMap.remove(characterID);
+        // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
     public void removePirateHunter (int characterID)
     {
-        PirateHunter removedCharacter = pirhunMap.remove(characterID);
-        System.out.println(removedCharacter.getName() + " has been removed.");
+        pirhunMap.remove(characterID);
+        // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
     public void removeCivilian (int characterID)
     {
-        Civilian removedCharacter = civilianMap.remove(characterID);
-        System.out.println(removedCharacter.getName() + " has been removed.");
+        civilianMap.remove(characterID);
+        // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
     //display character methods

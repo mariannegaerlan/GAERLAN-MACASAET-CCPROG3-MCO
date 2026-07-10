@@ -29,7 +29,7 @@ public class Driver {
 
     public static void main(String[] args) {
 
-        testCases();
+        // testCases();
 
 
         while (running)
@@ -106,6 +106,7 @@ public class Driver {
         if (scanner.hasNextInt())
         {
             choice = scanner.nextInt();
+            scanner.nextLine();
 
             if(checkIfValidOption(1,5,choice)==false) displayCharacterMenu();
 
@@ -160,6 +161,8 @@ public class Driver {
             if (scanner.hasNextInt())
             {
             choice = scanner.nextInt();
+                scanner.nextLine();
+
             if(checkIfValidOption(1,6,choice)==false) displayAffiliationMenu();
 
             switch (choice)
@@ -265,7 +268,7 @@ public class Driver {
 
 
             scanner.nextLine(); 
-                System.out.println("Enter Character Name: ");
+                System.out.print("Enter Character Name: ");
                 CharacterName = scanner.nextLine();
 
 
@@ -287,6 +290,7 @@ public class Driver {
                 System.out.print("Enter Character Status: ");
                 Status = scanner.nextLine();
                 System.out.print("Enter Character Wallet: ");
+
                while (!scanner.hasNextInt())
                {
                 System.out.println("Invalid Input. Please Enter a Whole Number");
@@ -304,11 +308,11 @@ public class Driver {
             switch (choice)
             {
                 case 1:
-                    System.out.print(" Enter Character Bounty: ");
+                    System.out.print("Enter Character Bounty: ");
                     Bounty = scanner.nextInt();
                     scanner.nextLine();
                     
-                    System.out.print(" Enter Character Pirate Role: ");
+                    System.out.print("Enter Character Pirate Role: ");
                     PirateRole = scanner.nextLine();
 
                     // scanner.nextLine();
@@ -319,6 +323,8 @@ public class Driver {
                     characterDB.addPirate(newPirate);
                     System.out.println("Pirate Created, Hello " + CharacterName + "!");
                     break;
+
+
                 case 2:
 
                     System.out.print("Enter Character Combat Style: ");
@@ -335,6 +341,8 @@ public class Driver {
                     break;
 
                 case 3:
+
+
                     System.out.print("Enter Character Rank: ");
                     Rank = scanner.nextLine();
 
@@ -346,6 +354,8 @@ public class Driver {
 
 
                 case 4:
+
+
                     System.out.print("Enter Character Profession: ");
                     Profession = scanner.nextLine();
                     System.out.print("Enter Character Residence: ");
@@ -357,9 +367,15 @@ public class Driver {
                     characterDB.addCivlian(newCivilian);
                     System.out.println("Civillian Created, Hello " + CharacterName + "!");
                     break;
+
+
                 case 5:
+
+
                     Driver.displayCharacterMenu();
                     break;
+
+
                 default:
                     System.out.println("Invalid Choice. Please try again.");
                     createCharacter();
@@ -380,7 +396,8 @@ public class Driver {
     private static void viewCharacter() 
     {
 
-        if(ifCharMapIsEmpty() == true) return;
+        if(ifCharMapIsEmpty() == true) 
+            return;
         System.out.println("--- View a Character ---");
         characterDB.displayCharacters();
 
@@ -388,8 +405,7 @@ public class Driver {
         System.out.print("Enter Character ID to view: ");
         if(scanner.hasNextInt()){
         int characterID = scanner.nextInt();
-        if(checkIfValidOption(1, characterDB.getCharacterMap().size(), choice)==false) viewCharacter();
-            
+
         Character character = characterDB.getCharacter(characterID);
         if (character != null)
         {
@@ -415,8 +431,7 @@ public class Driver {
 
         System.out.println("Enter Character ID to update: ");
         int characterID = scanner.nextInt();
-        if(checkIfValidOption(1, characterDB.getCharacterMap().size(), choice)==false) updateCharacter();
-
+ 
         Character character = characterDB.getCharacter(characterID);
 
         if (character != null)
@@ -499,17 +514,30 @@ public class Driver {
 
         if(scanner.hasNextInt()){
             int characterID = scanner.nextInt();
+            scanner.nextLine();
 
-            if(characterDB.getCharacter(characterID).getDFPower()!=null){
-                characterDB.getCharacter(characterID).getDFPower().triggerReincarnation();
-                characterDB.getCharacter(characterID).getDFPower().setcurrentOwner(null);
+            Character character = characterDB.getCharacter(characterID);
+
+            if (character != null)
+            {
+                if (character.getDFPower() == null)
+                {
+                System.out.println(character.getName() + " has been Deleted.");
+                }
+                else if(character.getDFPower()!=null){
+                    character.setStatus("Dead");
+                    character.getDFPower().triggerReincarnation();
+                }
+                characterDB.removeCharacter(characterID);   
             }
-            characterDB.removeCharacter(characterID);
-
-            if(checkIfValidOption(1, characterDB.getCharacterMap().size(), choice)==false) deleteCharacter();
+            else
+            {
+            System.out.println("Character ID not found.");
+            deleteCharacter();
+            }
         } else {
-            System.out.println("Invalid choice. Please pick again.");
-            
+            System.out.println("Invalid Choice.");
+            deleteCharacter();
         }
 
     }
@@ -533,9 +561,12 @@ public class Driver {
             choice = scanner.nextInt();
             scanner.nextLine();
 
-            if(checkIfValidOption(1, 3, choice)==false) createGroup();
-            if(choice == 3) displayAffiliationMenu();
+            if(checkIfValidOption(1, 3, choice)==false) 
+                createGroup();
+            if(choice == 3) 
+                displayAffiliationMenu();
 
+            
             switch(choice){
                 case 1: 
                 
@@ -652,7 +683,7 @@ public class Driver {
 
     private static void editGroups(){ 
 
-        int choice, mChoice, eChoice, newMoney, captain;
+        int choice, mChoice, eChoice, newMoney, captainInt;
         String newName, newBase;
 
         if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
@@ -668,14 +699,16 @@ public class Driver {
         System.out.print("Choice: ");
         choice = scanner.nextInt();
 
-        if(checkIfValidOption(1, 3, choice)==false) createGroup();
-        if(choice == 3) displayAffiliationMenu();
+        if(checkIfValidOption(1, 3, choice)==false) 
+            createGroup();
+        if(choice == 3) 
+            displayAffiliationMenu();
 
         switch(choice){
             case 1: 
             
                 affiliationDB.displayCrews();
-                System.out.print("Enter the index of the Pirate Crew you want to edit: ");
+                System.out.print("Enter the ID of the Pirate Crew you want to edit: ");
                 mChoice = scanner.nextInt();
                 affiliationDB.getCrew(mChoice).viewPirateGroup();
                 System.out.println("Edit Options for " + affiliationDB.getCrew(mChoice).getCrewName());
@@ -685,51 +718,61 @@ public class Driver {
                 System.out.println("[4] Delete " + affiliationDB.getCrew(mChoice).getCrewName());
                 System.out.print("Choice: ");
                 eChoice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch(eChoice){
                     case 1: 
-                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "'s ship is currently the" 
+                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "'s ship is currently the " 
                         + affiliationDB.getCrew(mChoice).getShipName() + ".\n");
                         
-                        System.out.println("Where the name of " + affiliationDB.getCrew(mChoice).getCrewName() + "'s new ship called?");
+                        System.out.println("What is the name of " + affiliationDB.getCrew(mChoice).getCrewName() + "'s new ship called?");
                         newBase = scanner.nextLine();
                         affiliationDB.getCrew(mChoice).setShipName(newBase);
 
-                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "'s ship is now the" 
+                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "'s ship is now the " 
                         + affiliationDB.getCrew(mChoice).getShipName() + ".\n");
 
                     break;
 
                     case 2: 
+
+                    Pirate captain = affiliationDB.getCrew(mChoice).getCaptain();
+
+                        if (captain == null)
+                        {
+                            System.out.println("This Crew has No Captain.");
+                            return;
+
+                        }
                     
                         System.out.println("The current Captain of " + affiliationDB.getCrew(mChoice).getCrewName()
                         + " Pirates is " + affiliationDB.getCrew(mChoice).getCaptain().getName() + ".\n");
                         System.out.println("\n ===== LIST OF ALL PIRATES ===");
                         characterDB.displayPirates();
                         System.out.println();
-                        System.out.println("Select the index of the new Captain.");
-                        captain = scanner.nextInt();
+                        System.out.println("Select the ID of the new Captain.");
+                        captainInt = scanner.nextInt();
 
-                        if(characterDB.getCharacter(captain).getType().equals("Pirate")){
-                            affiliationDB.getCrew(mChoice).setCaptain(characterDB.getPirate(captain));
+                        if(characterDB.getCharacter(captainInt).getType().equals("Pirate")){
+                            affiliationDB.getCrew(mChoice).setCaptain(characterDB.getPirate(captainInt));
                         } else System.out.println("Invalid choice.");
 
                     break; 
 
                     case 3: 
                     
-                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + "is the current name for this crew of Pirates.\n");
+                        System.out.println(affiliationDB.getCrew(mChoice).getCrewName() + " is the current name for this crew of Pirates.\n");
                         
-                        System.out.println("What is the new name for " + affiliationDB.getCrew(mChoice).getCrewName() + "?");
+                        System.out.println("What is the new name for " + affiliationDB.getCrew(mChoice).getCrewName() + " ?");
                         newName = scanner.nextLine();
                         affiliationDB.getCrew(mChoice).setCrewName(newName);;
 
-                        System.out.println("This pirate crew is now known as" + affiliationDB.getCrew(mChoice).getCrewName() + ".\n");
+                        System.out.println("This pirate crew is now known as " + affiliationDB.getCrew(mChoice).getCrewName() + " .\n");
 
                     break;
                     case 4: 
                         
-                        System.out.println("Deleting " + affiliationDB.getCrew(mChoice).getCrewName() + "...\n");
+                        System.out.println("Deleting " + affiliationDB.getCrew(mChoice).getCrewName() + " ...\n");
                         
                         affiliationDB.removeCrew(mChoice);
                         
@@ -745,7 +788,7 @@ public class Driver {
             case 2: 
 
                 affiliationDB.displayCorps();
-                System.out.println("Enter the index of the Marine Corps you want to edit: ");
+                System.out.println("Enter the ID of the Marine Corps you want to edit: ");
                 mChoice = scanner.nextInt();
                 affiliationDB.getCorps(mChoice).viewMarineGroup();
                 System.out.println("Edit Options for " + affiliationDB.getCorps(mChoice).getcorpsName());
@@ -756,33 +799,40 @@ public class Driver {
                 System.out.println("[5] Delete " + affiliationDB.getCorps(mChoice).getcorpsName());
                 System.out.print("Choice: ");
                 eChoice = scanner.nextInt();
+                scanner.nextLine();
 
                 switch(eChoice){
                     case 1: 
-                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "is currently located at" 
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + " is currently located at " 
                         + affiliationDB.getCorps(mChoice).getBaseLocation() + ".\n");
                         
-                        System.out.println("Where is " + affiliationDB.getCorps(mChoice).getcorpsName() + "now located?");
+                        System.out.println("Where is " + affiliationDB.getCorps(mChoice).getcorpsName() + " now located?");
                         newBase = scanner.nextLine();
                         affiliationDB.getCorps(mChoice).setBaseLocation(newBase);
 
-                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "is now located at" 
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + " is now located at " 
                         + affiliationDB.getCorps(mChoice).getBaseLocation() + ".\n");
 
                     break;
 
                     case 2: 
-                    
+                        Marine commander = affiliationDB.getCorps(mChoice).getcorpsCommander();
+                        
+                        if (commander == null)
+                        {
+                            System.out.println("This Corp has no Commander");
+                            return;
+                        }  
                         System.out.println("The current Commander of " + affiliationDB.getCorps(mChoice).getcorpsName()
                         + "is " + affiliationDB.getCorps(mChoice).getcorpsCommander().getName() + ".\n");
                         System.out.println("\n ===== LIST OF ALL MARINES ===");
                         characterDB.displayMarines();
                         System.out.println();
-                        System.out.println("Select the index of the new Commander.");
-                        captain = scanner.nextInt();
+                        System.out.println("Select the ID of the new Commander.");
+                        captainInt = scanner.nextInt();
 
-                        if(characterDB.getCharacter(captain).getType().equals("Marine")){
-                            affiliationDB.getCorps(mChoice).setCorpsCommander(characterDB.getMarine(captain));
+                        if(characterDB.getCharacter(captainInt).getType().equals("Marine")){
+                            affiliationDB.getCorps(mChoice).setCorpsCommander(characterDB.getMarine(captainInt));
                         } else System.out.println("Invalid choice.");
 
                     break; 
@@ -795,19 +845,19 @@ public class Driver {
                         newName = scanner.nextLine();
                         affiliationDB.getCorps(mChoice).setcorpsName(newName);;
 
-                        System.out.println("This marine corps is now known as" + affiliationDB.getCorps(mChoice).getcorpsName() + ".\n");
+                        System.out.println("This marine corps is now known as " + affiliationDB.getCorps(mChoice).getcorpsName() + ".\n");
 
                     break;
                     case 4: 
                         
-                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "currently has a total of "
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + " currently has a total of "
                         + affiliationDB.getCorps(mChoice).getOperationalFunds() + " in operational funds.\n");
                         
                         System.out.println("How much operational funds does " + affiliationDB.getCorps(mChoice).getcorpsName() + " now have?");
                         newMoney = scanner.nextInt();
                         affiliationDB.getCorps(mChoice).setOperationalFunds(newMoney);
 
-                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + "now has a total of "
+                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + " now has a total of "
                         + affiliationDB.getCorps(mChoice).getOperationalFunds() + " in operational funds.\n");
                         
                     break;
@@ -850,8 +900,10 @@ public class Driver {
         System.out.print("Choice: ");
         choice = scanner.nextInt();
 
-        if(checkIfValidOption(1, 3, choice)==false) addMembers();
-        if(choice == 3) displayAffiliationMenu();
+        if(checkIfValidOption(1, 3, choice)==false) 
+            addMembers();
+        if(choice == 3) 
+            displayAffiliationMenu();
 
         switch(choice){
             case 1: 
@@ -862,11 +914,11 @@ public class Driver {
                     return;
                 }
                 affiliationDB.displayCrews();
-                System.out.print("Enter the index of the Pirate Crew you want to add a member to: ");
+                System.out.print("Enter the ID of the Pirate Crew you want to add a member to: ");
                 mChoice = scanner.nextInt();
 
                 characterDB.displayPirates();
-                System.out.print("Enter the index of the pirate you want to add to the crew: ");
+                System.out.print("Enter the ID of the pirate you want to add to the crew: ");
                 eChoice = scanner.nextInt();
 
                 if(checkIfInCrew(characterDB.getPirate(eChoice)))
@@ -883,11 +935,11 @@ public class Driver {
                     return;
                 }
                 affiliationDB.displayCorps();
-                System.out.print("Enter the index of the Marine Corps you want to add a member to: ");
+                System.out.print("Enter the ID of the Marine Corps you want to add a member to: ");
                 mChoice = scanner.nextInt();
 
                 characterDB.displayMarines();
-                System.out.print("Enter the index of the marine you want to add to the corps: ");
+                System.out.print("Enter the ID of the marine you want to add to the corps: ");
                 eChoice = scanner.nextInt();
 
                 if(checkIfInCorps(characterDB.getMarine(eChoice)))
@@ -896,7 +948,8 @@ public class Driver {
                     affiliationDB.getCorps(mChoice).recruitMarineMember(characterDB.getMarine(eChoice));
                 }
             break;
-            default: System.out.println("Invalid choice."); 
+            default: 
+            System.out.println("Invalid choice."); 
             break;
         }
     }
@@ -917,32 +970,57 @@ public class Driver {
         System.out.print("Choice: ");
         choice = scanner.nextInt();
 
-        if(checkIfValidOption(1, 3, choice)==false) removeMembers();
-        if(choice == 3) displayAffiliationMenu();
+        if(checkIfValidOption(1, 3, choice)==false) 
+            removeMembers();
+        if(choice == 3) 
+            displayAffiliationMenu();
 
         switch(choice){
             case 1: 
                 affiliationDB.displayCrews();
-                System.out.print("Enter the index of the Pirate Crew you want to remove a member from: ");
+                System.out.print("Enter the ID of the Pirate Crew you want to remove a member from: ");
                 mChoice = scanner.nextInt();
 
-                affiliationDB.getCrew(mChoice).getPirates();
-                System.out.print("Enter the index of the pirate you want to remove from the crew: ");
+                affiliationDB.getCrew(mChoice).viewList();
+                System.out.print("Enter the ID of the pirate you want to remove from the crew: ");
                 eChoice = scanner.nextInt();
 
-                affiliationDB.getCrew(mChoice).removeCrewMember(affiliationDB.getCrew(mChoice).getPirates().get(eChoice));
+                Pirate removedPirate = characterDB.getPirate(eChoice);
+
+                if (removedPirate != null)
+                {
+                affiliationDB.getCrew(mChoice).removeCrewMember(removedPirate);
+                }
+                else
+                {
+                    System.out.println("Pirate does not exist");
+                    removeMembers();
+                }
+                
+
 
             break;
             case 2: 
                 affiliationDB.displayCorps();
-                System.out.print("Enter the index of the Marine Corps you want to remove a member from: ");
+                System.out.print("Enter the ID of the Marine Corps you want to remove a member from: ");
                 mChoice = scanner.nextInt();
 
-                affiliationDB.getCorps(mChoice).getMarines();
-                System.out.print("Enter the index of the marine you want to remove from the corps: ");
+                affiliationDB.getCorps(mChoice).viewList();
+                System.out.print("Enter the ID of the marine you want to remove from the corps: ");
                 eChoice = scanner.nextInt();
 
-                affiliationDB.getCorps(mChoice).removeMarineMember(affiliationDB.getCorps(mChoice).getMarines().get(eChoice));
+
+                Marine removedMarine = characterDB.getMarine(eChoice);
+
+                if (removedMarine != null)
+                {
+                affiliationDB.getCorps(mChoice).removeMarineMember(removedMarine);
+                }
+                else
+                {
+                    System.out.println("Marine does not exist");
+                    removeMembers();
+                }
             break;
             default: System.out.println("Invalid choice."); 
             break;
@@ -998,16 +1076,27 @@ public class Driver {
         System.out.print("Enter a Devil Fruit ID: ");
         fruitID = scanner.nextInt();
 
-        if(checkIfValidOption(1, devilFruitDB.getDFMap().size(), fruitID)==false) viewDevilFruit();
-
+        if (devilFruitDB.getDevilFruit(fruitID)!= null)
+        {
         devilFruitDB.viewDevilFruit(fruitID);
+
+        }
+        else
+        {
+            System.out.println("Devil Fruit not Found.");
+            viewDevilFruit();
+        }
     }
 
     private static void assignDevilFruit(){
 
         int fruitID, charID;
 
-        if(ifDFMapIsEmpty()==true) return;
+        if(ifDFMapIsEmpty()==true) 
+        {
+            return;
+        }
+
 
         System.out.println(" --- Assign a Devil Fruit ---");
         
@@ -1019,15 +1108,30 @@ public class Driver {
         System.out.println("");
         characterDB.displayCharacters();
 
-        if(checkIfValidOption(1, devilFruitDB.getDFMap().size(), fruitID)==false) assignDevilFruit();
-
+        if (devilFruitDB.getDevilFruit(fruitID)!= null)
+        {
         System.out.print("Enter a Character ID: ");
         charID = scanner.nextInt();
 
-        if(checkIfValidOption(1, characterDB.getCharacterMap().size(), charID)==false) assignDevilFruit();
+            if (characterDB.getCharacter(charID)!=null)
+            {
+            devilFruitDB.assignFruitToUser(fruitID, characterDB.getCharacter(charID));
+            characterDB.getCharacter(charID).setDFPower(devilFruitDB.getDevilFruit(fruitID));
+            }
+            else
+            {
+                System.out.println("Character does not exist");
+                assignDevilFruit();
+            }
 
-        devilFruitDB.assignFruitToUser(fruitID, characterDB.getCharacter(charID));
-        characterDB.getCharacter(charID).setDFPower(devilFruitDB.getDevilFruit(fruitID));
+            
+        }
+        else
+        {
+            System.out.println("Devil Fruit not Found.");
+            assignDevilFruit();
+        }
+
 
     }
 
@@ -1088,67 +1192,67 @@ public class Driver {
 
     }
 
-    //test case functions
+    // //test case functions
 
-    private static void testCases(){
-        Pirate Luffy = new Pirate("Monkey D. Luffy", "Strawhat", "Foosha Village", "Alive", 10, 100000, false, "Captain");
-        Pirate Nami = new Pirate("Nami", "Cat Burglar", "Cocoyasi Village", "Alive", 100000, 100000, false, "Navigator");
-        Pirate Sanji = new Pirate("Vinsmoke Sanji", "Black Leg", "Baratie", "Alive", 10, 100000, false, "Cook");
-        Pirate Robin = new Pirate("Nico Robin", "Demon Child", "Ohara", "Alive", 10, 100000, false, "Historian");
+    // private static void testCases(){
+    //     Pirate Luffy = new Pirate("Monkey D. Luffy", "Strawhat", "Foosha Village", "Alive", 10, 100000, false, "Captain");
+    //     Pirate Nami = new Pirate("Nami", "Cat Burglar", "Cocoyasi Village", "Alive", 100000, 100000, false, "Navigator");
+    //     Pirate Sanji = new Pirate("Vinsmoke Sanji", "Black Leg", "Baratie", "Alive", 10, 100000, false, "Cook");
+    //     Pirate Robin = new Pirate("Nico Robin", "Demon Child", "Ohara", "Alive", 10, 100000, false, "Historian");
 
-        Marine Garp = new Marine("Monkey D. Garp", "The Fist", "Foosha Village", "Dead", 10, "Vice Admiral");
-        Marine Smoker = new Marine("Smoker", "White Chase", "G-5", "Alive", 10, "Vice Admiral");
-        Marine Koby = new Marine("Koby", "Hero", "East Blue", "Alive", 10, "Captain");
-        Marine Akainu = new Marine("Akainu", "Red Dog", "North Blue", "Alive", 10, "Fleet Admiral");
+    //     Marine Garp = new Marine("Monkey D. Garp", "The Fist", "Foosha Village", "Dead", 10, "Vice Admiral");
+    //     Marine Smoker = new Marine("Smoker", "White Chase", "G-5", "Alive", 10, "Vice Admiral");
+    //     Marine Koby = new Marine("Koby", "Hero", "East Blue", "Alive", 10, "Captain");
+    //     Marine Akainu = new Marine("Akainu", "Red Dog", "North Blue", "Alive", 10, "Fleet Admiral");
 
-        PirateHunter Zoro = new PirateHunter("Roronoa Zoro", "Pirate Hunter", "Shimotsuki Village", "Alive", 10, "Three-Sword Style", 10);
-        PirateHunter Mihawk = new PirateHunter("Dracule Mihawk", "Strongest Swordsman in the World", "Karai Bari Island", "Alive", 10, "One-Sword Style", 100);
+    //     PirateHunter Zoro = new PirateHunter("Roronoa Zoro", "Pirate Hunter", "Shimotsuki Village", "Alive", 10, "Three-Sword Style", 10);
+    //     PirateHunter Mihawk = new PirateHunter("Dracule Mihawk", "Strongest Swordsman in the World", "Karai Bari Island", "Alive", 10, "One-Sword Style", 100);
 
-        Civilian Hiriluk = new Civilian("Hiriluk", "Doctor", "Drum Island", "Dead", 1, "Doctor", "Dead");
-        Civilian Vivi = new Civilian("Nefertari Vivi", "Princess of Alabasta", "Alabasta", "Alive", 10, "Princess", "Alabasta");
+    //     Civilian Hiriluk = new Civilian("Hiriluk", "Doctor", "Drum Island", "Dead", 1, "Doctor", "Dead");
+    //     Civilian Vivi = new Civilian("Nefertari Vivi", "Princess of Alabasta", "Alabasta", "Alive", 10, "Princess", "Alabasta");
 
 
-        characterDB.addCharacter(Luffy);
-        characterDB.addCharacter(Nami);
-        characterDB.addCharacter(Sanji);
-        characterDB.addCharacter(Robin);
-        characterDB.addCharacter(Garp);
-        characterDB.addCharacter(Smoker);
-        characterDB.addCharacter(Koby);
-        characterDB.addCharacter(Akainu);
-        characterDB.addCharacter(Zoro);
-        characterDB.addCharacter(Mihawk);
-        characterDB.addCharacter(Hiriluk);
-        characterDB.addCharacter(Vivi);
+    //     characterDB.addCharacter(Luffy);
+    //     characterDB.addCharacter(Nami);
+    //     characterDB.addCharacter(Sanji);
+    //     characterDB.addCharacter(Robin);
+    //     characterDB.addCharacter(Garp);
+    //     characterDB.addCharacter(Smoker);
+    //     characterDB.addCharacter(Koby);
+    //     characterDB.addCharacter(Akainu);
+    //     characterDB.addCharacter(Zoro);
+    //     characterDB.addCharacter(Mihawk);
+    //     characterDB.addCharacter(Hiriluk);
+    //     characterDB.addCharacter(Vivi);
 
-        characterDB.addPirate(Luffy);
-        characterDB.addPirate(Nami);
-        characterDB.addPirate(Sanji);
-        characterDB.addPirate(Robin);
+    //     characterDB.addPirate(Luffy);
+    //     characterDB.addPirate(Nami);
+    //     characterDB.addPirate(Sanji);
+    //     characterDB.addPirate(Robin);
 
-        characterDB.addPirateHunter(Zoro);
-        characterDB.addPirateHunter(Mihawk);
+    //     characterDB.addPirateHunter(Zoro);
+    //     characterDB.addPirateHunter(Mihawk);
 
-        characterDB.addMarine(Smoker);
-        characterDB.addMarine(Koby);
-        characterDB.addMarine(Akainu);
-        characterDB.addMarine(Akainu);
+    //     characterDB.addMarine(Smoker);
+    //     characterDB.addMarine(Koby);
+    //     characterDB.addMarine(Akainu);
+    //     characterDB.addMarine(Akainu);
 
-        characterDB.addCivlian(Hiriluk);
-        characterDB.addCivlian(Vivi);
+    //     characterDB.addCivlian(Hiriluk);
+    //     characterDB.addCivlian(Vivi);
 
-        DevilFruit gumGum = new DevilFruit("Gum-Gum Fruit", "Mythical Zoan", "Rubber body and also transform into a god I guess");
-        DevilFruit smokeSmoke = new DevilFruit("Smoke-Smoke Fruit", "Logia", "Create, control, and transform into smoke");
-        DevilFruit magmaMagma = new DevilFruit("Magma-Magma Fruit", "Logia", "Create, control, and transform into magma");
-        DevilFruit flowerFlower = new DevilFruit("Flower-Flower Fruit", "Paramecia", "Create and control body parts made of petals");
+    //     DevilFruit gumGum = new DevilFruit("Gum-Gum Fruit", "Mythical Zoan", "Rubber body and also transform into a god I guess");
+    //     DevilFruit smokeSmoke = new DevilFruit("Smoke-Smoke Fruit", "Logia", "Create, control, and transform into smoke");
+    //     DevilFruit magmaMagma = new DevilFruit("Magma-Magma Fruit", "Logia", "Create, control, and transform into magma");
+    //     DevilFruit flowerFlower = new DevilFruit("Flower-Flower Fruit", "Paramecia", "Create and control body parts made of petals");
 
-        devilFruitDB.createDevilFruit(gumGum);
-        devilFruitDB.createDevilFruit(smokeSmoke);
-        devilFruitDB.createDevilFruit(magmaMagma);
-        devilFruitDB.createDevilFruit(flowerFlower);
+    //     devilFruitDB.createDevilFruit(gumGum);
+    //     devilFruitDB.createDevilFruit(smokeSmoke);
+    //     devilFruitDB.createDevilFruit(magmaMagma);
+    //     devilFruitDB.createDevilFruit(flowerFlower);
 
-        System.out.println("Test cases created: Characters and Fruits");
-    }
+    //     System.out.println("Test cases created: Characters and Fruits");
+    // }
 
 
 }

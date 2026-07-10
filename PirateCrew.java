@@ -148,7 +148,7 @@ public class PirateCrew {
     public void removeCrewMember(Pirate member)
     {
         crewMembers.remove(member);
-        System.out.println(member + " is no longer a Pirate.");
+        System.out.println(member.getName() + " is no longer a Pirate.");
     }
     
 }
