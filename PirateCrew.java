@@ -62,10 +62,9 @@ public class PirateCrew {
     public int getTotalBounty()
     {
         this.totalBounty=0;
-        int i = 0;
 
         for(Pirate crew : crewMembers){
-            this.totalBounty += crewMembers.get(i).getBounty();
+            this.totalBounty += crew.getBounty();
         }
 
         return this.totalBounty;

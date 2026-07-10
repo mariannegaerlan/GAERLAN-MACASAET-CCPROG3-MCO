@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import javax.sound.sampled.SourceDataLine;
 
 public class Driver {
     
@@ -31,10 +30,6 @@ public class Driver {
     public static void main(String[] args) {
 
 
-
-        CharacterDatabase characterDB = new CharacterDatabase();
-        AffiliationDatabase affiliationDB = new AffiliationDatabase();
-        DevilFruitDatabase devilFruitDB = new DevilFruitDatabase();
 
         while (running)
         {
@@ -246,7 +241,7 @@ public class Driver {
 
     private static void createCharacter()
     {
-        int  choice = 0, i = 0;
+        int  choice = 0;
         System.out.println(" --- Create a Character ---");
         System.out.println("[1] Pirate");
         System.out.println("[2] Pirate Hunter");
@@ -272,14 +267,15 @@ public class Driver {
 
 
                 if(!characterDB.getCharacterMap().isEmpty()){
-                    for(i = 0; i<=characterDB.getCharacterMap().size(); i++){
-                        if(characterDB.getCharacter(i).getName().compareToIgnoreCase(CharacterName)==0){
+
+                    for (Character character: characterDB.getCharacterMap().values())
+                    {
+                        if(character.getName().equalsIgnoreCase(CharacterName)){
                         System.out.println("This character already exists.");
-                        return;
-                        }
+                        return;       
                     }
                 }
-                
+            }
 
                 System.out.print("Enter Character Alias: ");
                 Alias = scanner.nextLine();
@@ -297,7 +293,6 @@ public class Driver {
                 Wallet = scanner.nextInt();
                 scanner.nextLine(); 
 
-            Character newCharacter = null;
             Pirate newPirate = null;
             Marine newMarine = null;
             PirateHunter newHunter = null;
@@ -313,10 +308,12 @@ public class Driver {
                     System.out.print(" Enter Character Pirate Role: ");
                     PirateRole = scanner.nextLine();
 
-                    scanner.nextLine();
+                    // scanner.nextLine();
 
-                    characterDB.addCharacter(newCharacter = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, isCaptain, PirateRole));
-                    characterDB.addPirate(newPirate = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, isCaptain, PirateRole));
+                    newPirate = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, isCaptain, PirateRole);
+
+                    characterDB.addCharacter(newPirate);
+                    characterDB.addPirate(newPirate);
                     System.out.println("Pirate Created, Hello " + CharacterName + "!");
                     break;
                 case 2:
@@ -327,8 +324,10 @@ public class Driver {
                     ConfirmedCaptures = scanner.nextInt();
                     scanner.nextLine();
 
-                    characterDB.addCharacter(newCharacter = new PirateHunter(CharacterName, Alias, Origin, Status, Wallet, CombatStyle, ConfirmedCaptures));
-                    characterDB.addPirateHunter(newHunter = new PirateHunter(CharacterName, Alias, Origin, Status, Wallet, CombatStyle, ConfirmedCaptures));
+                    newHunter = new PirateHunter(CharacterName, Alias, Origin, Status, Wallet, CombatStyle, ConfirmedCaptures);
+
+                    characterDB.addCharacter(newHunter);
+                    characterDB.addPirateHunter(newHunter);
                     System.out.println("Pirate Hunter Created, Hello " + CharacterName + "!");
                     break;
 
@@ -336,8 +335,9 @@ public class Driver {
                     System.out.print("Enter Character Rank: ");
                     Rank = scanner.nextLine();
 
-                    characterDB.addCharacter(newCharacter = new Marine(CharacterName, Alias, Origin, Status, Wallet, Rank));
-                    characterDB.addMarine(newMarine = new Marine(CharacterName, Alias, Origin, Status, Wallet, Rank));
+                    newMarine = new Marine(CharacterName, Alias, Origin, Status, Wallet, Rank);
+                    characterDB.addCharacter(newMarine);
+                    characterDB.addMarine(newMarine);
                     System.out.println("Marine Created, Hello " + CharacterName + "!");
                     break;
 
@@ -348,9 +348,10 @@ public class Driver {
                     System.out.print("Enter Character Residence: ");
                     Residence = scanner.nextLine();
 
+                    newCivilian = new Civilian(CharacterName, Alias, Origin, Status, Wallet, Profession, Residence);
                     
-                    characterDB.addCharacter(newCharacter = new Civilian(CharacterName, Alias, Origin, Status, Wallet, Profession, Residence));
-                    characterDB.addCivlian(newCivilian = new Civilian(CharacterName, Alias, Origin, Status, Wallet, Profession, Residence));
+                    characterDB.addCharacter(newCivilian);
+                    characterDB.addCivlian(newCivilian);
                     System.out.println("Civillian Created, Hello " + CharacterName + "!");
                     break;
                 case 5:
@@ -358,30 +359,35 @@ public class Driver {
                     break;
                 default:
                     System.out.println("Invalid Choice. Please try again.");
+                    createCharacter();
                     break;
                     
             }
 
 
 
-        } else {
+        } 
+        else 
+        {
             System.out.println("Invalid choice. Please pick again.");
             createCharacter();
         }
+    }
 
  
 
-    }
+
 
     private static void viewCharacter() 
     {
 
         if(ifCharMapIsEmpty() == true) return;
         System.out.println("--- View a Character ---");
-        //System.out.println();
+        characterDB.displayCharacters();
 
-        if(scanner.hasNextInt()){
+      
         System.out.print("Enter Character ID to view: ");
+        if(scanner.hasNextInt()){
         int characterID = scanner.nextInt();
         if(checkIfValidOption(1, characterDB.getCharacterMap().size(), choice)==false) viewCharacter();
             
@@ -393,13 +399,13 @@ public class Driver {
         else
         {
             System.out.println("Character not found.");
-        }
-        } else {
-            System.out.println("Invalid choice. Please pick again.");
             viewCharacter();
+
         }
 
+
     }
+}
 
     private static void updateCharacter()
     {      
@@ -479,6 +485,7 @@ public class Driver {
         else
         {
             System.out.println("Character not found.");
+            updateCharacter();
         }
 
     }
@@ -496,8 +503,6 @@ public class Driver {
             characterDB.removeCharacter(characterID);
 
             if(checkIfValidOption(1, characterDB.getCharacterMap().size(), choice)==false) deleteCharacter();
-
-            System.out.println("Character deleted successfully.");
         } else {
             System.out.println("Invalid choice. Please pick again.");
             deleteCharacter();
@@ -603,16 +608,17 @@ public class Driver {
                     affiliationDB.getCorps(mChoice).recruitMarineMember(characterDB.getMarine(eChoice));
                 }
             break;
-            default: System.out.println("Invalid choice."); break;
+            default: System.out.println("Invalid choice."); 
+            break;
         }
     }
 
     private static void createGroup(){
 
-        int choice, money, i = 0;
+        int choice, money;
         PirateCrew newCrew;
         MarineCorps newCorps;
-        String groupName, baseOfOperations, buffer;
+        String groupName, baseOfOperations;
 
         System.out.println(" --- Create a Group ---");
         System.out.println("[1] Pirate Crew");
@@ -633,18 +639,21 @@ public class Driver {
                System.out.print("Enter the name of the Pirate Crew: ");
                 groupName = scanner.nextLine();
 
-                for(i = 0; i<=affiliationDB.getCrewMap().size(); i++){
-                    if(affiliationDB.getCrew(i).getCrewName().compareToIgnoreCase(groupName)==0){
-                    System.out.println("This Pirate Crew already exists.");
-                    return;
+                for (PirateCrew pirateCrew: affiliationDB.getCrewMap().values())
+                {
+                    if(pirateCrew.getCrewName().equalsIgnoreCase(groupName)){
+                        System.out.println("This Pirate Crew already exists.");
+                        return;       
                     }
                 }
 
                 System.out.print("Enter the name of the Pirate Crew's ship: ");
                 baseOfOperations = scanner.nextLine();
 
+                newCrew = new PirateCrew(baseOfOperations, groupName);
+
                 System.out.println( "Pirate Crew: " + groupName + " has been created!");
-                affiliationDB.addPirateCrew(newCrew = new PirateCrew(baseOfOperations, groupName));
+                affiliationDB.addPirateCrew(newCrew);
 
                 break;
                 case 2: 
@@ -652,10 +661,11 @@ public class Driver {
                 System.out.print("Enter the name of the Marine Corps: ");
                 groupName = scanner.nextLine();
 
-                for(i = 0; i<=affiliationDB.getCrewMap().size(); i++){
-                    if(affiliationDB.getCorps(i).getcorpsName().compareToIgnoreCase(groupName)==0){
-                    System.out.println("This Marine Corps already exists.");
-                    return;
+                for (MarineCorps marineCorps: affiliationDB.getCorpsMap().values())
+                {
+                    if(marineCorps.getcorpsName().equalsIgnoreCase(groupName)){
+                        System.out.println("This Marine Corp already exists.");
+                        return;       
                     }
                 }
 
@@ -665,8 +675,8 @@ public class Driver {
                 money = scanner.nextInt();
 
                 System.out.println(  "Marine Corps: " + groupName + " has been created!");
-
-                affiliationDB.addMarineCorp(newCorps = new MarineCorps(baseOfOperations, groupName, money));
+                newCorps = new MarineCorps(baseOfOperations, groupName, money);
+                affiliationDB.addMarineCorp(newCorps);
 
                 break;
                 case 3:
@@ -688,40 +698,39 @@ public class Driver {
             System.out.println("Please Create a Group First.");
             return;
         }
-
-        if(scanner.hasNextInt()){
-
             System.out.println("--- View a Group ---");
             System.out.println("[1] Pirate Crew");
             System.out.println("[2] Marine Corps");
             System.out.println("[3] Back to Affiliation Menu");
             System.out.print("Choice: ");
 
-            choice = scanner.nextInt();
+
+            if(scanner.hasNextInt()){
+                choice = scanner.nextInt();
+
 
             if(checkIfValidOption(1, 3, choice)==false) viewGroups();
-            if(choice == 3) displayAffiliationMenu();
-
+            if(choice == 3) 
+                displayAffiliationMenu();
             switch(choice){
                 case 1: 
                 affiliationDB.displayCrews();
 
-                System.out.print("Pick the Pirate Crew you want to view: ");
+                System.out.println("Pick the Pirate Crew you want to view: ");
                 choice = scanner.nextInt();
-
-                affiliationDB.getCrew(choice);
+                affiliationDB.getCrew(choice).viewPirateGroup();
                 
                 break;
                 case 2: 
                 affiliationDB.displayCorps();
 
-                System.out.print("Pick the Marine Corps you want to view: ");
+                System.out.println("Pick the Marine Corps you want to view: ");
                 choice = scanner.nextInt();
-
-                affiliationDB.getCorps(choice);
+                affiliationDB.getCorps(choice).viewMarineGroup();
                 
                 break;
-                default: break;
+                default: 
+                break;
             }
 
         } else {
@@ -918,17 +927,18 @@ public class Driver {
     {
 
         String fruitName, fruitCategory, fruitAbility;
-        int i = 0;
 
         System.out.println(" --- Create a Devil Fruit ---");
         System.out.print("Enter Devil Fruit Name: ");
         fruitName = scanner.nextLine();
 
-        for(i = 0; i<=devilFruitDB.getDFMap().size(); i++){
-            if(devilFruitDB.getDevilFruit(i).getFruitName().compareToIgnoreCase(fruitName)==0){
+
+        for (DevilFruit devilFruit: devilFruitDB.getDFMap().values())
+            {
+            if(devilFruit.getFruitName().equalsIgnoreCase(fruitName)){
                 System.out.println("This Devil Fruit already exists.");
-                return;
-            }
+                return;       
+             }
         }
 
         System.out.print("Enter Devil Fruit Category: ");
@@ -997,39 +1007,27 @@ public class Driver {
 
     private static boolean checkIfInCorps(Marine candidate){
 
-        int j = 0, i = 0;
-
         for(MarineCorps m : affiliationDB.getCorpsMap().values()){
-            j++;
-            for(Marine mm : affiliationDB.getCorps(j).getMarines())
-            {
-                i++;
-                if(candidate.equals(affiliationDB.getCorps(j).getMarines().get(i)))
+       
+                if(m.getMarines().contains(candidate))
                 {
                     return true;
-                };
-            }
+                }
         }
-
         return false;
                 
     }
 
     private static boolean checkIfInCrew(Pirate candidate){
 
-        int j = 0, i = 0;
 
         for(PirateCrew m : affiliationDB.getCrewMap().values()){
-            j++;
-            for(Pirate mm : affiliationDB.getCrew(j).getPirates())
-            {
-                i++;
-                if(candidate.equals(affiliationDB.getCrew(j).getPirates().get(i)))
+           if (m.getPirates().contains(candidate))
                 {
                     return true;
-                };
+                }
             }
-        }
+
 
         return false;
                 

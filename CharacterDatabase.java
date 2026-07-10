@@ -84,7 +84,7 @@ public class CharacterDatabase {
 
     }
 
-    public void addCivlian(Civilian character, String type)
+    public void addCivlian(Civilian character)
     {
         if (character == null)
         {
