@@ -33,6 +33,7 @@ public class Driver {
 
         while (running)
         {
+        testCases();
         displayMenu();
         }
 
@@ -1085,6 +1086,68 @@ public class Driver {
             return true;
         } else return false;
 
+    }
+
+    //test case functions
+
+    private static void testCases(){
+        Pirate Luffy = new Pirate("Monkey D. Luffy", "Strawhat", "Foosha Village", "Alive", 10, 100000, false, "Captain");
+        Pirate Nami = new Pirate("Nami", "Cat Burglar", "Cocoyasi Village", "Alive", 100000, 100000, false, "Navigator");
+        Pirate Sanji = new Pirate("Vinsmoke Sanji", "Black Leg", "Baratie", "Alive", 10, 100000, false, "Cook");
+        Pirate Robin = new Pirate("Nico Robin", "Demon Child", "Ohara", "Alive", 10, 100000, false, "Historian");
+
+        Marine Garp = new Marine("Monkey D. Garp", "The Fist", "Foosha Village", "Dead", 10, "Vice Admiral");
+        Marine Smoker = new Marine("Smoker", "White Chase", "G-5", "Alive", 10, "Vice Admiral");
+        Marine Koby = new Marine("Koby", "Hero", "East Blue", "Alive", 10, "Captain");
+        Marine Akainu = new Marine("Akainu", "Red Dog", "North Blue", "Alive", 10, "Fleet Admiral");
+
+        PirateHunter Zoro = new PirateHunter("Roronoa Zoro", "Pirate Hunter", "Shimotsuki Village", "Alive", 10, "Three-Sword Style", 10);
+        PirateHunter Mihawk = new PirateHunter("Dracule Mihawk", "Strongest Swordsman in the World", "Karai Bari Island", "Alive", 10, "One-Sword Style", 100);
+
+        Civilian Hiriluk = new Civilian("Hiriluk", "Doctor", "Drum Island", "Dead", 1, "Doctor", "Dead");
+        Civilian Vivi = new Civilian("Nefertari Vivi", "Princess of Alabasta", "Alabasta", "Alive", 10, "Princess", "Alabasta");
+
+
+        characterDB.addCharacter(Luffy);
+        characterDB.addCharacter(Nami);
+        characterDB.addCharacter(Sanji);
+        characterDB.addCharacter(Robin);
+        characterDB.addCharacter(Garp);
+        characterDB.addCharacter(Smoker);
+        characterDB.addCharacter(Koby);
+        characterDB.addCharacter(Akainu);
+        characterDB.addCharacter(Zoro);
+        characterDB.addCharacter(Mihawk);
+        characterDB.addCharacter(Hiriluk);
+        characterDB.addCharacter(Vivi);
+
+        characterDB.addPirate(Luffy);
+        characterDB.addPirate(Nami);
+        characterDB.addPirate(Sanji);
+        characterDB.addPirate(Robin);
+
+        characterDB.addPirateHunter(Zoro);
+        characterDB.addPirateHunter(Mihawk);
+
+        characterDB.addMarine(Smoker);
+        characterDB.addMarine(Koby);
+        characterDB.addMarine(Akainu);
+        characterDB.addMarine(Akainu);
+
+        characterDB.addCivlian(Hiriluk);
+        characterDB.addCivlian(Vivi);
+
+        DevilFruit gumGum = new DevilFruit("Gum-Gum Fruit", "Mythical Zoan", "Rubber body and also transform into a god I guess");
+        DevilFruit smokeSmoke = new DevilFruit("Smoke-Smoke Fruit", "Logia", "Create, control, and transform into smoke");
+        DevilFruit magmaMagma = new DevilFruit("Magma-Magma Fruit", "Logia", "Create, control, and transform into magma");
+        DevilFruit flowerFlower = new DevilFruit("Flower-Flower Fruit", "Paramecia", "Create and control body parts made of petals");
+
+        devilFruitDB.createDevilFruit(gumGum);
+        devilFruitDB.createDevilFruit(smokeSmoke);
+        devilFruitDB.createDevilFruit(magmaMagma);
+        devilFruitDB.createDevilFruit(flowerFlower);
+
+        System.out.println("Test cases created: Characters and Fruits");
     }
 
 
