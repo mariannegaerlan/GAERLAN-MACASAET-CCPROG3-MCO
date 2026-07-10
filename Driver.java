@@ -29,11 +29,11 @@ public class Driver {
 
     public static void main(String[] args) {
 
+        testCases();
 
 
         while (running)
         {
-        testCases();
         displayMenu();
         }
 
