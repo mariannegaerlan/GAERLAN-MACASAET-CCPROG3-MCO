@@ -510,108 +510,7 @@ public class Driver {
 
     }
 
-    private static void removeMembers(){
-        int choice, mChoice, eChoice;
 
-        if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
-        {
-            System.out.println("Please Create a Group First.");
-            return;
-        }
-
-        System.out.println(" --- Remove a Member from a Group ---");
-        System.out.println("[1] Pirate Crew");
-        System.out.println("[2] Marine Corps");
-        System.out.println("[3] Back to Affiliation Menu");
-        System.out.print("Choice: ");
-        choice = scanner.nextInt();
-
-        if(checkIfValidOption(1, 3, choice)==false) removeMembers();
-        if(choice == 3) displayAffiliationMenu();
-
-        switch(choice){
-            case 1: 
-                affiliationDB.displayCrews();
-                System.out.print("Enter the index of the Pirate Crew you want to remove a member from: ");
-                mChoice = scanner.nextInt();
-
-                affiliationDB.getCrew(mChoice).getPirates();
-                System.out.print("Enter the index of the pirate you want to remove from the crew: ");
-                eChoice = scanner.nextInt();
-
-                affiliationDB.getCrew(mChoice).removeCrewMember(affiliationDB.getCrew(mChoice).getPirates().get(eChoice));
-
-            break;
-            case 2: 
-                affiliationDB.displayCorps();
-                System.out.print("Enter the index of the Marine Corps you want to remove a member from: ");
-                mChoice = scanner.nextInt();
-
-                affiliationDB.getCorps(mChoice).getMarines();
-                System.out.print("Enter the index of the marine you want to remove from the corps: ");
-                eChoice = scanner.nextInt();
-
-                affiliationDB.getCorps(mChoice).removeMarineMember(affiliationDB.getCorps(mChoice).getMarines().get(eChoice));
-            break;
-            default: System.out.println("Invalid choice."); break;
-        }
-    }
-
-    private static void addMembers(){
-        int choice, mChoice, eChoice;
-
-        if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
-        {
-            System.out.println("Please Create a Group First.");
-            return;
-        }
-
-        System.out.println(" --- Add Members to a Group ---");
-        System.out.println("[1] Pirate Crew");
-        System.out.println("[2] Marine Corps");
-        System.out.println("[3] Back to Affiliation Menu");
-        System.out.print("Choice: ");
-        choice = scanner.nextInt();
-
-        if(checkIfValidOption(1, 3, choice)==false) addMembers();
-        if(choice == 3) displayAffiliationMenu();
-
-        switch(choice){
-            case 1: 
-                affiliationDB.displayCrews();
-                System.out.print("Enter the index of the Pirate Crew you want to add a member to: ");
-                mChoice = scanner.nextInt();
-
-                characterDB.displayPirates();
-                System.out.print("Enter the index of the pirate you want to add to the crew: ");
-                eChoice = scanner.nextInt();
-
-                if(checkIfInCrew(characterDB.getPirate(eChoice)))
-                    System.out.println("The Pirate is already in a crew."); 
-                else {
-                    affiliationDB.getCrew(mChoice).recruitCrewMember(characterDB.getPirate(eChoice));
-                }
-
-            break;
-            case 2: 
-                affiliationDB.displayCorps();
-                System.out.print("Enter the index of the Marine Corps you want to add a member to: ");
-                mChoice = scanner.nextInt();
-
-                characterDB.displayMarines();
-                System.out.print("Enter the index of the marine you want to add to the corps: ");
-                eChoice = scanner.nextInt();
-
-                if(checkIfInCorps(characterDB.getMarine(eChoice)))
-                    System.out.println("The Marine is already in a crew."); 
-                else {
-                    affiliationDB.getCorps(mChoice).recruitMarineMember(characterDB.getMarine(eChoice));
-                }
-            break;
-            default: System.out.println("Invalid choice."); 
-            break;
-        }
-    }
 
     private static void createGroup(){
 
@@ -672,6 +571,12 @@ public class Driver {
                 System.out.print("Enter the Marine Corps' base location: ");
                 baseOfOperations = scanner.nextLine();
                 System.out.print("Enter the operational funds of the Marine Crops: ");
+                    while (!scanner.hasNextInt())
+                    {
+                        System.out.println("Invalid Input. Please Enter a Whole Number");
+                        scanner.nextLine();
+                        System.out.print("Enter the operational funds of the Marine Crops: ");
+                    }
                 money = scanner.nextInt();
 
                 System.out.println(  "Marine Corps: " + groupName + " has been created!");
@@ -683,7 +588,8 @@ public class Driver {
                 displayAffiliationMenu();
                 break;
                 default:
-                    System.out.println("Invalid choice.");
+                    System.out.println("Invalid choice. Please try Again");
+                    createGroup();
                     break;
             }
         }
@@ -922,6 +828,122 @@ public class Driver {
                 break;
         }
     }
+
+    
+    private static void addMembers(){
+        int choice, mChoice, eChoice;
+
+        if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
+        {
+            System.out.println("Please Create a Group First.");
+            return;
+        }
+
+        System.out.println(" --- Add Members to a Group ---");
+        System.out.println("[1] Pirate Crew");
+        System.out.println("[2] Marine Corps");
+        System.out.println("[3] Back to Affiliation Menu");
+        System.out.print("Choice: ");
+        choice = scanner.nextInt();
+
+        if(checkIfValidOption(1, 3, choice)==false) addMembers();
+        if(choice == 3) displayAffiliationMenu();
+
+        switch(choice){
+            case 1: 
+
+                if (characterDB.getPirateMap().isEmpty())
+                {
+                    System.out.println("No Pirates Existing in The World. Please Create one First");
+                    return;
+                }
+                affiliationDB.displayCrews();
+                System.out.print("Enter the index of the Pirate Crew you want to add a member to: ");
+                mChoice = scanner.nextInt();
+
+                characterDB.displayPirates();
+                System.out.print("Enter the index of the pirate you want to add to the crew: ");
+                eChoice = scanner.nextInt();
+
+                if(checkIfInCrew(characterDB.getPirate(eChoice)))
+                    System.out.println("The Pirate is already in a crew."); 
+                else {
+                    affiliationDB.getCrew(mChoice).recruitCrewMember(characterDB.getPirate(eChoice));
+                }
+
+            break;
+            case 2: 
+                if (characterDB.getPirateMap().isEmpty())
+                {
+                    System.out.println("No Pirates Existing in The World. Please Create one First");
+                    return;
+                }
+                affiliationDB.displayCorps();
+                System.out.print("Enter the index of the Marine Corps you want to add a member to: ");
+                mChoice = scanner.nextInt();
+
+                characterDB.displayMarines();
+                System.out.print("Enter the index of the marine you want to add to the corps: ");
+                eChoice = scanner.nextInt();
+
+                if(checkIfInCorps(characterDB.getMarine(eChoice)))
+                    System.out.println("The Marine is already in a crew."); 
+                else {
+                    affiliationDB.getCorps(mChoice).recruitMarineMember(characterDB.getMarine(eChoice));
+                }
+            break;
+            default: System.out.println("Invalid choice."); 
+            break;
+        }
+    }
+    private static void removeMembers(){
+        int choice, mChoice, eChoice;
+
+        if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
+        {
+            System.out.println("Please Create a Group First.");
+            return;
+        }
+
+        System.out.println(" --- Remove a Member from a Group ---");
+        System.out.println("[1] Pirate Crew");
+        System.out.println("[2] Marine Corps");
+        System.out.println("[3] Back to Affiliation Menu");
+        System.out.print("Choice: ");
+        choice = scanner.nextInt();
+
+        if(checkIfValidOption(1, 3, choice)==false) removeMembers();
+        if(choice == 3) displayAffiliationMenu();
+
+        switch(choice){
+            case 1: 
+                affiliationDB.displayCrews();
+                System.out.print("Enter the index of the Pirate Crew you want to remove a member from: ");
+                mChoice = scanner.nextInt();
+
+                affiliationDB.getCrew(mChoice).getPirates();
+                System.out.print("Enter the index of the pirate you want to remove from the crew: ");
+                eChoice = scanner.nextInt();
+
+                affiliationDB.getCrew(mChoice).removeCrewMember(affiliationDB.getCrew(mChoice).getPirates().get(eChoice));
+
+            break;
+            case 2: 
+                affiliationDB.displayCorps();
+                System.out.print("Enter the index of the Marine Corps you want to remove a member from: ");
+                mChoice = scanner.nextInt();
+
+                affiliationDB.getCorps(mChoice).getMarines();
+                System.out.print("Enter the index of the marine you want to remove from the corps: ");
+                eChoice = scanner.nextInt();
+
+                affiliationDB.getCorps(mChoice).removeMarineMember(affiliationDB.getCorps(mChoice).getMarines().get(eChoice));
+            break;
+            default: System.out.println("Invalid choice."); 
+            break;
+        }
+    }  
+
 
    private static void createDevilFruit()
     {

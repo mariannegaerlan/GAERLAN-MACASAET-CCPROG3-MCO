@@ -23,6 +23,14 @@ public class CharacterDatabase {
     {
         return characterMap;
     }
+    public Map<Integer, Pirate> getPirateMap()
+    {
+        return pirateMap;
+    }
+    public Map<Integer, Marine> getCorpMap()
+    {
+        return marineMap;
+    }
 
     public void addCharacter(Character character)
     {

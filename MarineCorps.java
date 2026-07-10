@@ -84,9 +84,22 @@ public class MarineCorps
     {
         System.out.println("Marine Corps: " + this.corpsName);
         System.out.println("Base Location: " + this.baseLocation);
+        if (getcorpsCommander() != null)
+        {
         System.out.println("Corps Commander: " + corpsCommander.getName());
+
+        }
+        else
+        {
+        System.out.println("Corps Commander: None" );
+        }
         System.out.println("Operational Funds: " + this.operationalFunds);
         System.out.println("Marine Members:");
+        
+        if (marineMembers.isEmpty())
+        {
+            System.out.println("No members added");
+        }
         for (Marine member: marineMembers)
         {
             System.out.println("("+ getCorpsID()+")" + member.getName());
@@ -98,7 +111,7 @@ public class MarineCorps
 
    public void recruitMarineMember(Marine newMember)
     {
-        if(newMember.getMarineCorps() == null)
+        if(newMember.getMarineCorps() != null)
         {
             throw new NullPointerException("Member already belongs to another crew.");
         }

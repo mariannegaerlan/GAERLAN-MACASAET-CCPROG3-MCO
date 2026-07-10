@@ -79,13 +79,30 @@ public class PirateCrew {
     {
         System.out.println("Pirate Crew: " + this.crewName);
         System.out.println("Ship Name: " + this.shipName);
-        System.out.println("Captain: " + this.captain.getName());
-        System.out.println("Total Bounty: " + getTotalBounty());
-        System.out.println("Crew Members:");
-        for (Pirate crew: crewMembers)
+        
+        if (getCaptain() != null)
         {
-            System.out.println("("+ getCrewID()+")" + crew.getName());
+        System.out.println("Captain: " + this.captain.getName());
+
         }
+        else
+        {
+        System.out.println("Captain: None");
+        }
+
+        System.out.println("Total Bounty: " + getTotalBounty());
+            System.out.println("Crew Members:");
+            if (crewMembers.isEmpty())
+                {
+                    System.out.println("No Members Added");
+                }
+
+            for (Pirate crew: crewMembers)
+            {
+                System.out.println("("+ getCrewID()+")" + crew.getName());
+            }
+          
+
     }
 
     // add a public void viewMemberProfile() for individual members
