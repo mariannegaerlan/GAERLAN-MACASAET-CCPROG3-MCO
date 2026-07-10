@@ -108,7 +108,7 @@ public class PirateCrew {
 
             for (Pirate crew: crewMembers)
             {
-                System.out.println("("+ getCrewID()+")" + crew.getName());
+                System.out.println("("+ getCrewID()+") " + crew.getName());
             }
           
 
@@ -131,6 +131,10 @@ public class PirateCrew {
 
         crewMembers.add(newMember);
         newMember.setPirateCrew(this);
+        if(newMember.getPirateRole() == "Captain"){
+            setCaptain(newMember);
+            newMember.setisCaptain(true);
+        }
         
         if (newMember.getStatus().equals("Free"))
         {

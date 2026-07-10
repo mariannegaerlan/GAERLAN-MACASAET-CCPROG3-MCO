@@ -110,7 +110,7 @@ public class MarineCorps
         }
         for (Marine member: marineMembers)
         {
-            System.out.println("("+ getCorpsID()+")" + member.getName());
+            System.out.println("("+ getCorpsID()+") " + member.getName());
         }
     }
 
@@ -131,8 +131,7 @@ public class MarineCorps
 
         marineMembers.add(newMember);
         newMember.setmarineCorps(this);
-        
-
+        if(newMember.getRank() == "Commander") setCorpsCommander(newMember);
 
         System.out.println("Welcome to the Corps, " + newMember.getName() + "!");
     }
