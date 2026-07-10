@@ -7,16 +7,16 @@ public class PirateCrew {
     private static int count;
     private String crewName;
     private String shipName;
-    private Character captain;
+    private Pirate captain;
     private List<Pirate> crewMembers = new ArrayList<>();
     private int totalBounty;
 
-    PirateCrew(String crewName, String shipName, int totalBounty)
+    PirateCrew(String crewName, String shipName)
     {
         this.crewID = ++count;
         this.crewName = crewName;
         this.shipName = shipName;
-        this.totalBounty = totalBounty;
+        this.totalBounty = 0;
     }
     // setters
 
@@ -31,15 +31,9 @@ public class PirateCrew {
         this.shipName = shipName;
     }
 
-    public void setCaptain(Character captain)
+    public void setCaptain(Pirate captain)
     {
         this.captain = captain;
-    }
-
-
-    public void setTotalBounty(int totalBounty)
-    {
-        this.totalBounty = totalBounty;
     }
     
     // getters
@@ -59,7 +53,7 @@ public class PirateCrew {
         return this.shipName;
     }
 
-    public Character getCaptain()
+    public Pirate getCaptain()
     {
         return this.captain;
     }
@@ -67,6 +61,13 @@ public class PirateCrew {
 
     public int getTotalBounty()
     {
+        this.totalBounty=0;
+        int i = 0;
+
+        for(Pirate crew : crewMembers){
+            this.totalBounty += crewMembers.get(i).getBounty();
+        }
+
         return this.totalBounty;
     }
 
@@ -80,7 +81,7 @@ public class PirateCrew {
         System.out.println("Pirate Crew: " + this.crewName);
         System.out.println("Ship Name: " + this.shipName);
         System.out.println("Captain: " + this.captain.getName());
-        System.out.println("Total Bounty: " + this.totalBounty);
+        System.out.println("Total Bounty: " + getTotalBounty());
         System.out.println("Crew Members:");
         for (Pirate crew: crewMembers)
         {
@@ -120,13 +121,5 @@ public class PirateCrew {
         crewMembers.remove(member);
         System.out.println(member + " is no longer a Pirate.");
     }
-
-
-
-
     
-
-
-
-
 }
