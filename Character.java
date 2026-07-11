@@ -119,7 +119,7 @@ public abstract class Character {
         System.out.println("Alias: "+ getAlias());
         System.out.println("Origin: "+ getOrigin());
         System.out.println("Status: " + getStatus());
-        System.out.println("DF Power: "+ getDFPower());
+        System.out.println("DF Power: "+ getDFPower().getFruitName());
         System.out.println("Wallet: " + getWallet());
         System.out.println("Class: "+getType());
     }

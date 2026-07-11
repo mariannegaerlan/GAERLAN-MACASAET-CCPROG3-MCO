@@ -29,7 +29,7 @@ public class Driver {
 
     public static void main(String[] args) {
 
-        // testCases();
+        testCases();
 
 
         while (running)
@@ -216,7 +216,12 @@ public class Driver {
         {
             choice = scanner.nextInt();
             scanner.nextLine();
-            if(checkIfValidOption(1,4,choice)==false) displayFruitMenu();
+            if(checkIfValidOption(1,4,choice)==false) 
+            {
+            displayFruitMenu();
+            return;
+            }
+            
 
             switch (choice)
             {
@@ -240,6 +245,7 @@ public class Driver {
         } else {
             System.out.println("Invalid choice. Please pick again.");
             displayFruitMenu();
+            return;
         }
     }
 
@@ -263,9 +269,17 @@ public class Driver {
 
             choice = scanner.nextInt();
 
-            if(checkIfValidOption(1, 5, choice)==false) createCharacter();
-            if(choice == 5) displayCharacterMenu();
+            if(checkIfValidOption(1, 5, choice)==false){
+                System.out.println("Invalid choice. Please try again."); 
+                createCharacter();
+                return;
+            }
+            if(choice == 5) 
+            {
+                displayCharacterMenu();
+                return;
 
+            }
 
             scanner.nextLine(); 
                 System.out.print("Enter Character Name: ");
@@ -289,6 +303,14 @@ public class Driver {
                 Origin = scanner.nextLine();
                 System.out.print("Enter Character Status: ");
                 Status = scanner.nextLine();
+                while(Status.equalsIgnoreCase("Dead"))
+                {
+                    System.out.println("Cannot create a DEAD Character.");
+                    scanner.nextLine();
+                    System.out.print("Enter Character Status: ");
+                    Status = scanner.nextLine();
+
+                }
                 System.out.print("Enter Character Wallet: ");
 
                while (!scanner.hasNextInt())
@@ -309,6 +331,12 @@ public class Driver {
             {
                 case 1:
                     System.out.print("Enter Character Bounty: ");
+                    while (!scanner.hasNextInt())
+                    {
+                    System.out.println("Invalid Input. Please Enter a Whole Number");
+                    scanner.nextLine();
+                    System.out.print("Enter Character Bounty: ");
+                    }
                     Bounty = scanner.nextInt();
                     scanner.nextLine();
                     
@@ -330,8 +358,13 @@ public class Driver {
                     System.out.print("Enter Character Combat Style: ");
                     CombatStyle = scanner.nextLine();
                     System.out.print("Enter Character Confirmed Captures: ");
-                    ConfirmedCaptures = scanner.nextInt();
+                    while (!scanner.hasNextInt())
+                    {
+                    System.out.println("Invalid Input. Please Enter a Whole Number");
                     scanner.nextLine();
+                    System.out.print("Enter Character Confirmed Captures: ");
+                    }
+                    ConfirmedCaptures = scanner.nextInt();
 
                     newHunter = new PirateHunter(CharacterName, Alias, Origin, Status, Wallet, CombatStyle, ConfirmedCaptures);
 
@@ -370,16 +403,8 @@ public class Driver {
 
 
                 case 5:
-
-
-                    Driver.displayCharacterMenu();
-                    break;
-
-
-                default:
-                    System.out.println("Invalid Choice. Please try again.");
                     createCharacter();
-                    break;
+                    return;
                     
             }
 
@@ -390,6 +415,7 @@ public class Driver {
         {
             System.out.println("Invalid choice. Please pick again.");
             createCharacter();
+            return;
         }
     }
 
@@ -415,6 +441,7 @@ public class Driver {
         {
             System.out.println("Character not found.");
             viewCharacter();
+            return;
 
         }
 
@@ -424,7 +451,8 @@ public class Driver {
 
     private static void updateCharacter()
     {      
-        if(ifCharMapIsEmpty() == true) return;
+        if(ifCharMapIsEmpty() == true) 
+            return;
         
         characterDB.displayCharacters();
 
@@ -442,11 +470,32 @@ public class Driver {
             System.out.println("[3] Origin");
             System.out.println("[4] Status");
             System.out.println("[5] Wallet");
+
+            if(character.getType().contains("Pirate")){
+                System.out.println("[6] Bounty");
+                System.out.println("[7] Pirate Role");
+            } else if(character.getType().contains("Marine")){
+                System.out.println("[6] Rank");
+
+            } else if(character.getType().contains("Pirate Hunter")){
+                System.out.println("[6] Combat Style");
+                System.out.println("[7] Confirmed Captures");
+                
+            } else if(character.getType().contains("Civilian")){
+                System.out.println("[6] Profession");
+                System.out.println("[7] Residence");
+            } 
+            
+            
             System.out.print("Choice: ");
 
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume the newline character
-            if(checkIfValidOption(1, 5, choice)==false) updateCharacter();
+            if(checkIfValidOption(1, 7, choice)==false) 
+            {
+                updateCharacter();
+                return;
+            }
 
             switch (choice)
             {
@@ -472,6 +521,14 @@ public class Driver {
                 case 4:
                     System.out.print("Enter new Status: ");
                     String newStatus = scanner.nextLine();
+                    while(newStatus.equalsIgnoreCase("Dead"))
+                        {
+                            System.out.println("Cannot create a DEAD Character.");
+                            scanner.nextLine();
+                            System.out.print("Enter Character Status: ");
+                            newStatus = scanner.nextLine();
+
+                        }
                     character.setAlias(newStatus);
                     System.out.println("Status updated successfully.");
                     break;
@@ -489,8 +546,99 @@ public class Driver {
                     character.setWallet(newWallet);
                     System.out.println("Wallet updated successfully.");
                     break;
+                case 6: 
+                    
+                    if(character instanceof Pirate){
+
+                        Pirate newPirate = (Pirate) character;
+       
+                        System.out.print("Set a new bounty [1] or add to the current one [2]?");
+                        int bountyChoice = scanner.nextInt();
+                        int money = 0;
+
+                        switch(bountyChoice){
+                            case 1: 
+                            System.out.println("How much is " + character.getName() + "'s new bounty?");
+                            money = scanner.nextInt();
+                            newPirate.setBounty(money);
+                            System.out.println("Bounty updated successfully");
+
+                            break;
+                            case 2:
+                            System.out.println("How much is going to be added to " + character.getName() + " bounty?");
+                            money = scanner.nextInt();
+                            newPirate.ModifyBounty(money);
+                            System.out.println("The new total bounty for " + newPirate.getName() + " is " + newPirate.getBounty());
+
+                            break;
+                            default: 
+                                System.out.println("Invalid choice. Please try again.");
+                                updateCharacter();
+                                return;
+                        }
+
+                    } else if(character instanceof Marine){
+                        Marine newMarine = (Marine) character;
+                        System.out.print("Enter new Marine Rank: ");
+                        String newRank = scanner.nextLine();
+                        newMarine.setRank(newRank);
+                        System.out.println("Rank updated successfully.");
+                        
+                        
+                    } else if(character instanceof PirateHunter){
+                        PirateHunter newPirateHunter = (PirateHunter) character;
+                        System.out.print("Enter new Combat Style: ");
+                        String combatStyle = scanner.nextLine();
+                        newPirateHunter.setCombatStyle(combatStyle);
+                        System.out.println("Combat Style updated successfully.");
+                        
+                        
+                    } else if(character instanceof Civilian){
+                        Civilian newCivilian = (Civilian) character;
+                        System.out.print("Enter new Profession: ");
+                        String profession = scanner.nextLine();
+                        newCivilian.setProfession(profession);
+                        System.out.println("Profession updated successfully.");
+                                  
+                    }
+
+                break;
+                case 7:
+
+                    if(character instanceof Pirate){
+
+                        Pirate newPirate = (Pirate) character;
+       
+                        System.out.print("Enter the new role: ");
+                        String newRole = scanner.nextLine();
+                        newPirate.setPirateRole(newRole);
+                        System.out.println("Pirate Role updated successfully");
+                        }
+                        
+                    else if(character instanceof PirateHunter){
+                        PirateHunter newPirateHunter = (PirateHunter) character;
+                        System.out.print("Enter Confirmed Captures: ");
+                        int newConfirmed = scanner.nextInt();
+                        newPirateHunter.setConfirmedCaptures(newConfirmed);
+                        System.out.println("Confirmed Captures updated successfully.");
+                        
+                        
+                    } else if(character instanceof Civilian){
+                        Civilian newCivilian = (Civilian) character;
+                        System.out.print("Enter New Residence: ");
+                        String residence = scanner.nextLine();
+                        newCivilian.setResidence(residence);
+                        System.out.println("Residence updated successfully.");
+                                  
+                    } else if(character instanceof Marine){
+                        System.out.println("Invalid choice. Please try again.");
+                        updateCharacter();
+                        return;   
+                    }
+ 
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    updateCharacter();
                     return;
 
             }
@@ -500,13 +648,15 @@ public class Driver {
         {
             System.out.println("Character not found.");
             updateCharacter();
+            return;
         }
 
     }
 
     private static void deleteCharacter()
     {
-        if(ifCharMapIsEmpty() == true) return;
+        if(ifCharMapIsEmpty() == true) 
+            return;
 
         characterDB.displayCharacters();
 
@@ -534,10 +684,12 @@ public class Driver {
             {
             System.out.println("Character ID not found.");
             deleteCharacter();
+            return;
             }
         } else {
             System.out.println("Invalid Choice.");
             deleteCharacter();
+            return;
         }
 
     }
@@ -561,10 +713,16 @@ public class Driver {
             choice = scanner.nextInt();
             scanner.nextLine();
 
-            if(checkIfValidOption(1, 3, choice)==false) 
+            if(checkIfValidOption(1, 3, choice)==false)
+            {
                 createGroup();
+            } 
             if(choice == 3) 
+            {
                 displayAffiliationMenu();
+                return;
+            }
+
 
             
             switch(choice){
@@ -584,7 +742,7 @@ public class Driver {
                 System.out.print("Enter the name of the Pirate Crew's ship: ");
                 baseOfOperations = scanner.nextLine();
 
-                newCrew = new PirateCrew(baseOfOperations, groupName);
+                newCrew = new PirateCrew(groupName, baseOfOperations);
 
                 System.out.println( "Pirate Crew: " + groupName + " has been created!");
                 affiliationDB.addPirateCrew(newCrew);
@@ -620,12 +778,13 @@ public class Driver {
 
                 break;
                 case 3:
-                displayAffiliationMenu();
-                break;
+                    displayAffiliationMenu();
+                    return;
+                
                 default:
                     System.out.println("Invalid choice. Please try Again");
                     createGroup();
-                    break;
+                    return;
             }
         }
     }
@@ -650,9 +809,14 @@ public class Driver {
                 choice = scanner.nextInt();
 
 
-            if(checkIfValidOption(1, 3, choice)==false) viewGroups();
+            if(checkIfValidOption(1, 3, choice)==false) 
+            {
+            viewGroups();
+            return;
+
+            }
             if(choice == 3) 
-                displayAffiliationMenu();
+                return;
             switch(choice){
                 case 1: 
                 affiliationDB.displayCrews();
@@ -671,12 +835,12 @@ public class Driver {
                 
                 break;
                 default: 
-                break;
+                return;
             }
 
         } else {
             System.out.println("Invalid choice. Please pick again.");
-            viewGroups();
+            return;
         }
 
     }
@@ -699,10 +863,14 @@ public class Driver {
         System.out.print("Choice: ");
         choice = scanner.nextInt();
 
-        if(checkIfValidOption(1, 3, choice)==false) 
-            createGroup();
-        if(choice == 3) 
+        if(checkIfValidOption(1, 3, choice)==false) {
+            editGroups();
+            return;
+        }
+        if(choice == 3){
             displayAffiliationMenu();
+            return;
+        }
 
         switch(choice){
             case 1: 
@@ -719,6 +887,11 @@ public class Driver {
                 System.out.print("Choice: ");
                 eChoice = scanner.nextInt();
                 scanner.nextLine();
+
+                if(checkIfValidOption(1,5,eChoice)==false){
+                    editGroups();
+                    return;
+                }
 
                 switch(eChoice){
                     case 1: 
@@ -800,6 +973,11 @@ public class Driver {
                 System.out.print("Choice: ");
                 eChoice = scanner.nextInt();
                 scanner.nextLine();
+
+                if(checkIfValidOption(1,5,eChoice)==false){
+                    editGroups();
+                    return;
+                }
 
                 switch(eChoice){
                     case 1: 
@@ -900,10 +1078,15 @@ public class Driver {
         System.out.print("Choice: ");
         choice = scanner.nextInt();
 
-        if(checkIfValidOption(1, 3, choice)==false) 
+        if(checkIfValidOption(1, 3, choice)==false){
             addMembers();
-        if(choice == 3) 
+            return;
+        } 
+            
+        if(choice == 3){
             displayAffiliationMenu();
+            return;
+        }
 
         switch(choice){
             case 1: 
@@ -970,10 +1153,14 @@ public class Driver {
         System.out.print("Choice: ");
         choice = scanner.nextInt();
 
-        if(checkIfValidOption(1, 3, choice)==false) 
+        if(checkIfValidOption(1, 3, choice)==false){
             removeMembers();
-        if(choice == 3) 
+            return;
+        }
+        if(choice == 3) {
             displayAffiliationMenu();
+            return;
+        }
 
         switch(choice){
             case 1: 
@@ -994,7 +1181,7 @@ public class Driver {
                 else
                 {
                     System.out.println("Pirate does not exist");
-                    removeMembers();
+                    return;
                 }
                 
 
@@ -1019,7 +1206,7 @@ public class Driver {
                 else
                 {
                     System.out.println("Marine does not exist");
-                    removeMembers();
+                    return;
                 }
             break;
             default: System.out.println("Invalid choice."); 
@@ -1063,8 +1250,10 @@ public class Driver {
 
         int fruitID;
 
-        if(ifDFMapIsEmpty()==true) return;
-
+        if(ifDFMapIsEmpty()==true){
+            return;
+        }
+        
         devilFruitDB.displayFruits();
         if (devilFruitDB.getDFMap().isEmpty())
         {
@@ -1084,7 +1273,7 @@ public class Driver {
         else
         {
             System.out.println("Devil Fruit not Found.");
-            viewDevilFruit();
+            return;
         }
     }
 
@@ -1121,7 +1310,7 @@ public class Driver {
             else
             {
                 System.out.println("Character does not exist");
-                assignDevilFruit();
+                return;
             }
 
             
@@ -1129,7 +1318,7 @@ public class Driver {
         else
         {
             System.out.println("Devil Fruit not Found.");
-            assignDevilFruit();
+            return;
         }
 
 
@@ -1192,67 +1381,67 @@ public class Driver {
 
     }
 
-    // //test case functions
+    //test case functions
 
-    // private static void testCases(){
-    //     Pirate Luffy = new Pirate("Monkey D. Luffy", "Strawhat", "Foosha Village", "Alive", 10, 100000, false, "Captain");
-    //     Pirate Nami = new Pirate("Nami", "Cat Burglar", "Cocoyasi Village", "Alive", 100000, 100000, false, "Navigator");
-    //     Pirate Sanji = new Pirate("Vinsmoke Sanji", "Black Leg", "Baratie", "Alive", 10, 100000, false, "Cook");
-    //     Pirate Robin = new Pirate("Nico Robin", "Demon Child", "Ohara", "Alive", 10, 100000, false, "Historian");
+     private static void testCases(){
+         Pirate Luffy = new Pirate("Monkey D. Luffy", "Strawhat", "Foosha Village", "Alive", 10, 100000, false, "Captain");
+         Pirate Nami = new Pirate("Nami", "Cat Burglar", "Cocoyasi Village", "Alive", 100000, 100000, false, "Navigator");
+         Pirate Sanji = new Pirate("Vinsmoke Sanji", "Black Leg", "Baratie", "Alive", 10, 100000, false, "Cook");
+         Pirate Robin = new Pirate("Nico Robin", "Demon Child", "Ohara", "Alive", 10, 100000, false, "Historian");
 
-    //     Marine Garp = new Marine("Monkey D. Garp", "The Fist", "Foosha Village", "Dead", 10, "Vice Admiral");
-    //     Marine Smoker = new Marine("Smoker", "White Chase", "G-5", "Alive", 10, "Vice Admiral");
-    //     Marine Koby = new Marine("Koby", "Hero", "East Blue", "Alive", 10, "Captain");
-    //     Marine Akainu = new Marine("Akainu", "Red Dog", "North Blue", "Alive", 10, "Fleet Admiral");
+         Marine Garp = new Marine("Monkey D. Garp", "The Fist", "Foosha Village", "Dead", 10, "Vice Admiral");
+         Marine Smoker = new Marine("Smoker", "White Chase", "G-5", "Alive", 10, "Vice Admiral");
+         Marine Koby = new Marine("Koby", "Hero", "East Blue", "Alive", 10, "Captain");
+         Marine Akainu = new Marine("Akainu", "Red Dog", "North Blue", "Alive", 10, "Fleet Admiral");
 
-    //     PirateHunter Zoro = new PirateHunter("Roronoa Zoro", "Pirate Hunter", "Shimotsuki Village", "Alive", 10, "Three-Sword Style", 10);
-    //     PirateHunter Mihawk = new PirateHunter("Dracule Mihawk", "Strongest Swordsman in the World", "Karai Bari Island", "Alive", 10, "One-Sword Style", 100);
+         PirateHunter Zoro = new PirateHunter("Roronoa Zoro", "Pirate Hunter", "Shimotsuki Village", "Alive", 10, "Three-Sword Style", 10);
+         PirateHunter Mihawk = new PirateHunter("Dracule Mihawk", "Strongest Swordsman in the World", "Karai Bari Island", "Alive", 10, "One-Sword Style", 100);
 
-    //     Civilian Hiriluk = new Civilian("Hiriluk", "Doctor", "Drum Island", "Dead", 1, "Doctor", "Dead");
-    //     Civilian Vivi = new Civilian("Nefertari Vivi", "Princess of Alabasta", "Alabasta", "Alive", 10, "Princess", "Alabasta");
+         Civilian Hiriluk = new Civilian("Hiriluk", "Doctor", "Drum Island", "Dead", 1, "Doctor", "Dead");
+         Civilian Vivi = new Civilian("Nefertari Vivi", "Princess of Alabasta", "Alabasta", "Alive", 10, "Princess", "Alabasta");
 
 
-    //     characterDB.addCharacter(Luffy);
-    //     characterDB.addCharacter(Nami);
-    //     characterDB.addCharacter(Sanji);
-    //     characterDB.addCharacter(Robin);
-    //     characterDB.addCharacter(Garp);
-    //     characterDB.addCharacter(Smoker);
-    //     characterDB.addCharacter(Koby);
-    //     characterDB.addCharacter(Akainu);
-    //     characterDB.addCharacter(Zoro);
-    //     characterDB.addCharacter(Mihawk);
-    //     characterDB.addCharacter(Hiriluk);
-    //     characterDB.addCharacter(Vivi);
+         characterDB.addCharacter(Luffy);
+         characterDB.addCharacter(Nami);
+         characterDB.addCharacter(Sanji);
+         characterDB.addCharacter(Robin);
+         characterDB.addCharacter(Garp);
+         characterDB.addCharacter(Smoker);
+         characterDB.addCharacter(Koby);
+         characterDB.addCharacter(Akainu);
+         characterDB.addCharacter(Zoro);
+         characterDB.addCharacter(Mihawk);
+         characterDB.addCharacter(Hiriluk);
+         characterDB.addCharacter(Vivi);
 
-    //     characterDB.addPirate(Luffy);
-    //     characterDB.addPirate(Nami);
-    //     characterDB.addPirate(Sanji);
-    //     characterDB.addPirate(Robin);
+         characterDB.addPirate(Luffy);
+         characterDB.addPirate(Nami);
+         characterDB.addPirate(Sanji);
+         characterDB.addPirate(Robin);
 
-    //     characterDB.addPirateHunter(Zoro);
-    //     characterDB.addPirateHunter(Mihawk);
+         characterDB.addPirateHunter(Zoro);
+         characterDB.addPirateHunter(Mihawk);
 
-    //     characterDB.addMarine(Smoker);
-    //     characterDB.addMarine(Koby);
-    //     characterDB.addMarine(Akainu);
-    //     characterDB.addMarine(Akainu);
+         characterDB.addMarine(Smoker);
+         characterDB.addMarine(Koby);
+         characterDB.addMarine(Akainu);
+         characterDB.addMarine(Akainu);
 
-    //     characterDB.addCivlian(Hiriluk);
-    //     characterDB.addCivlian(Vivi);
+         characterDB.addCivlian(Hiriluk);
+         characterDB.addCivlian(Vivi);
 
-    //     DevilFruit gumGum = new DevilFruit("Gum-Gum Fruit", "Mythical Zoan", "Rubber body and also transform into a god I guess");
-    //     DevilFruit smokeSmoke = new DevilFruit("Smoke-Smoke Fruit", "Logia", "Create, control, and transform into smoke");
-    //     DevilFruit magmaMagma = new DevilFruit("Magma-Magma Fruit", "Logia", "Create, control, and transform into magma");
-    //     DevilFruit flowerFlower = new DevilFruit("Flower-Flower Fruit", "Paramecia", "Create and control body parts made of petals");
+         DevilFruit gumGum = new DevilFruit("Gum-Gum Fruit", "Mythical Zoan", "Rubber body and also transform into a god I guess");
+         DevilFruit smokeSmoke = new DevilFruit("Smoke-Smoke Fruit", "Logia", "Create, control, and transform into smoke");
+         DevilFruit magmaMagma = new DevilFruit("Magma-Magma Fruit", "Logia", "Create, control, and transform into magma");
+         DevilFruit flowerFlower = new DevilFruit("Flower-Flower Fruit", "Paramecia", "Create and control body parts made of petals");
 
-    //     devilFruitDB.createDevilFruit(gumGum);
-    //     devilFruitDB.createDevilFruit(smokeSmoke);
-    //     devilFruitDB.createDevilFruit(magmaMagma);
-    //     devilFruitDB.createDevilFruit(flowerFlower);
+         devilFruitDB.createDevilFruit(gumGum);
+         devilFruitDB.createDevilFruit(smokeSmoke);
+        devilFruitDB.createDevilFruit(magmaMagma);
+         devilFruitDB.createDevilFruit(flowerFlower);
 
-    //     System.out.println("Test cases created: Characters and Fruits");
-    // }
+         System.out.println("Test cases created: Characters and Fruits");
+     }
 
 
 }

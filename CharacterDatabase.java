@@ -152,7 +152,7 @@ public class CharacterDatabase {
         // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
-    public void removeMarine (int characterID)
+    /*public void removeMarine (int characterID)
     {
         marineMap.remove(characterID);
         // System.out.println(removedCharacter.getName() + " has been removed.");
@@ -174,7 +174,7 @@ public class CharacterDatabase {
     {
         civilianMap.remove(characterID);
         // System.out.println(removedCharacter.getName() + " has been removed.");
-    }
+    }*/
 
     //display character methods
 

@@ -1,3 +1,15 @@
+
+/*
+
+Description:
+
+The Marine class is a child of the Character Class and facilitates the creation of the marine
+
+Contributed by: Marianne Gaerlan
+
+*/
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +100,7 @@ public class PirateCrew {
     {
         System.out.println("Pirate Crew: " + this.crewName);
         System.out.println("Ship Name: " + this.shipName);
+        int i = 1;
         
         if (getCaptain() != null)
         {
@@ -108,7 +121,8 @@ public class PirateCrew {
 
             for (Pirate crew: crewMembers)
             {
-                System.out.println("("+ getCrewID()+") " + crew.getName());
+                System.out.println("("+ i+") " + crew.getName());
+                i++;
             }
           
 
@@ -131,7 +145,7 @@ public class PirateCrew {
 
         crewMembers.add(newMember);
         newMember.setPirateCrew(this);
-        if(newMember.getPirateRole() == "Captain"){
+        if(newMember.getPirateRole().contains("Captain")){
             setCaptain(newMember);
             newMember.setisCaptain(true);
         }
@@ -148,7 +162,8 @@ public class PirateCrew {
     public void removeCrewMember(Pirate member)
     {
         crewMembers.remove(member);
-        System.out.println(member.getName() + " is no longer a Pirate.");
+        member.setPirateCrew(null);
+        System.out.println(member.getName() + " is no longer in the crew.");
     }
     
 }

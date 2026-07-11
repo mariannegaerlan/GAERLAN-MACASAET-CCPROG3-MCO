@@ -1,8 +1,19 @@
 
+/*
+
+Description:
+
+The Civilian class is a child of the Character Class and facilitates the creation of the Civilian
+Contributed by: Marianne Gaerlan
+
+*/
+
 public class Civilian extends Character{
 
-    private String Profession;
-    private String Residence;
+    private String Profession; // This is the profession of the Civilian
+    private String Residence; // This is the Residence of the Civilian
+
+    // This is the Civilian Constructor
 
     public Civilian(String Name, String Alias, String Origin, String Status, int Wallet, String Profession, String Residence)
     {
@@ -13,7 +24,7 @@ public class Civilian extends Character{
     }
     
 
-// setters
+// Below are the setters
     public void setProfession( String Profession)
     {
         this.Profession = Profession;
@@ -24,7 +35,7 @@ public class Civilian extends Character{
         this.Residence = Residence;
     }
 
-// getters
+// Below are the getters
 
     public String getProfession()
     {
@@ -36,7 +47,7 @@ public class Civilian extends Character{
         return this.Residence;
     }
 
-// methods
+// This method displays the attributes of the Civilian
 
 @Override
     public void DisplayProfile()

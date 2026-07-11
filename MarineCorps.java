@@ -112,7 +112,8 @@ public class MarineCorps
         }
         for (Marine member: marineMembers)
         {
-            System.out.println("("+ getCorpsID()+") " + member.getName());
+            System.out.println("("+ i+") " + member.getName());
+            i++;
         }
     }
 
@@ -123,7 +124,7 @@ public class MarineCorps
     {
         if(newMember.getMarineCorps() != null)
         {
-            throw new NullPointerException("Member already belongs to another crew.");
+            throw new NullPointerException("Member already belongs to another corps.");
         }
 
         if (marineMembers.contains(newMember))
@@ -133,7 +134,7 @@ public class MarineCorps
 
         marineMembers.add(newMember);
         newMember.setmarineCorps(this);
-        if(newMember.getRank() == "Commander") setCorpsCommander(newMember);
+        if(newMember.getRank().contains("Commander")) setCorpsCommander(newMember);
 
         System.out.println("Welcome to the Corps, " + newMember.getName() + "!");
     }
@@ -142,7 +143,8 @@ public class MarineCorps
     public void removeMarineMember(Marine member)
     {
         marineMembers.remove(member);
-        System.out.println(member.getName() + " is no longer a Marine.");
+        member.setmarineCorps(null);
+        System.out.println(member.getName() + " is no longer in the corps.");
     }
 
 }

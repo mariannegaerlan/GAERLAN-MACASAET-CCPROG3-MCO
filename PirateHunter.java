@@ -1,9 +1,23 @@
 
+/*
+
+Description:
+
+The Pirate Hunter class is a child of the Character Class and facilitates the creation of the Pirate Hunter
+
+Contributed by: Marianne Gaerlan
+
+*/
+
+
+
 public class PirateHunter extends Character{
 
-    private String CombatStyle;
-    private int ConfirmedCaptures;
+    private String CombatStyle; // This is the combat style of the hunter
+    private int ConfirmedCaptures; // this is the number of captures by the hunter
     
+
+    // This is the pirate hunter constructor
     public PirateHunter(String Name, String Alias, String Origin, String Status, int Wallet, String CombatStyle, int ConfirmedCaptures)
     {
         super(Name, Alias, Origin, Status, Wallet, "Pirate Hunter");
@@ -13,7 +27,7 @@ public class PirateHunter extends Character{
     }
 
 
-// setters
+// Below are the Setters
     public void setCombatStyle( String CombatStyle)
     {
         this.CombatStyle = CombatStyle;
@@ -24,7 +38,7 @@ public class PirateHunter extends Character{
         this.ConfirmedCaptures = ConfirmedCaptures;
     }
 
-// getters
+// Below are the Getters
 
     public String getCombatStyle()
     {
@@ -36,7 +50,7 @@ public class PirateHunter extends Character{
         return this.ConfirmedCaptures;
     }
 
-//methods
+// This displays the attributes of the Pirate Hunter
 
 @Override
     public void DisplayProfile()

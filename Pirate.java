@@ -1,11 +1,24 @@
 
+/*
+
+Description:
+
+The Pirate class is a child of the Character Class and facilitates the creation of the pirate
+
+Contributed by: Marianne Gaerlan
+
+*/
+
+
 public class Pirate extends Character{
 
-    private int Bounty;
-    private String PirateRole;
-    private boolean isCaptain;
-    private PirateCrew pirateCrew;
+    private int Bounty; // This is the Bounty of the Pirate
+    private String PirateRole; // This is the Role of the Pirate
+    private boolean isCaptain; // this is the boolean indicating if the Pirate is a Captain
+    private PirateCrew pirateCrew; // This is the crew that the pirate belongs to
 
+
+    // This is the constructor of the Pirate
     public Pirate( String Name, String Alias, String Origin, String Status, int Wallet, int Bounty, boolean isCaptain, String PirateRole )
     {
         super(Name, Alias, Origin, Status, Wallet, "Pirate");
@@ -16,11 +29,11 @@ public class Pirate extends Character{
 
     }
 
-    // setters
+    // Below are the setters
 
     public void setBounty(int Bounty)
     {
-        if (Bounty >= 0)
+        if (Bounty >= 0) // if the Bounty is less than 0, a throw will halt its input.
         {
             this.Bounty= Bounty;
         }
@@ -46,7 +59,7 @@ public class Pirate extends Character{
         this.pirateCrew= pirateCrew;
     }
 
-    // getters
+    // Below are the getters
 
     public int getBounty()
     {
@@ -74,7 +87,7 @@ public class Pirate extends Character{
 
     public void ModifyBounty(int amount)
     {
-        if (amount >=0)
+        if (amount >=0) // if the amount is less than 0, a throw will halt its input.
         {
         this.Bounty += amount;
         }
@@ -85,11 +98,8 @@ public class Pirate extends Character{
 
     }
 
-    public void AssignToCrew(PirateCrew newCrew)
-    {
-        this.pirateCrew = newCrew;
-    }
 
+// This method displays the attributes of the Pirate
 
 @Override
     public void DisplayProfile()
