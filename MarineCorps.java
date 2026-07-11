@@ -90,6 +90,8 @@ public class MarineCorps
 
     public void viewMarineGroup()
     {
+        int i = 1;
+
         System.out.println("Marine Corps: " + this.corpsName);
         System.out.println("Base Location: " + this.baseLocation);
         if (getcorpsCommander() != null)
