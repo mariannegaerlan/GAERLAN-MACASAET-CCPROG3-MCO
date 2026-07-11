@@ -1,12 +1,7 @@
 
-/*
-
-Description:
-
-The Marine class is a child of the Character Class and facilitates the creation of the marine
-
-Contributed by: Marianne Gaerlan
-
+/**
+ * The Marine class is a child of the Character Class and facilitates the creation of the marine
+ * Contributed by: Marianne Gaerlan
 */
 
 
@@ -26,23 +21,54 @@ public class Marine extends Character{
 
     }
 
-// Below are the setters
+
+/* setRank enables the Rank attribute to be mutated
+
+@param Rank is the new mutated Rank
+@return void
+
+*/
     public void setRank( String Rank)
     {
         this.Rank = Rank;
     }
+
+
+
+/* setmarineCorps enables the Marine Corp attribute to be mutated
+
+@param Rank is the new mutated Rank
+@return void
+
+*/
 
     public void setmarineCorps(MarineCorps marineCorps)
     {
         this.marineCorps = marineCorps;
     }
 
-// Below are the getters
+
+/* getRank lets the user have read access to the Rank attribute
+
+@param None
+@return this.rank
+
+*/
+
 
     public String getRank()
     {
         return this.Rank;
     }
+
+/* getMarineCorps lets the user have read access to the Marine Corps attribute
+
+@param None
+@return MarineCorps
+
+*/
+
+
 
     public MarineCorps getMarineCorps()
     {
@@ -51,12 +77,20 @@ public class Marine extends Character{
 
 
 
-// The method displays the attributes of the Marine
+/* The method displays the attributes of the Marine
+
+@param None
+@return void
+
+*/
+
 
 @Override
     public void DisplayProfile()
     {
+    // call the Character class display profile method
        super.DisplayProfile();
+       // if the Marine belongs to a Marine Corps, display the Corps Name, else, set it as None
        if (getMarineCorps()!=null)
         {
         System.out.println("Marine Corps: " +getMarineCorps().getcorpsName());
@@ -64,9 +98,9 @@ public class Marine extends Character{
         else
         {
             System.out.println("Marine Corps: None");
-            System.out.println("Rank: " + getRank());
-
         }
+        System.out.println("Rank: " + getRank());
+
     }
 
 }

@@ -1,16 +1,24 @@
+/**
+ * The MarineCorps is a class that facilitates the behavior of the marine corp
+ * Contributed by: Marianne Gaerlan
+*/
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MarineCorps
 {
 
-    private final int corpsID;
-    private static int count;
-    private String baseLocation;
-    private Marine corpsCommander;
-    private String corpsName;
-    private List<Marine> marineMembers = new ArrayList<>();
-    private int operationalFunds;
+    private final int corpsID; // ID of the marine corp
+    private static int count; // increments the ID
+    private String baseLocation; // the base location of the corp
+    private Marine corpsCommander; // the commander of the corp
+    private String corpsName; // the name of the corps
+    private List<Marine> marineMembers = new ArrayList<>(); // the list of members of the corp
+    private int operationalFunds; // the operational funds of the corp
+
+    // This is the Marine Corp constructor
 
     MarineCorps(String baseLocation, String corpsName, int operationalFunds)
     {
@@ -20,13 +28,24 @@ public class MarineCorps
         this.operationalFunds = operationalFunds;
     }
 
-    // setters
+/* setBaseLocation lets the user mutate the base location
 
+@param baseLocation
+@return void
+
+*/   
 
     public void setBaseLocation(String baseLocation)
     {
         this.baseLocation = baseLocation;
     }
+
+/* setCorpsCommander lets the user mutate the corps commander
+
+@param corpsCommander
+@return void
+
+*/   
 
     public void setCorpsCommander(Marine corpsCommander)
     {
@@ -34,39 +53,88 @@ public class MarineCorps
     }
 
 
+/* setcorpsName lets the user mutate the name of the corps
+
+@param corpsName
+@return void
+
+*/   
+
     public void setcorpsName(String corpsName)
     {
         this.corpsName = corpsName;
     }
 
 
+/* setOperationalFunds lets the user mutate the amount of operational funds
+
+@param operationalFunds
+@return void
+
+*/   
     public void setOperationalFunds (int operationalFunds)
     {
         if (operationalFunds>=0)
             this.operationalFunds = operationalFunds;
     }
 
-    // getters
+/* getCorpsID lets the user access the ID of the corp
+
+@param none
+@return this.corpsID
+
+*/   
 
     public int getCorpsID()
     {
         return this.corpsID;
     }
 
+
+/* getBaseLocation lets the user access the location of the corp
+
+@param none
+@return this.baseLocation
+
+*/   
+
    public String getBaseLocation()
     {
         return this.baseLocation;
     }
+
+/* getcorpsCommander lets the user access the commander of the corp
+
+@param none
+@return this.corpsCommander
+
+*/   
 
     public Marine getcorpsCommander()
     {
         return this.corpsCommander;
     }
 
+/* getcorpsName lets the user access the name of the corp
+
+@param none
+@return this.corpsName
+
+*/   
+
+
     public String getcorpsName()
     {
         return this.corpsName;
     }
+
+
+/* getcorpsName lets the user access the funds of the corp
+
+@param none
+@return this.operationalFunds
+
+*/   
 
 
     public int getOperationalFunds()
@@ -75,11 +143,26 @@ public class MarineCorps
         return this.operationalFunds;
     }
 
+/* getMarines lets the user access the members of the corp
+
+@param none
+@return this.marineMembers
+
+*/   
+
+
     public List<Marine> getMarines()
     {
         return this.marineMembers;
     }
 
+
+/* The method views the members of the Marine Corp
+
+@param none
+@return void
+
+*/
     public void viewList()
     {
         for(Marine m : marineMembers){
@@ -88,6 +171,13 @@ public class MarineCorps
         System.out.println();
     }
 
+
+/* The method views the attributes of the Marine Group
+
+@param none
+@return void
+
+*/
     public void viewMarineGroup()
     {
         int i = 1;
@@ -117,8 +207,13 @@ public class MarineCorps
         }
     }
 
-    // add a public void viewMemberProfile() for individual members
+/* The method recruit a member to the Corp
 
+@param newMember that you want to add
+@return void
+@throw Illegal Argument Exception if the member already exists and Null Pointer Exception if the member already belongs to the other corp
+
+*/
 
    public void recruitMarineMember(Marine newMember)
     {
@@ -139,7 +234,12 @@ public class MarineCorps
         System.out.println("Welcome to the Corps, " + newMember.getName() + "!");
     }
 
+/* The method removes a member from the Corp
 
+@param member that you want to remove
+@return void
+
+*/
     public void removeMarineMember(Marine member)
     {
         marineMembers.remove(member);

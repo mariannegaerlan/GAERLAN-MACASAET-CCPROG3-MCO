@@ -1,12 +1,8 @@
 
-/*
-
-Description:
-
-The Pirate Hunter class is a child of the Character Class and facilitates the creation of the Pirate Hunter
-
-Contributed by: Marianne Gaerlan
-
+/**
+ * The Pirate Hunter class is a child of the Character Class and facilitates the creation of the Pirate Hunter
+ * Contributed by: Marianne Gaerlan
+ *
 */
 
 
@@ -27,34 +23,62 @@ public class PirateHunter extends Character{
     }
 
 
-// Below are the Setters
+/* setCombatStyle lets the user mutate CombatStyle
+
+@param CombatStyle
+@return void
+
+*/   
+
     public void setCombatStyle( String CombatStyle)
     {
         this.CombatStyle = CombatStyle;
     }
+/* setConfirmedCaptures lets the user mutate Confirmed Captures
 
+@param ConfirmedCaptures
+@return void
+
+*/   
     public void setConfirmedCaptures(int ConfirmedCaptures)
     {
         this.ConfirmedCaptures = ConfirmedCaptures;
     }
 
-// Below are the Getters
+/* getCombatStyle lets the user access the Combat Style
+
+@param none
+@return this.CombatStyle
+
+*/   
 
     public String getCombatStyle()
     {
         return this.CombatStyle;
     }
 
+/* getConfirmedCaptures lets the user access the Confirmed Captures
+
+@param none
+@return this.ConfirmedCaptures
+
+*/   
+
     public int getConfirmedCaptures()
     {
         return this.ConfirmedCaptures;
     }
 
-// This displays the attributes of the Pirate Hunter
+/* The method displays the attributes of the Pirate Hunter
 
+@param None
+@return void
+
+*/
 @Override
     public void DisplayProfile()
     {
+    // call the Character class display profile method
        super.DisplayProfile();
        System.out.println("Combat Style: " + getCombatStyle());
        System.out.println("Confirmed Captures: " + getConfirmedCaptures());

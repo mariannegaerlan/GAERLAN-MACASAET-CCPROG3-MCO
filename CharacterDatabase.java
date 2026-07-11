@@ -1,6 +1,12 @@
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is the CharacterDatabase class to store the information about Character objects
+ * Contributed by: Marianne Gaerlan and Marco Macasaet
+
+*/
+
 public class CharacterDatabase {
     
     private final Map<Integer,Character> characterMap;
@@ -18,19 +24,47 @@ public class CharacterDatabase {
         this.civilianMap = new HashMap<>();
     }
 
-    //add character methods
+    /* getCharacterMap gets the Character Hash Map
+
+    @param none
+    @return characterMap
+
+    */   
     public Map<Integer, Character> getCharacterMap()
     {
         return characterMap;
     }
+
+    /* getPirateMap gets the Pirate Map
+
+    @param none
+    @return pirateMap
+
+    */  
+
     public Map<Integer, Pirate> getPirateMap()
     {
         return pirateMap;
     }
+
+    /* getMarineMap gets the Marine Map
+
+    @param none
+    @return marineMap
+
+    */  
+
     public Map<Integer, Marine> getMarineMap()
     {
         return marineMap;
     }
+
+    /* addCharacter adds a character to the map
+
+    @param Character
+    @return void
+
+    */  
 
     public void addCharacter(Character character)
     {
@@ -47,6 +81,13 @@ public class CharacterDatabase {
 
     }
 
+    /* getMarineMap adds a Marine to the map
+
+    @param Marine
+    @return void
+
+    */  
+
     public void addMarine(Marine character)
     {
         if (character == null)
@@ -61,6 +102,13 @@ public class CharacterDatabase {
         marineMap.put(character.getCharacterID(), character);
 
     }
+
+    /* addPirate adds a Pirate to the map
+
+    @param Pirate
+    @return void
+
+    */  
 
     public void addPirate(Pirate character)
     {
@@ -77,6 +125,13 @@ public class CharacterDatabase {
 
     }
 
+    /* addPirateHunter adds a pirate hunter to the map
+
+    @param crewName
+    @return void
+
+    */  
+
     public void addPirateHunter(PirateHunter character)
     {
         if (character == null)
@@ -91,6 +146,13 @@ public class CharacterDatabase {
         pirhunMap.put(character.getCharacterID(), character);
 
     }
+
+    /* add Civilian adds a civilian to the map
+
+    @param Civilian
+    @return void
+
+    */  
 
     public void addCivlian(Civilian character)
     {
@@ -107,7 +169,12 @@ public class CharacterDatabase {
 
     }
 
-    //get character methods
+    /* getCharacter gets the character
+
+    @param int characterID
+    @return Character
+
+    */  
 
     public Character getCharacter (int characterID)
     {
@@ -116,12 +183,26 @@ public class CharacterDatabase {
         return character;
     }
 
+    /* getMarine gets the marine
+
+    @param int characterID
+    @return Marine
+
+    */  
+
     public Marine getMarine (int characterID)
     {
         Marine character = marineMap.get(characterID);
 
         return character;
     }
+
+    /* getPirate gets the pirate
+
+    @param int characterID
+    @return Pirate
+
+    */  
 
     public Pirate getPirate (int characterID)
     {
@@ -130,21 +211,12 @@ public class CharacterDatabase {
         return character;
     }
 
-    public PirateHunter getPirateHunter (int characterID)
-    {
-        PirateHunter character = pirhunMap.get(characterID);
+    /* removeCharacter removes a character
 
-        return character;
-    }
+    @param int characterID
+    @return void
 
-    public Civilian getCivilian (int characterID)
-    {
-        Civilian character = civilianMap.get(characterID);
-
-        return character;
-    }
-
-    //remove character methods
+    */  
 
     public void removeCharacter (int characterID)
     {
@@ -152,31 +224,12 @@ public class CharacterDatabase {
         // System.out.println(removedCharacter.getName() + " has been removed.");
     }
 
-    /*public void removeMarine (int characterID)
-    {
-        marineMap.remove(characterID);
-        // System.out.println(removedCharacter.getName() + " has been removed.");
-    }
+    /* displayCharacters displays the list of characters
 
-    public void removePirate (int characterID)
-    {
-        pirateMap.remove(characterID);
-        // System.out.println(removedCharacter.getName() + " has been removed.");
-    }
+    @param none
+    @return void
 
-    public void removePirateHunter (int characterID)
-    {
-        pirhunMap.remove(characterID);
-        // System.out.println(removedCharacter.getName() + " has been removed.");
-    }
-
-    public void removeCivilian (int characterID)
-    {
-        civilianMap.remove(characterID);
-        // System.out.println(removedCharacter.getName() + " has been removed.");
-    }*/
-
-    //display character methods
+    */  
 
     public void displayCharacters()
     {
@@ -190,6 +243,13 @@ public class CharacterDatabase {
         
     }
 
+    /* displayMarines displays the list of marines
+
+    @param none
+    @return void
+
+    */  
+
     public void displayMarines(){
 
         System.out.println("\n====== ONE PIECE MARINES ======");
@@ -200,34 +260,19 @@ public class CharacterDatabase {
         }
     }
 
+    /* displayPirates displays the list of pirates
+
+    @param none
+    @return void
+
+    */  
+
     public void displayPirates(){
 
         System.out.println("\n====== ONE PIECE PIRATES ======");
         for (Pirate p: pirateMap.values())
         {
            System.out.println("ID: " + p.getCharacterID() + "| Name: " +  p.getName());
-            System.out.println("----------------------------");
-        }
-    }
-
-    public void displayHunters(){
-        
- 
-        System.out.println("\n====== ONE PIECE PIRATE HUNTERS ======");
-        for (PirateHunter ph: pirhunMap.values())
-        {
-           System.out.println("ID: " + ph.getCharacterID() + "| Name: " +  ph.getName());
-            System.out.println("----------------------------");
-        }
-    }
-
-    public void displayCitizens(){
-        
- 
-        System.out.println("\n====== ONE PIECE CIVILIANS ======");
-        for (Civilian c: civilianMap.values())
-        {
-           System.out.println("ID: " + c.getCharacterID() + "| Name: " +  c.getName());
             System.out.println("----------------------------");
         }
     }

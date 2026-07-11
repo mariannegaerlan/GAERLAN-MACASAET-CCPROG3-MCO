@@ -1,19 +1,40 @@
+/**
+ * This class holds the behavior of the devil fruit database and facilitates the registering of a new devil fruit
+ * Contributed by: Marco Macasaet
+ */
+
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class DevilFruitDatabase {
-   private final Map<Integer,DevilFruit> dfMap;
+   private final Map<Integer,DevilFruit> dfMap; // hashmap of the devil fruit
 
+// Constructor of the DevilFruitDatabase
     public DevilFruitDatabase()
     {
         this.dfMap = new HashMap<>();
     }
+/* getDFMap lets the user access the devil fruit hashmap
+
+@param none
+@return dfMap
+
+*/ 
 
     public Map<Integer, DevilFruit> getDFMap()
     {
         return dfMap;
     }
+
+
+/* createDevilFruit lets the user create a new devil fruit
+
+@param devilFruit
+@return void
+
+*/ 
 
     public void createDevilFruit(DevilFruit devilFruit)
     {
@@ -26,7 +47,12 @@ public class DevilFruitDatabase {
         dfMap.put(devilFruit.getFruitId(), devilFruit);
 
     }
+/* getDevilFruit lets the user access the devil fruit
 
+@param fruitID
+@return devilFruit
+
+*/ 
     public DevilFruit getDevilFruit(int fruitID)
     {
         DevilFruit devilFruit = dfMap.get(fruitID);
@@ -34,6 +60,12 @@ public class DevilFruitDatabase {
         return devilFruit;
     }
 
+/* assignFruitToUSer display calls the devil fruit (based on its ID)'s behavior to assign it to an existing character
+
+@param fruitID, character
+@return void
+
+*/ 
     public void assignFruitToUser(int fruitID, Character character)
     {
         DevilFruit devilFruit = getDevilFruit(fruitID);
@@ -42,6 +74,12 @@ public class DevilFruitDatabase {
         devilFruit.assignUser(character); 
 
     }
+/* viewDevilFruit displays the specific information about the fruit
+
+@param fruitID
+@return void
+
+*/ 
 
     public void viewDevilFruit(int fruitID)
     {
@@ -76,6 +114,13 @@ public class DevilFruitDatabase {
 
 
     }
+    
+/* displayFruits display the list of fruits existing in the system
+
+@param none
+@return void
+
+*/ 
 
     public void displayFruits()
     {

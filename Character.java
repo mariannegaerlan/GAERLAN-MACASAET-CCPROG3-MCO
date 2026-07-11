@@ -1,5 +1,12 @@
+/**
+ * This class is the Character class which is the blueprint for the Character objects
+ * Contributed by: Marianne Gaerlan and Marco Macasaet
+ */
+
 public abstract class Character {
-    
+
+
+
     private final int CharacterID;
 
 
@@ -119,7 +126,14 @@ public abstract class Character {
         System.out.println("Alias: "+ getAlias());
         System.out.println("Origin: "+ getOrigin());
         System.out.println("Status: " + getStatus());
-        System.out.println("DF Power: "+ getDFPower().getFruitName());
+        System.out.print("DF Power: ");
+
+        if(getDFPower() == null)
+        {
+            System.out.println("None");
+        } else if (getDFPower() != null){
+            System.out.println(getDFPower().getFruitName());
+        }
         System.out.println("Wallet: " + getWallet());
         System.out.println("Class: "+getType());
     }

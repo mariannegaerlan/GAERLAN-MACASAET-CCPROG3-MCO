@@ -1,5 +1,9 @@
 import java.util.Scanner;
 
+/**
+ * This class is the Driver Class
+ * Contributed by: Marianne Gaerlan and Marco Macasaet
+ * */
 
 public class Driver {
     
@@ -27,9 +31,15 @@ public class Driver {
     private static String Profession;
     private static String Residence;
 
+/* The method is the main method of the program.
+
+@param none
+@return void
+
+*/
     public static void main(String[] args) {
 
-        testCases();
+        //testCases();
 
 
         while (running)
@@ -41,6 +51,13 @@ public class Driver {
 
 
     }
+
+/* The method displays the main menu of the program.
+
+@param none
+@return void
+
+*/
 
     public static void displayMenu()
     {
@@ -87,6 +104,13 @@ public class Driver {
 
      
     }
+
+/* The method displays the menu for Character methods.
+
+@param none
+@return void
+
+*/
 
     public static void displayCharacterMenu()
     {
@@ -143,6 +167,13 @@ public class Driver {
 
     }
 
+/* The method displays the menu for Affiliation methods.
+
+@param none
+@return void
+
+*/
+
     public static void displayAffiliationMenu()
     {
         int choice = 0;
@@ -195,6 +226,13 @@ public class Driver {
             displayAffiliationMenu();
         }
     }
+
+/* The method displays the menu for Devil Fruit methods.
+
+@param none
+@return void
+
+*/
 
     public static void displayFruitMenu()
     {
@@ -249,7 +287,12 @@ public class Driver {
         }
     }
 
-    //Character Functions
+/* The method is facilitates the creation of characters.
+
+@param none
+@return void
+
+*/
 
     private static void createCharacter()
     {
@@ -419,6 +462,13 @@ public class Driver {
         }
     }
 
+/* The method facilitates the viewing of character profiles.
+
+@param none
+@return void
+
+*/
+
     private static void viewCharacter() 
     {
 
@@ -448,6 +498,13 @@ public class Driver {
 
     }
 }
+
+/* The method facilitates the updating of character profiles.
+
+@param none
+@return void
+
+*/
 
     private static void updateCharacter()
     {      
@@ -653,6 +710,13 @@ public class Driver {
 
     }
 
+/* The method facilitates the viewing of character objects.
+
+@param none
+@return void
+
+*/
+
     private static void deleteCharacter()
     {
         if(ifCharMapIsEmpty() == true) 
@@ -694,7 +758,12 @@ public class Driver {
 
     }
 
-    //Affiliation Functions
+/* The method facilitates the creation of PirateCrew and MarineCorps objects.
+
+@param none
+@return void
+
+*/
 
     private static void createGroup(){
 
@@ -789,6 +858,13 @@ public class Driver {
         }
     }
 
+/* The method facilitates the viewing of PirateCrew and MarineCorps object profiles.
+
+@param none
+@return void
+
+*/
+
     private static void viewGroups(){ 
 
         int choice;
@@ -844,6 +920,13 @@ public class Driver {
         }
 
     }
+
+/* The method facilitates the editing of PirateCrew and MarineCorps objects.
+
+@param none
+@return void
+
+*/
 
     private static void editGroups(){ 
 
@@ -1061,7 +1144,13 @@ public class Driver {
         }
     }
 
-    
+/* The method facilitates the adding of members to PirateCrew and MarineCorps objects.
+
+@param none
+@return void
+
+*/
+
     private static void addMembers(){
         int choice, mChoice, eChoice;
 
@@ -1136,7 +1225,14 @@ public class Driver {
             break;
         }
     }
-    
+
+/* The method facilitates the removal of members from PirateCrew and MarineCorps objects.
+
+@param none
+@return void
+
+*/
+
     private static void removeMembers(){
         int choice, mChoice, eChoice;
 
@@ -1214,7 +1310,12 @@ public class Driver {
         }
     }  
 
-    //Devil Fruit Functions
+/* The method facilitates the creation of Devil Fruit objects.
+
+@param none
+@return void
+
+*/
 
     private static void createDevilFruit()
     {
@@ -1246,6 +1347,13 @@ public class Driver {
         System.out.println("  ABILITY: " + fruitAbility + " ]");
     }
 
+/* The method facilitates the viewing of Devil Fruit object profiles.
+
+@param none
+@return void
+
+*/
+
     private static void viewDevilFruit(){
 
         int fruitID;
@@ -1276,6 +1384,13 @@ public class Driver {
             return;
         }
     }
+
+/* The method facilitates the assigning of Devil Fruit objects.
+
+@param none
+@return void
+
+*/
 
     private static void assignDevilFruit(){
 
@@ -1324,7 +1439,12 @@ public class Driver {
 
     }
 
-    //helper functions
+/* The method checks if a Marine object is in a MarineCorps object.
+
+@param none
+@return true of the Marine object is in a MarineCorps object and false if otherwise
+
+*/
 
     private static boolean checkIfInCorps(Marine candidate){
 
@@ -1338,6 +1458,13 @@ public class Driver {
         return false;
                 
     }
+
+/* The method checks if a Pirate object is in a PirateCrew object.
+
+@param none
+@return true of the Pirate object is in a PirateCrew object and false if otherwise
+
+*/
 
     private static boolean checkIfInCrew(Pirate candidate){
 
@@ -1354,6 +1481,13 @@ public class Driver {
                 
     }
 
+/* The method checks if a user picked option is valid.
+
+@param none
+@return true if valid and false if otherwise
+
+*/
+
     private static boolean checkIfValidOption(int minOptions, int maxOptions, int userPick){
         if(userPick>maxOptions || userPick<minOptions){
             System.out.println("Invalid option. Please pick again.");
@@ -1363,6 +1497,13 @@ public class Driver {
         return true;
     }
 
+/* The method checks if there are Character objects in the CharacterDatabase object.
+
+@param none
+@return true if no and false if yes
+
+*/
+
     private static boolean ifCharMapIsEmpty(){
         if (characterDB.getCharacterMap().isEmpty())
         {
@@ -1370,6 +1511,13 @@ public class Driver {
             return true;
         } else return false;
     }
+
+/* The method checks if there are DevilFruit objects in the DevilFruitDatabase.
+
+@param none
+@return true if no and false if yes
+
+*/
 
     private static boolean ifDFMapIsEmpty(){
 
@@ -1381,9 +1529,13 @@ public class Driver {
 
     }
 
-    //test case functions
+/* The method instantiates objects for easier checking of the functionality of the different methods on this program.
 
-     private static void testCases(){
+@param none
+@return void
+*/
+
+    private static void testObjects(){
          Pirate Luffy = new Pirate("Monkey D. Luffy", "Strawhat", "Foosha Village", "Alive", 10, 100000, false, "Captain");
          Pirate Nami = new Pirate("Nami", "Cat Burglar", "Cocoyasi Village", "Alive", 100000, 100000, false, "Navigator");
          Pirate Sanji = new Pirate("Vinsmoke Sanji", "Black Leg", "Baratie", "Alive", 10, 100000, false, "Cook");

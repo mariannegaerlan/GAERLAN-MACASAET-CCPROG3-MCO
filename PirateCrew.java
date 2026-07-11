@@ -1,13 +1,8 @@
 
-/*
-
-Description:
-
-The Marine class is a child of the Character Class and facilitates the creation of the marine
-
-Contributed by: Marianne Gaerlan
-
-*/
+/**
+ * The PirateCrew is a class that facilitates the behavior of the pirate crew
+ * Contributed by: Marianne Gaerlan
+ */
 
 
 import java.util.ArrayList;
@@ -15,13 +10,15 @@ import java.util.List;
 
 public class PirateCrew {
 
-    private final int crewID;
-    private static int count;
-    private String crewName;
-    private String shipName;
-    private Pirate captain;
-    private List<Pirate> crewMembers = new ArrayList<>();
-    private int totalBounty;
+    private final int crewID; // ID of the crew
+    private static int count; // count that increments the crew ID
+    private String crewName; // name of the crew
+    private String shipName; // name of the ship
+    private Pirate captain; // captain of the crew
+    private List<Pirate> crewMembers = new ArrayList<>(); // list of members of the crew
+    private int totalBounty; // total bounty of the crew
+
+    // This is the pirate crew constructor
 
     PirateCrew(String crewName, String shipName)
     {
@@ -30,47 +27,88 @@ public class PirateCrew {
         this.shipName = shipName;
         this.totalBounty = 0;
     }
-    // setters
 
+/* setCrewName lets the user mutate crew name
+
+@param crewName
+@return void
+
+*/   
 
     public void setCrewName(String crewName)
     {
         this.crewName= crewName;
     }
+/* setShipName lets the user mutate ship name
 
+@param shipName
+@return void
+
+*/   
     public void setShipName(String shipName)
     {
         this.shipName = shipName;
     }
+/* setCaptain lets the user mutate captain
 
+@param captain
+@return void
+
+*/   
     public void setCaptain(Pirate captain)
     {
         this.captain = captain;
     }
     
-    // getters
 
+
+/* getCrewID lets the user access the ID of the crew
+
+@param none
+@return this.crewID
+
+*/  
     public int getCrewID()
     {
         return this.crewID;
     }
+/* getCrewName lets the user access the name of the crew
 
+@param none
+@return this.crewName
+
+*/   
     public String getCrewName()
     {
         return this.crewName;
     }
+/* getShipName lets the user access the ship name  of the crew
 
+@param none
+@return this.shipName
+
+*/   
     public String getShipName()
     {
         return this.shipName;
     }
+/* getCaptain lets the user access the captain of the crew
 
+@param none
+@return this.captain
+
+*/   
     public Pirate getCaptain()
     {
         return this.captain;
     }
 
+/* getTotalBounty lets the user access the total bounty of the crew
 
+@param none
+@return this.totalBounty
+
+*/   
     public int getTotalBounty()
     {
         this.totalBounty=0;
@@ -82,11 +120,24 @@ public class PirateCrew {
         return this.totalBounty;
     }
 
+/* getPirates lets the user access the list of members of the crew
+
+@param none
+@return this.crewMembers
+
+*/   
     public List<Pirate> getPirates()
     {
         return this.crewMembers;
     }
 
+
+/* The method views the members of the Pirate Crew
+
+@param none
+@return void
+
+*/
     public void viewList()
     {
         for(Pirate p : crewMembers)
@@ -96,6 +147,13 @@ public class PirateCrew {
         System.out.println();
     }
     
+
+/* The method views the attributes of the Pirate Group
+
+@param none
+@return void
+
+*/
     public void viewPirateGroup()
     {
         System.out.println("Pirate Crew: " + this.crewName);
@@ -128,8 +186,13 @@ public class PirateCrew {
 
     }
 
-    // add a public void viewMemberProfile() for individual members
+/* The method recruit a member to the Crew
 
+@param newMember that you want to add
+@return void
+@throw Illegal Argument Exception if the member already exists and Null Pointer Exception if the member already belongs to the other crew
+
+*/
 
     public void recruitCrewMember(Pirate newMember)
     {
@@ -158,7 +221,12 @@ public class PirateCrew {
         System.out.println("Welcome to the Crew, " + newMember.getName() + "!");
     }
 
+/* The method removes a member from the Crew
 
+@param member that you want to remove
+@return void
+
+*/
     public void removeCrewMember(Pirate member)
     {
         crewMembers.remove(member);

@@ -1,12 +1,7 @@
 
-/*
-
-Description:
-
-The Pirate class is a child of the Character Class and facilitates the creation of the pirate
-
-Contributed by: Marianne Gaerlan
-
+/**
+ * The Pirate class is a child of the Character Class and facilitates the creation of the pirate
+ * Contributed by: Marianne Gaerlan
 */
 
 
@@ -29,8 +24,13 @@ public class Pirate extends Character{
 
     }
 
-    // Below are the setters
+/* setBounty lets the user mutate the Bounty 
 
+@param Bounty is the new mutated Bounty
+@return void
+@throw throws an Illegual Argument Exception if the user tries to input a negative value
+
+*/
     public void setBounty(int Bounty)
     {
         if (Bounty >= 0) // if the Bounty is less than 0, a throw will halt its input.
@@ -44,45 +44,95 @@ public class Pirate extends Character{
 
     }
 
+/* setPirateRole lets the user mutate the Pirate ROle 
+
+@param PirateRole is the new mutated PirateRole
+@return void
+
+*/
+
     public void setPirateRole(String PirateRole)
     {
         this.PirateRole= PirateRole;
     }
+
+/* setisCaptain lets the user mutate the Captain Boolean Value 
+
+@param isCaptain is the new mutated isCaptain
+@return void
+
+*/
+
 
     public void setisCaptain(boolean isCaptain)
     {
         this.isCaptain= isCaptain;
     }
 
+/* setPirateCrew lets the user mutate the Pirate Crew 
+
+@param pirateCrew is the new mutated Pirate Crew
+@return void
+
+*/
+
     public void setPirateCrew(PirateCrew pirateCrew)
     {
         this.pirateCrew= pirateCrew;
     }
 
-    // Below are the getters
+/* getBounty lets the user access the Bounty
 
+@param none
+@return this.bounty
+
+*/
     public int getBounty()
     {
         return this.Bounty;
     }
 
+/* getBounty lets the user access the Bounty
+
+@param none
+@return this.bounty
+
+*/
     public String getPirateRole()
     {
         return this.PirateRole;
     }
 
+
+/* getisCaptain lets the user access the boolean value of captain
+
+@param none
+@return this.isCaptain
+
+*/
     public boolean getisCaptain()
     {
         return this.isCaptain;
     }
+/* getPirateCrew lets the user access the pirate crew
 
+@param none
+@return this.pirateCrew
+
+*/
     public PirateCrew getPirateCrew()
     {
         return this.pirateCrew;
     }
 
 
-//methods
+/* ModifyBounty lets the user modify the current Bounty
+
+@param amount
+@return void
+@throw Illegal argument exception if the user inputs a negative value
+
+*/
 
 
     public void ModifyBounty(int amount)
@@ -98,17 +148,22 @@ public class Pirate extends Character{
 
     }
 
+/* The method displays the attributes of the Pirate
 
-// This method displays the attributes of the Pirate
+@param None
+@return void
 
+*/
 @Override
     public void DisplayProfile()
     {
+    // call the Character class display profile method
        super.DisplayProfile();
        System.out.println("Bounty: " + getBounty());
        System.out.println("Pirate Role: " + getPirateRole());
 
-       
+    // if the Pirate belongs to a Pirate Crew, display the Crew Name, else, set it as None
+
 
        if (getPirateCrew() != null)
        {
