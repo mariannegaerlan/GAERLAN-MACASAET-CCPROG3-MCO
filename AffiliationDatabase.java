@@ -20,11 +20,11 @@ public class AffiliationDatabase {
     }
 
 
-/* addPirateCrew lets the user add a new pirate crew to the system
-
-@param crew
-@return void
-@throw Illegal argument exception if the user tries to add an already existing crew
+/** addPirateCrew lets the user add a new pirate crew to the system
+*
+* @param crew
+* @return void
+* @throws Illegalargument exception if the user tries to add an already existing crew
 
 */   
     public void addPirateCrew(PirateCrew crew)
@@ -39,10 +39,10 @@ public class AffiliationDatabase {
 
     }
 
-/* getCrew lets the user access a crew using its ID
-
-@param crewID
-@return pirateCrew
+/**  getCrew lets the user access a crew using its ID
+*
+*@param crewID
+*@return pirateCrew
 
 */ 
 
@@ -53,10 +53,10 @@ public class AffiliationDatabase {
         return pirateCrew;
     }
 
-/* removeCrew lets the user remove a  pirate crew from the system
-
-@param crewID
-@return void
+/** removeCrew lets the user remove a  pirate crew from the system
+*
+*@param crewID
+*@return void
 
 */   
     public void removeCrew (int crewID)
@@ -66,10 +66,10 @@ public class AffiliationDatabase {
     }
 
 
-/* displayCrews display the list of crews existing in the system
-
-@param none
-@return none
+/** displayCrews display the list of crews existing in the system
+*
+*@param none
+*@return none
 
 */   
     public void displayCrews()
@@ -86,10 +86,10 @@ public class AffiliationDatabase {
             System.out.println("----------------------------");
         }
     }
-/* getCrewMap lets the user access the crew hashmap
-
-@param none
-@return crewMap
+/**  getCrewMap lets the user access the crew hashmap
+*
+*@param none
+*@return crewMap
 
 */   
 
@@ -98,11 +98,11 @@ public class AffiliationDatabase {
         return crewMap;
     }
 
-/* addMarineCorp lets the user add a new marine corp to the system
-
-@param corps
-@return void
-@throw Illegal argument exception if the user tries to add an already existing corp
+/** addMarineCorp lets the user add a new marine corp to the system
+*
+*@param corps
+*@return void
+*@throw Illegal argument exception if the user tries to add an already existing corp
 
 */   
 
@@ -118,10 +118,10 @@ public class AffiliationDatabase {
 
     }
 
-/* getCorps lets the user access a corp using its ID
-
-@param corpsID
-@return marineCorps
+/** getCorps lets the user access a corp using its ID
+*
+*@param corpsID
+*@return marineCorps
 
 */ 
 
@@ -133,20 +133,20 @@ public class AffiliationDatabase {
     }
 
 
-/* getCrewMap lets the user access the corp hashmap
-
-@param none
-@return corpMap
+/** getCrewMap lets the user access the corp hashmap
+*
+*@param none
+*@return corpMap
 
 */ 
     public Map<Integer, MarineCorps> getCorpsMap(){
         return corpMap;
     }
 
-/* removeCorps lets the user remove a marine corp from the system
-
-@param corpsID
-@return void
+/**  removeCorps lets the user remove a marine corp from the system
+*
+*@param corpsID
+*@return void
 
 */   
 
@@ -156,10 +156,10 @@ public class AffiliationDatabase {
         System.out.println(removedMarineCorps.getcorpsName() + " has been removed.");
     }
 
-/* displayCorps display the list of corps existing in the system
-
-@param none
-@return void
+/**  displayCorps display the list of corps existing in the system
+*
+*@param none
+*@return void
 
 */ 
 

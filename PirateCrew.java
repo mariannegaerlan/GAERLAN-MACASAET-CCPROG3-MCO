@@ -28,10 +28,10 @@ public class PirateCrew {
         this.totalBounty = 0;
     }
 
-/* setCrewName lets the user mutate crew name
-
-@param crewName
-@return void
+/** setCrewName lets the user mutate crew name
+*
+*@param crewName
+*@return void
 
 */   
 
@@ -39,20 +39,20 @@ public class PirateCrew {
     {
         this.crewName= crewName;
     }
-/* setShipName lets the user mutate ship name
-
-@param shipName
-@return void
+/** setShipName lets the user mutate ship name
+*
+*@param shipName
+*@return void
 
 */   
     public void setShipName(String shipName)
     {
         this.shipName = shipName;
     }
-/* setCaptain lets the user mutate captain
-
-@param captain
-@return void
+/** setCaptain lets the user mutate captain
+*
+*@param captain
+*@return void
 
 */   
     public void setCaptain(Pirate captain)
@@ -62,40 +62,41 @@ public class PirateCrew {
     
 
 
-/* getCrewID lets the user access the ID of the crew
 
-@param none
-@return this.crewID
+/** getCrewID lets the user access the ID of the crew
+*
+*@param none
+*@return this.crewID
 
 */  
     public int getCrewID()
     {
         return this.crewID;
     }
-/* getCrewName lets the user access the name of the crew
-
-@param none
-@return this.crewName
+/** getCrewName lets the user access the name of the crew
+*
+*@param none
+*@return this.crewName
 
 */   
     public String getCrewName()
     {
         return this.crewName;
     }
-/* getShipName lets the user access the ship name  of the crew
-
-@param none
-@return this.shipName
+/** getShipName lets the user access the ship name  of the crew
+*
+*@param none
+*@return this.shipName
 
 */   
     public String getShipName()
     {
         return this.shipName;
     }
-/* getCaptain lets the user access the captain of the crew
-
-@param none
-@return this.captain
+/** getCaptain lets the user access the captain of the crew
+*
+*@param none
+*@return this.captain
 
 */   
     public Pirate getCaptain()
@@ -103,39 +104,53 @@ public class PirateCrew {
         return this.captain;
     }
 
-/* getTotalBounty lets the user access the total bounty of the crew
-
-@param none
-@return this.totalBounty
+/** getTotalBounty lets the user access the total bounty of the crew
+*
+*@param none
+*@return this.totalBounty
 
 */   
     public int getTotalBounty()
     {
-        this.totalBounty=0;
+        int total=0;
 
         for(Pirate crew : crewMembers){
+
             this.totalBounty += crew.getBounty();
+
         }
 
-        return this.totalBounty;
+        return total;
     }
 
-/* getPirates lets the user access the list of members of the crew
-
-@param none
-@return this.crewMembers
+/** getPirates lets the user access the list of members of the crew
+*
+*@param none
+*@return this.crewMembers
 
 */   
     public List<Pirate> getPirates()
     {
         return this.crewMembers;
     }
+    
+/** modifyCrewBounty lets the user modify the crews total bounty
+*
+*@param pirate
+*@return void
 
+*/   
 
-/* The method views the members of the Pirate Crew
+    public void modifyCrewBounty(Pirate pirate)
+    {
+        this.totalBounty -= pirate.getBounty();
+        
+    }
 
-@param none
-@return void
+/** The method views the members of the Pirate Crew
+*
+*@param none
+*@return void
 
 */
     public void viewList()
@@ -148,10 +163,10 @@ public class PirateCrew {
     }
     
 
-/* The method views the attributes of the Pirate Group
-
-@param none
-@return void
+/** The method views the attributes of the Pirate Group
+*
+*@param none
+*@return void
 
 */
     public void viewPirateGroup()
@@ -186,11 +201,11 @@ public class PirateCrew {
 
     }
 
-/* The method recruit a member to the Crew
-
-@param newMember that you want to add
-@return void
-@throw Illegal Argument Exception if the member already exists and Null Pointer Exception if the member already belongs to the other crew
+/** The method recruit a member to the Crew
+*
+*@param newMember that you want to add
+*@return void
+*@throw Illegal Argument Exception if the member already exists and Null Pointer Exception if the member already belongs to the other crew
 
 */
 
@@ -221,10 +236,10 @@ public class PirateCrew {
         System.out.println("Welcome to the Crew, " + newMember.getName() + "!");
     }
 
-/* The method removes a member from the Crew
-
-@param member that you want to remove
-@return void
+/** The method removes a member from the Crew
+*
+*@param member that you want to remove
+*@return void
 
 */
     public void removeCrewMember(Pirate member)
@@ -235,3 +250,5 @@ public class PirateCrew {
     }
     
 }
+
+

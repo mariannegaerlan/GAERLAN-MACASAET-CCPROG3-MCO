@@ -28,10 +28,10 @@ public class MarineCorps
         this.operationalFunds = operationalFunds;
     }
 
-/* setBaseLocation lets the user mutate the base location
-
-@param baseLocation
-@return void
+/** setBaseLocation lets the user mutate the base location
+*
+*@param baseLocation
+*@return void
 
 */   
 
@@ -40,10 +40,10 @@ public class MarineCorps
         this.baseLocation = baseLocation;
     }
 
-/* setCorpsCommander lets the user mutate the corps commander
-
-@param corpsCommander
-@return void
+/** setCorpsCommander lets the user mutate the corps commander
+*
+*@param corpsCommander
+*@return void
 
 */   
 
@@ -53,10 +53,10 @@ public class MarineCorps
     }
 
 
-/* setcorpsName lets the user mutate the name of the corps
-
-@param corpsName
-@return void
+/** setcorpsName lets the user mutate the name of the corps
+*
+*@param corpsName
+*@return void
 
 */   
 
@@ -66,10 +66,10 @@ public class MarineCorps
     }
 
 
-/* setOperationalFunds lets the user mutate the amount of operational funds
-
-@param operationalFunds
-@return void
+/** setOperationalFunds lets the user mutate the amount of operational funds
+*
+*@param operationalFunds
+*@return void
 
 */   
     public void setOperationalFunds (int operationalFunds)
@@ -78,10 +78,10 @@ public class MarineCorps
             this.operationalFunds = operationalFunds;
     }
 
-/* getCorpsID lets the user access the ID of the corp
-
-@param none
-@return this.corpsID
+/** getCorpsID lets the user access the ID of the corp
+*
+*@param none
+*@return this.corpsID
 
 */   
 
@@ -91,10 +91,10 @@ public class MarineCorps
     }
 
 
-/* getBaseLocation lets the user access the location of the corp
-
-@param none
-@return this.baseLocation
+/** getBaseLocation lets the user access the location of the corp
+*
+*@param none
+*@return this.baseLocation
 
 */   
 
@@ -103,10 +103,10 @@ public class MarineCorps
         return this.baseLocation;
     }
 
-/* getcorpsCommander lets the user access the commander of the corp
-
-@param none
-@return this.corpsCommander
+/** getcorpsCommander lets the user access the commander of the corp
+*
+*@param none
+*@return this.corpsCommander
 
 */   
 
@@ -115,10 +115,10 @@ public class MarineCorps
         return this.corpsCommander;
     }
 
-/* getcorpsName lets the user access the name of the corp
-
-@param none
-@return this.corpsName
+/** getcorpsName lets the user access the name of the corp
+*
+*@param none
+*@return this.corpsName
 
 */   
 
@@ -129,10 +129,10 @@ public class MarineCorps
     }
 
 
-/* getcorpsName lets the user access the funds of the corp
-
-@param none
-@return this.operationalFunds
+/** getcorpsName lets the user access the funds of the corp
+*
+*@param none
+*@return this.operationalFunds
 
 */   
 
@@ -143,10 +143,10 @@ public class MarineCorps
         return this.operationalFunds;
     }
 
-/* getMarines lets the user access the members of the corp
-
-@param none
-@return this.marineMembers
+/** getMarines lets the user access the members of the corp
+*
+*@param none
+*@return this.marineMembers
 
 */   
 
@@ -157,10 +157,10 @@ public class MarineCorps
     }
 
 
-/* The method views the members of the Marine Corp
-
-@param none
-@return void
+/** The method views the members of the Marine Corp
+*
+*@param none
+*@return void
 
 */
     public void viewList()
@@ -172,10 +172,10 @@ public class MarineCorps
     }
 
 
-/* The method views the attributes of the Marine Group
-
-@param none
-@return void
+/** The method views the attributes of the Marine Group
+*
+*@param none
+*@return void
 
 */
     public void viewMarineGroup()
@@ -207,11 +207,11 @@ public class MarineCorps
         }
     }
 
-/* The method recruit a member to the Corp
-
-@param newMember that you want to add
-@return void
-@throw Illegal Argument Exception if the member already exists and Null Pointer Exception if the member already belongs to the other corp
+/** The method recruit a member to the Corp
+*
+*@param newMember that you want to add
+*@return void
+*@throw Illegal Argument Exception if the member already exists and Null Pointer Exception if the member already belongs to the other corp
 
 */
 
@@ -234,10 +234,10 @@ public class MarineCorps
         System.out.println("Welcome to the Corps, " + newMember.getName() + "!");
     }
 
-/* The method removes a member from the Corp
-
-@param member that you want to remove
-@return void
+/** The method removes a member from the Corp
+*
+*@param member that you want to remove
+*@return void
 
 */
     public void removeMarineMember(Marine member)

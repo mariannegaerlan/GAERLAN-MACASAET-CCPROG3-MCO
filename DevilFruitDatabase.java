@@ -16,10 +16,10 @@ public class DevilFruitDatabase {
     {
         this.dfMap = new HashMap<>();
     }
-/* getDFMap lets the user access the devil fruit hashmap
-
-@param none
-@return dfMap
+/** getDFMap lets the user access the devil fruit hashmap
+*
+*@param none
+*@return dfMap
 
 */ 
 
@@ -29,10 +29,11 @@ public class DevilFruitDatabase {
     }
 
 
-/* createDevilFruit lets the user create a new devil fruit
-
-@param devilFruit
-@return void
+/** createDevilFruit lets the user create a new devil fruit
+*
+*@param devilFruit
+*@return void
+*@throws IllegalArgumentException if the user inputs an already existing devil fruit
 
 */ 
 
@@ -47,10 +48,10 @@ public class DevilFruitDatabase {
         dfMap.put(devilFruit.getFruitId(), devilFruit);
 
     }
-/* getDevilFruit lets the user access the devil fruit
-
-@param fruitID
-@return devilFruit
+/** getDevilFruit lets the user access the devil fruit
+*
+*@param fruitID
+*@return devilFruit
 
 */ 
     public DevilFruit getDevilFruit(int fruitID)
@@ -60,10 +61,10 @@ public class DevilFruitDatabase {
         return devilFruit;
     }
 
-/* assignFruitToUSer display calls the devil fruit (based on its ID)'s behavior to assign it to an existing character
-
-@param fruitID, character
-@return void
+/** assignFruitToUSer display calls the devil fruit (based on its ID)'s behavior to assign it to an existing character
+*
+*@param fruitID, character
+*@return void
 
 */ 
     public void assignFruitToUser(int fruitID, Character character)
@@ -74,10 +75,10 @@ public class DevilFruitDatabase {
         devilFruit.assignUser(character); 
 
     }
-/* viewDevilFruit displays the specific information about the fruit
-
-@param fruitID
-@return void
+/** viewDevilFruit displays the specific information about the fruit
+*
+*@param fruitID
+*@return void
 
 */ 
 
@@ -115,10 +116,10 @@ public class DevilFruitDatabase {
 
     }
     
-/* displayFruits display the list of fruits existing in the system
-
-@param none
-@return void
+/** displayFruits display the list of fruits existing in the system
+*
+*@param none
+*@return void
 
 */ 
 

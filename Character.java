@@ -28,7 +28,7 @@ public abstract class Character {
         this.Name= Name;
         this.Alias= Alias;
         this.Origin = Origin;
-        this.Status = Status;
+        this.Status = "Alive";
         this.DFPower = null;
         this.Wallet = Wallet;
         this.Type = Type;

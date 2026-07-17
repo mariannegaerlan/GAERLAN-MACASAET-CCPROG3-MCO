@@ -28,10 +28,10 @@ public class DevilFruit
         this.historicalOwners = new ArrayList<>();
     }
 
-/* setCategory lets the user mutate the category
-
-@param category
-@return void
+/** setCategory lets the user mutate the category
+*
+*@param category
+*@return void
 
 */   
 
@@ -40,20 +40,20 @@ public class DevilFruit
     {
         this.category = category;
     }
-/* setPrimaryAbility lets the user mutate the primary Ability
-
-@param primaryAbility
-@return void
+/** setPrimaryAbility lets the user mutate the primary Ability
+*
+*@param primaryAbility
+*@return void
 
 */   
     public void setPrimaryAbility(String primaryAbility)
     {
         this.primaryAbility = primaryAbility;
     }
-/* setcurrentOwner lets the user mutate the current owner
-
-@param currentOwner
-@return void
+/** setcurrentOwner lets the user mutate the current owner
+*
+*@param currentOwner
+*@return void
 
 */   
     public void setcurrentOwner(Character currentOwner)
@@ -63,10 +63,10 @@ public class DevilFruit
 
 
 
-/* getFruitId lets the user access the ID of the fruit
-
-@param none
-@return fruitID
+/** getFruitId lets the user access the ID of the fruit
+*
+*@param none
+*@return fruitID
 
 */   
 
@@ -76,10 +76,10 @@ public class DevilFruit
         return fruitID;
     }
 
-/* getFruitName lets the user access the name of the fruit
-
-@param none
-@return fruitName
+/** getFruitName lets the user access the name of the fruit
+*
+*@param none
+*@return fruitName
 
 */   
 
@@ -88,40 +88,40 @@ public class DevilFruit
     {
         return fruitName;
     }
-/* getCategory lets the user access the category of the fruit
-
-@param none
-@return category
+/** getCategory lets the user access the category of the fruit
+*
+*@param none
+*@return category
 
 */   
     public String getCategory()
     {
         return category;
     }
-/* getPrimaryAbility lets the user access the ability of the fruit
-
-@param none
-@return primaryAbility
+/** getPrimaryAbility lets the user access the ability of the fruit
+*
+*@param none
+*@return primaryAbility
 
 */  
     public String getPrimaryAbility()
     {
         return primaryAbility;
     }
-/* getcurrentOwner lets the user access the owner of the fruit
-
-@param none
-@return currentOwner
+/** getcurrentOwner lets the user access the owner of the fruit
+*
+*@param none
+*@return currentOwner
 
 */  
     public Character getcurrentOwner()
     {
         return currentOwner;
     }
-/* getHistoricalOwners lets the user access the past owners of the fruit
-
-@param none
-@return historicalOwners
+/** getHistoricalOwners lets the user access the past owners of the fruit
+*
+*@param none
+*@return historicalOwners
 
 */  
     public List<Character> getHistoricalOwners()
@@ -129,10 +129,10 @@ public class DevilFruit
         return historicalOwners;
     }
 
-/* this method checks if the fruit was successfully assigned to a user
-
-@param newOwner
-@return true or false
+/** this method checks if the fruit was successfully assigned to a user
+*
+*@param newOwner
+*@return true or false
 
 */  
     
@@ -163,10 +163,10 @@ public class DevilFruit
 
     }
 
-/* this method releases the fruit to the world for availability after the owner is dead
-
-@param none
-@return void
+/** this method releases the fruit to the world for availability after the owner is dead
+*
+*@param none
+*@return void
 
 */  
     

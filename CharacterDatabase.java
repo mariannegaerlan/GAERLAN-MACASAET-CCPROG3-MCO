@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,6 +17,8 @@ public class CharacterDatabase {
     private final Map<Integer,PirateHunter> pirhunMap;
     private final Map<Integer,Civilian> civilianMap;
 
+    private final List<Character> deadCharacters = new ArrayList<>();
+
     public CharacterDatabase()
     {
         this.characterMap = new HashMap<>();
@@ -24,10 +28,15 @@ public class CharacterDatabase {
         this.civilianMap = new HashMap<>();
     }
 
-    /* getCharacterMap gets the Character Hash Map
+    public List<Character> getdeadCharacters()
+    {
+        return this.deadCharacters;
+    }
 
-    @param none
-    @return characterMap
+    /** getCharacterMap gets the Character Hash Map
+    * 
+    *@param none
+    *@return characterMap
 
     */   
     public Map<Integer, Character> getCharacterMap()
@@ -35,10 +44,10 @@ public class CharacterDatabase {
         return characterMap;
     }
 
-    /* getPirateMap gets the Pirate Map
-
-    @param none
-    @return pirateMap
+    /**  getPirateMap gets the Pirate Map
+    * 
+    *@param none
+    *@return pirateMap
 
     */  
 
@@ -47,10 +56,10 @@ public class CharacterDatabase {
         return pirateMap;
     }
 
-    /* getMarineMap gets the Marine Map
-
-    @param none
-    @return marineMap
+    /**  getMarineMap gets the Marine Map
+    * 
+    *@param none
+    *@return marineMap
 
     */  
 
@@ -59,10 +68,10 @@ public class CharacterDatabase {
         return marineMap;
     }
 
-    /* addCharacter adds a character to the map
-
-    @param Character
-    @return void
+    /** addCharacter adds a character to the map
+    * 
+    *@param Character
+    *@return void
 
     */  
 
@@ -81,10 +90,10 @@ public class CharacterDatabase {
 
     }
 
-    /* getMarineMap adds a Marine to the map
-
-    @param Marine
-    @return void
+    /** getMarineMap adds a Marine to the map
+    * 
+    *@param Marine
+    *@return void
 
     */  
 
@@ -103,10 +112,10 @@ public class CharacterDatabase {
 
     }
 
-    /* addPirate adds a Pirate to the map
-
-    @param Pirate
-    @return void
+    /** addPirate adds a Pirate to the map
+    * 
+    *@param Pirate
+    *@return void
 
     */  
 
@@ -125,10 +134,10 @@ public class CharacterDatabase {
 
     }
 
-    /* addPirateHunter adds a pirate hunter to the map
-
-    @param crewName
-    @return void
+    /** addPirateHunter adds a pirate hunter to the map
+    * 
+    *@param crewName
+    *@return void
 
     */  
 
@@ -147,10 +156,10 @@ public class CharacterDatabase {
 
     }
 
-    /* add Civilian adds a civilian to the map
-
-    @param Civilian
-    @return void
+    /** add Civilian adds a civilian to the map
+    * 
+    *@param Civilian
+    *@return void
 
     */  
 
@@ -169,10 +178,10 @@ public class CharacterDatabase {
 
     }
 
-    /* getCharacter gets the character
-
-    @param int characterID
-    @return Character
+    /** getCharacter gets the character
+    * 
+    *@param int characterID
+    *@return Character
 
     */  
 
@@ -183,10 +192,10 @@ public class CharacterDatabase {
         return character;
     }
 
-    /* getMarine gets the marine
-
-    @param int characterID
-    @return Marine
+    /** getMarine gets the marine
+    * 
+    *@param int characterID
+    *@return Marine
 
     */  
 
@@ -197,10 +206,10 @@ public class CharacterDatabase {
         return character;
     }
 
-    /* getPirate gets the pirate
-
-    @param int characterID
-    @return Pirate
+    /** getPirate gets the pirate
+    * 
+    *@param int characterID
+    *@return Pirate
 
     */  
 
@@ -211,23 +220,24 @@ public class CharacterDatabase {
         return character;
     }
 
-    /* removeCharacter removes a character
-
-    @param int characterID
-    @return void
+    /** removeCharacter removes a character
+    * 
+    *@param int characterID
+    *@return void
 
     */  
 
-    public void removeCharacter (int characterID)
+    public void removeCharacter (Character removedCharacter )
     {
-        characterMap.remove(characterID);
-        // System.out.println(removedCharacter.getName() + " has been removed.");
+        
+        deadCharacters.add(removedCharacter);
+        characterMap.remove(removedCharacter.getCharacterID());
     }
 
-    /* displayCharacters displays the list of characters
-
-    @param none
-    @return void
+    /** displayCharacters displays the list of characters
+    * 
+    *@param none
+    *@return void
 
     */  
 
@@ -243,10 +253,10 @@ public class CharacterDatabase {
         
     }
 
-    /* displayMarines displays the list of marines
-
-    @param none
-    @return void
+    /** displayMarines displays the list of marines
+    * 
+    *@param none
+    *@return void
 
     */  
 
@@ -260,10 +270,10 @@ public class CharacterDatabase {
         }
     }
 
-    /* displayPirates displays the list of pirates
-
-    @param none
-    @return void
+    /** displayPirates displays the list of pirates
+    * 
+    *@param none
+    *@return void
 
     */  
 
@@ -276,4 +286,28 @@ public class CharacterDatabase {
             System.out.println("----------------------------");
         }
     }
+
+/** displayDeadCharacter displays the list of dead characters
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+    public void displayDeadCharacter()
+    {
+        System.out.println("\n====== DEAD CHARACTERS ======");
+
+        if (deadCharacters.isEmpty())
+        {
+            System.out.println("No Characters Have Died or Have Been Deleted Yet.");
+            return;
+        }
+
+        for (Character c: deadCharacters)
+            {
+                System.out.println("ID: "+ c.getCharacterID() + "| Name: "+ c.getName());
+            }
+    }
+    
 }

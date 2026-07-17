@@ -24,11 +24,11 @@ public class Pirate extends Character{
 
     }
 
-/* setBounty lets the user mutate the Bounty 
-
-@param Bounty is the new mutated Bounty
-@return void
-@throw throws an Illegual Argument Exception if the user tries to input a negative value
+/** setBounty lets the user mutate the Bounty 
+*
+*@param Bounty is the new mutated Bounty
+*@return void
+*@throw throws an Illegual Argument Exception if the user tries to input a negative value
 
 */
     public void setBounty(int Bounty)
@@ -44,10 +44,10 @@ public class Pirate extends Character{
 
     }
 
-/* setPirateRole lets the user mutate the Pirate ROle 
-
-@param PirateRole is the new mutated PirateRole
-@return void
+/** setPirateRole lets the user mutate the Pirate ROle 
+*
+*@param PirateRole is the new mutated PirateRole
+*@return void
 
 */
 
@@ -56,10 +56,10 @@ public class Pirate extends Character{
         this.PirateRole= PirateRole;
     }
 
-/* setisCaptain lets the user mutate the Captain Boolean Value 
-
-@param isCaptain is the new mutated isCaptain
-@return void
+/** setisCaptain lets the user mutate the Captain Boolean Value 
+*
+*@param isCaptain is the new mutated isCaptain
+*@return void
 
 */
 
@@ -69,10 +69,10 @@ public class Pirate extends Character{
         this.isCaptain= isCaptain;
     }
 
-/* setPirateCrew lets the user mutate the Pirate Crew 
-
-@param pirateCrew is the new mutated Pirate Crew
-@return void
+/** setPirateCrew lets the user mutate the Pirate Crew 
+*
+*@param pirateCrew is the new mutated Pirate Crew
+*@return void
 
 */
 
@@ -81,10 +81,10 @@ public class Pirate extends Character{
         this.pirateCrew= pirateCrew;
     }
 
-/* getBounty lets the user access the Bounty
-
-@param none
-@return this.bounty
+/** getBounty lets the user access the Bounty
+*
+*@param none
+*@return this.bounty
 
 */
     public int getBounty()
@@ -92,10 +92,10 @@ public class Pirate extends Character{
         return this.Bounty;
     }
 
-/* getBounty lets the user access the Bounty
-
-@param none
-@return this.bounty
+/** getBounty lets the user access the Bounty
+*
+*@param none
+*@return this.bounty
 
 */
     public String getPirateRole()
@@ -104,20 +104,20 @@ public class Pirate extends Character{
     }
 
 
-/* getisCaptain lets the user access the boolean value of captain
-
-@param none
-@return this.isCaptain
+/** getisCaptain lets the user access the boolean value of captain
+*
+*@param none
+*@return this.isCaptain
 
 */
     public boolean getisCaptain()
     {
         return this.isCaptain;
     }
-/* getPirateCrew lets the user access the pirate crew
-
-@param none
-@return this.pirateCrew
+/** getPirateCrew lets the user access the pirate crew
+*
+*@param none
+*@return this.pirateCrew
 
 */
     public PirateCrew getPirateCrew()
@@ -126,11 +126,11 @@ public class Pirate extends Character{
     }
 
 
-/* ModifyBounty lets the user modify the current Bounty
-
-@param amount
-@return void
-@throw Illegal argument exception if the user inputs a negative value
+/** ModifyBounty lets the user modify the current Bounty
+*
+*@param amount
+*@return void
+*@throw Illegal argument exception if the user inputs a negative value
 
 */
 
@@ -148,10 +148,10 @@ public class Pirate extends Character{
 
     }
 
-/* The method displays the attributes of the Pirate
-
-@param None
-@return void
+/** The method displays the attributes of the Pirate
+*
+*@param None
+*@return void
 
 */
 @Override

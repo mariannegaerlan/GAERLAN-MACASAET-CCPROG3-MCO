@@ -22,10 +22,10 @@ public class Marine extends Character{
     }
 
 
-/* setRank enables the Rank attribute to be mutated
-
-@param Rank is the new mutated Rank
-@return void
+/** setRank enables the Rank attribute to be mutated
+*
+*@param Rank is the new mutated Rank
+*@return void
 
 */
     public void setRank( String Rank)
@@ -35,10 +35,10 @@ public class Marine extends Character{
 
 
 
-/* setmarineCorps enables the Marine Corp attribute to be mutated
-
-@param Rank is the new mutated Rank
-@return void
+/** setmarineCorps enables the Marine Corp attribute to be mutated
+*
+*@param Rank is the new mutated Rank
+*@return void
 
 */
 
@@ -48,10 +48,10 @@ public class Marine extends Character{
     }
 
 
-/* getRank lets the user have read access to the Rank attribute
-
-@param None
-@return this.rank
+/** getRank lets the user have read access to the Rank attribute
+*
+*@param None
+*@return this.rank
 
 */
 
@@ -61,10 +61,10 @@ public class Marine extends Character{
         return this.Rank;
     }
 
-/* getMarineCorps lets the user have read access to the Marine Corps attribute
-
-@param None
-@return MarineCorps
+/** getMarineCorps lets the user have read access to the Marine Corps attribute
+*
+*@param None
+*@return MarineCorps
 
 */
 
@@ -77,10 +77,10 @@ public class Marine extends Character{
 
 
 
-/* The method displays the attributes of the Marine
-
-@param None
-@return void
+/** The method displays the attributes of the Marine
+*
+*@param None
+*@return void
 
 */
 

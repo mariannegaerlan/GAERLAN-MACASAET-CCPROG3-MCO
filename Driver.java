@@ -31,10 +31,10 @@ public class Driver {
     private static String Profession;
     private static String Residence;
 
-/* The method is the main method of the program.
-
-@param none
-@return void
+/** The method is the main method of the program.
+*
+*@param none
+*@return void
 
 */
     public static void main(String[] args) {
@@ -52,10 +52,10 @@ public class Driver {
 
     }
 
-/* The method displays the main menu of the program.
-
-@param none
-@return void
+/** The method displays the main menu of the program.
+*
+*@param none
+*@return void
 
 */
 
@@ -105,10 +105,10 @@ public class Driver {
      
     }
 
-/* The method displays the menu for Character methods.
-
-@param none
-@return void
+/** The method displays the menu for Character methods.
+*
+*@param none
+*@return void
 
 */
 
@@ -124,7 +124,8 @@ public class Driver {
         System.out.println("[2] View Character");
         System.out.println("[3] Update Character");
         System.out.println("[4] Delete Character");
-        System.out.println("[5] Back to Main Menu");
+        System.out.println("[5] View Dead Characters");
+        System.out.println("[6] Back to Main Menu");
         System.out.print("Choice: ");
 
         if (scanner.hasNextInt())
@@ -148,14 +149,17 @@ public class Driver {
                 case 4:
                     deleteCharacter();
                     break;
-                case 5:
-                    Driver.displayMenu();
+
+                case 5: 
+                    viewDeletedCharacters();
                     break;
+                case 6:
+                    Driver.displayMenu();
+                    return;
                 default:
                     System.out.println("Invalid Choice. Please try again.");
                     return;
                 
-
             }
         } else {
             System.out.println("Invalid choice. Please pick again.");
@@ -344,16 +348,16 @@ public class Driver {
                 Alias = scanner.nextLine();
                 System.out.print("Enter Character Origin: ");
                 Origin = scanner.nextLine();
-                System.out.print("Enter Character Status: ");
-                Status = scanner.nextLine();
-                while(Status.equalsIgnoreCase("Dead"))
-                {
-                    System.out.println("Cannot create a DEAD Character.");
-                    scanner.nextLine();
-                    System.out.print("Enter Character Status: ");
-                    Status = scanner.nextLine();
+                // System.out.print("Enter Character Status: ");
+                // Status = scanner.nextLine();
+                // while(Status.equalsIgnoreCase("Dead"))
+                // {
+                //     System.out.println("Cannot create a DEAD Character.");
+                //     scanner.nextLine();
+                //     System.out.print("Enter Character Status: ");
+                //     Status = scanner.nextLine();
 
-                }
+                // }
                 System.out.print("Enter Character Wallet: ");
 
                while (!scanner.hasNextInt())
@@ -525,7 +529,7 @@ public class Driver {
             System.out.println("[1] Name");
             System.out.println("[2] Alias");
             System.out.println("[3] Origin");
-            System.out.println("[4] Status");
+            // System.out.println("[4] Status");
             System.out.println("[5] Wallet");
 
             if(character.getType().contains("Pirate")){
@@ -576,18 +580,18 @@ public class Driver {
                     System.out.println("Origin updated successfully.");
                     break;
                 case 4:
-                    System.out.print("Enter new Status: ");
-                    String newStatus = scanner.nextLine();
-                    while(newStatus.equalsIgnoreCase("Dead"))
-                        {
-                            System.out.println("Cannot create a DEAD Character.");
-                            scanner.nextLine();
-                            System.out.print("Enter Character Status: ");
-                            newStatus = scanner.nextLine();
+                    // System.out.print("Enter new Status: ");
+                    // String newStatus = scanner.nextLine();
+                    // while(newStatus.equalsIgnoreCase("Dead"))
+                    //     {
+                    //         System.out.println("Cannot create a DEAD Character.");
+                    //         scanner.nextLine();
+                    //         System.out.print("Enter Character Status: ");
+                    //         newStatus = scanner.nextLine();
 
-                        }
-                    character.setAlias(newStatus);
-                    System.out.println("Status updated successfully.");
+                    //     }
+                    // character.setAlias(newStatus);
+                    // System.out.println("Status updated successfully.");
                     break;
                 case 5: 
                     System.out.print("Enter new Wallet: ");
@@ -742,7 +746,7 @@ public class Driver {
                     character.setStatus("Dead");
                     character.getDFPower().triggerReincarnation();
                 }
-                characterDB.removeCharacter(characterID);   
+                characterDB.removeCharacter(character);   
             }
             else
             {
@@ -752,11 +756,25 @@ public class Driver {
             }
         } else {
             System.out.println("Invalid Choice.");
+            scanner.next();
             deleteCharacter();
             return;
         }
 
     }
+
+/* The method views the dead characters
+
+@param none
+@return void
+
+*/
+
+private static void viewDeletedCharacters()
+{
+
+}
+
 
 /* The method facilitates the creation of PirateCrew and MarineCorps objects.
 

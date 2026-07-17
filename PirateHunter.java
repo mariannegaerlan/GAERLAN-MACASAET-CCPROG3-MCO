@@ -23,10 +23,10 @@ public class PirateHunter extends Character{
     }
 
 
-/* setCombatStyle lets the user mutate CombatStyle
-
-@param CombatStyle
-@return void
+/** setCombatStyle lets the user mutate CombatStyle
+*
+*@param CombatStyle
+*@return void
 
 */   
 
@@ -34,10 +34,10 @@ public class PirateHunter extends Character{
     {
         this.CombatStyle = CombatStyle;
     }
-/* setConfirmedCaptures lets the user mutate Confirmed Captures
-
-@param ConfirmedCaptures
-@return void
+/** setConfirmedCaptures lets the user mutate Confirmed Captures
+*
+*@param ConfirmedCaptures
+*@return void
 
 */   
     public void setConfirmedCaptures(int ConfirmedCaptures)
@@ -45,10 +45,10 @@ public class PirateHunter extends Character{
         this.ConfirmedCaptures = ConfirmedCaptures;
     }
 
-/* getCombatStyle lets the user access the Combat Style
-
-@param none
-@return this.CombatStyle
+/** getCombatStyle lets the user access the Combat Style
+*
+*@param none
+*@return this.CombatStyle
 
 */   
 
@@ -57,10 +57,10 @@ public class PirateHunter extends Character{
         return this.CombatStyle;
     }
 
-/* getConfirmedCaptures lets the user access the Confirmed Captures
-
-@param none
-@return this.ConfirmedCaptures
+/** getConfirmedCaptures lets the user access the Confirmed Captures
+*
+*@param none
+*@return this.ConfirmedCaptures
 
 */   
 
@@ -69,10 +69,10 @@ public class PirateHunter extends Character{
         return this.ConfirmedCaptures;
     }
 
-/* The method displays the attributes of the Pirate Hunter
-
-@param None
-@return void
+/** The method displays the attributes of the Pirate Hunter
+*
+*@param None
+*@return void
 
 */
 @Override

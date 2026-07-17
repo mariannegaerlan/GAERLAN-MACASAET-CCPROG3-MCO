@@ -20,10 +20,10 @@ public class Civilian extends Character{
     }
     
 
-/* setProfession lets the user mutate the Profession
-
-@param Profession
-@return void
+/** setProfession lets the user mutate the Profession
+*
+*@param Profession
+*@return void
 
 */   
 public void setProfession( String Profession)
@@ -31,10 +31,10 @@ public void setProfession( String Profession)
         this.Profession = Profession;
     }
 
-/* setResidence lets the user mutate the Residence
-
-@param Residence
-@return void
+/** setResidence lets the user mutate the Residence
+*
+*@param Residence
+*@return void
 
 */   
 
@@ -43,10 +43,10 @@ public void setProfession( String Profession)
         this.Residence = Residence;
     }
 
-/* getProfession lets the user access the Profession
-
-@param none
-@return this.Profession
+/** getProfession lets the user access the Profession
+*
+*@param none
+*@return this.Profession
 
 */   
     public String getProfession()
@@ -55,10 +55,10 @@ public void setProfession( String Profession)
     }
 
 
-/* getProfession lets the user access the Residence
-
-@param none
-@return this.Residence
+/** getProfession lets the user access the Residence
+*
+*@param none
+*@return this.Residence
 
 */   
 
@@ -68,10 +68,10 @@ public void setProfession( String Profession)
     }
 
 
-/* The method displays the attributes of the Civilian
-
-@param None
-@return void
+/** The method displays the attributes of the Civilian
+*
+*@param None
+*@return void
 
 */
 @Override
