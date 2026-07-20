@@ -4,7 +4,7 @@
  * Contributed by: Marianne Gaerlan
 */
 
-public class Civilian extends Character{
+public class Civilian extends Character implements Captor{
 
     private String Profession; // This is the profession of the Civilian
     private String Residence; // This is the Residence of the Civilian
@@ -82,4 +82,18 @@ public void setProfession( String Profession)
        System.out.println("Profession: " + getProfession());
        System.out.println("Residence: " +getResidence());
     }
+
+
+/** The method lets the Civilian capture the Pirate
+*
+*@param bounty
+*@return void
+
+*/
+@Override
+ public void claimBounty(int bounty)
+ {
+          this.setWallet(this.getWallet()+ bounty);
+ }
+
 }

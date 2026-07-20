@@ -6,7 +6,7 @@
 
 
 
-public class Marine extends Character{
+public class Marine extends Character implements Captor{
 
     private String Rank; // This is the Rank of the Marine
     private MarineCorps marineCorps; // This is the corp where the Marine belongs to
@@ -103,4 +103,23 @@ public class Marine extends Character{
 
     }
 
+/** The method lets the Marine capture the Pirate
+*
+*@param bounty
+*@return void
+
+*/
+@Override
+ public void claimBounty(int bounty)
+ {
+          if (this.getMarineCorps()!=null)
+            {
+            this.getMarineCorps().setOperationalFunds(this.getMarineCorps().getOperationalFunds() + bounty);
+
+            }
+            else
+            {
+                this.setWallet(this.getWallet() + bounty);
+            }
+ }
 }

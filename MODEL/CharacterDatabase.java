@@ -178,6 +178,8 @@ public class CharacterDatabase {
 
     }
 
+
+
     /** getCharacter gets the character
     * 
     *@param int characterID
@@ -229,7 +231,11 @@ public class CharacterDatabase {
 
     public void removeCharacter (Character removedCharacter )
     {
-        
+        removedCharacter.setStatus("Dead");
+        if (removedCharacter.getDFPower()!= null)
+        {
+        removedCharacter.getDFPower().triggerReincarnation();
+        }
         deadCharacters.add(removedCharacter);
         characterMap.remove(removedCharacter.getCharacterID());
     }

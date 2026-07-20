@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class BountyDatabase {
 
-    private final Map<Integer,Bounty> bountyMap;
+    private final Map<Integer,PirateBounty> bountyMap;
     
     public BountyDatabase()
     {
@@ -18,12 +18,12 @@ public class BountyDatabase {
     }
 
 
-    public Map<Integer,Bounty> getBountyMap()
+    public Map<Integer,PirateBounty> getBountyMap()
     {
         return this.bountyMap;
     }
 
-    public void registerCapture(Bounty bounty)
+    public void registerCapture(PirateBounty bounty)
     {
         if (bountyMap.containsKey(bounty.getCaptureID()))
         {
@@ -37,9 +37,14 @@ public class BountyDatabase {
     {
         System.out.println("=== HISTORICAL CAPTURE RECORDS ===");
 
-        for (Bounty b: bountyMap.values())
+        for (PirateBounty b: bountyMap.values())
             {
-                System.out.println("ID: "+ b.getCaptureID() + "| Captor: " + b.getCaptor().getAlias() + "| Captured: " + b.getCapturedPirate().getName());
+                for (String logs: b.getBountyHistory())
+                {
+
+
+                System.out.println("ID: "+ b.getCaptureID() + logs);
+                }
             }
     }
     

@@ -7,18 +7,17 @@
 
 
 
-public class PirateHunter extends Character{
+public class PirateHunter extends Character implements Captor{
 
     private String CombatStyle; // This is the combat style of the hunter
     private int ConfirmedCaptures; // this is the number of captures by the hunter
     
 
     // This is the pirate hunter constructor
-    public PirateHunter(String Name, String Alias, String Origin, String Status, int Wallet, String CombatStyle, int ConfirmedCaptures)
+    public PirateHunter(String Name, String Alias, String Origin, String Status, int Wallet, String CombatStyle)
     {
         super(Name, Alias, Origin, Status, Wallet, "Pirate Hunter");
         this.CombatStyle = CombatStyle;
-        this.ConfirmedCaptures = ConfirmedCaptures;
 
     }
 
@@ -34,15 +33,15 @@ public class PirateHunter extends Character{
     {
         this.CombatStyle = CombatStyle;
     }
-/** setConfirmedCaptures lets the user mutate Confirmed Captures
+/** incrementConfirmedCaptures increments the number of captures
 *
 *@param ConfirmedCaptures
 *@return void
 
 */   
-    public void setConfirmedCaptures(int ConfirmedCaptures)
+    public void incrementConfirmedCaptures()
     {
-        this.ConfirmedCaptures = ConfirmedCaptures;
+        this.ConfirmedCaptures++;
     }
 
 /** getCombatStyle lets the user access the Combat Style
@@ -81,7 +80,30 @@ public class PirateHunter extends Character{
     // call the Character class display profile method
        super.DisplayProfile();
        System.out.println("Combat Style: " + getCombatStyle());
+       if (this.getConfirmedCaptures()!= 0)
+    {
        System.out.println("Confirmed Captures: " + getConfirmedCaptures());
+
+    }
+    else
+    {
+       System.out.println("Confirmed Captures: None");
+
+    }
     
     }
+
+/** The method lets the Pirate Hunter capture the Pirate
+*
+*@param bounty
+*@return void
+
+*/
+@Override
+ public void claimBounty(int bounty)
+ {
+    this.incrementConfirmedCaptures();
+    this.setWallet(this.getWallet()+ bounty);
+ }
+ 
 }
