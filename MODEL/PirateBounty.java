@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 
-public class Bounty {
+public class PirateBounty {
 
     private final int captureID;
     private static int count= 0;
@@ -16,14 +16,22 @@ public class Bounty {
     private Character captor;
 
 
-    Bounty()
+    public PirateBounty()
     {
         this.captureID = ++count;
 
     }
 
+    public void setCaptured(Character captured)
+    {
+        this.capturedPirate = (Pirate) captured;
+    }
 
-    
+    public void setCaptor(Character captor)
+    {
+        this.captor = captor;
+    }
+
     public int getCaptureID()
     {
         return this.captureID;
@@ -47,17 +55,13 @@ public class Bounty {
 
 /** validCaptor checks if the captor is able to cash in the bounty
 *
-*@param none
+*@param Character captor
 *@return boolean
 */
-    public boolean validateCaptor()
+    public static boolean validateCaptor(Character captor)
     {
 
-        if (captor.getType().equals("Marine") || captor.getType().equals("PirateHunter") || captor.getType().equals("Civilian") )
-        {
-            return true;
-        }
-        return false;
+        return captor instanceof Captor;
 
     }
 
@@ -71,12 +75,17 @@ public class Bounty {
     {
         PirateCrew crew = capturedPirate.getPirateCrew();
 
-        crew.getTotalBounty();
+
 
         if (capturedPirate.getStatus().equalsIgnoreCase("Alive"))
         {
         capturedPirate.setStatus("Captured");
+
+        if (crew!=null)
+        {
         crew.modifyCrewBounty(capturedPirate);
+
+        }
 
 
         }
@@ -84,8 +93,16 @@ public class Bounty {
 
         if  (capturedPirate.getStatus().equalsIgnoreCase("Dead"))
         {
-        capturedPirate.getDFPower().triggerReincarnation();
-        crew.removeCrewMember(capturedPirate);
+            if (capturedPirate.getDFPower() !=null)
+            {
+            capturedPirate.getDFPower().triggerReincarnation();
+
+            }
+            if (crew!=null)
+            {
+            crew.removeCrewMember(capturedPirate);
+
+            }
         capturedPirate.setBounty(0);
         }
 
@@ -100,36 +117,11 @@ public class Bounty {
 
     public void routeFinancialRewards()
     {
-
-        if (captor instanceof Marine)
+        if (captor instanceof Captor)
         {
-            Marine marine = (Marine) captor;
-            MarineCorps corps = marine.getMarineCorps();
-
-            corps.setOperationalFunds(corps.getOperationalFunds() + capturedPirate.getBounty());
-
+            Captor c = (Captor) captor;
+            c.claimBounty(capturedPirate.getBounty());
         }
-        else if (captor instanceof PirateHunter)
-        {
-            PirateHunter hunter = (PirateHunter) captor;
-
-            hunter.setWallet(hunter.getWallet()+ capturedPirate.getBounty());
-
-        }
-        else if (captor instanceof Civilian)
-        {
-            Civilian civilian = (Civilian) captor;
-
-            civilian.setWallet(civilian.getWallet()+ capturedPirate.getBounty());            
-        }
-        else
-        {
-            System.out.println(" A Pirate cannot capture another Pirate.");
-            return;
-        }
-        
-        
-
     }
 
 /** logTransaction logs the capture 
@@ -140,8 +132,8 @@ public class Bounty {
 
     public void logTransaction()
     {
-
-        bountyHistory.add(captor.getName() + "has captured" + capturedPirate.getName());
+        bountyHistory.add(" | Captor: " + this.getCaptor().getAlias() + " | Captured: " + this.getCapturedPirate().getName());
+        System.out.println(captor.getName() + " has captured " + capturedPirate.getName());
         
     }
     
