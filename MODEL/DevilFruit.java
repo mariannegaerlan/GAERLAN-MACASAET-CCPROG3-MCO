@@ -184,6 +184,18 @@ public class DevilFruit
     }
 
 
+     public String FileFormat()
+     {
+
+        ArrayList<String> ownerNames = new ArrayList<>();
+        for (Character o: historicalOwners)
+        {
+            ownerNames.add(o.getName());
+        }
+        String members = String.join(",", ownerNames);
+        return "DEVIL FRUIT: " + getCategory() + "| ID: " + getFruitId() + "| FRUIT NAME: " + getFruitName() + "| ABILITY" + getPrimaryAbility() + "| CURRENT OWNER: " + getcurrentOwner()  + "| MEMBERS: " + members;
+
+     }
 
 
 }

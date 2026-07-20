@@ -138,6 +138,6 @@ public abstract class Character {
         System.out.println("Class: "+getType());
     }
 
-
+    public abstract String FileFormat();
 
 }

@@ -2,7 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 /**
  * This class is the CharacterDatabase class to store the information about Character objects
  * Contributed by: Marianne Gaerlan and Marco Macasaet
@@ -87,6 +90,7 @@ public class CharacterDatabase {
         }
 
         characterMap.put(character.getCharacterID(), character);
+        saveCharacterToFile(character);
 
     }
 
@@ -314,6 +318,30 @@ public class CharacterDatabase {
             {
                 System.out.println("ID: "+ c.getCharacterID() + "| Name: "+ c.getName());
             }
+    }
+    
+
+
+    public static void saveCharacterToFile(Character character)
+    {
+        if (character == null)
+        {
+            return;
+        }
+
+        try (FileWriter writer = new FileWriter ("CharacterList.txt", true))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+
+            pWriter.println(character.FileFormat());
+            // System.out.println("Character " + character.getName() + " successfully saved!");
+            
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
     }
     
 }

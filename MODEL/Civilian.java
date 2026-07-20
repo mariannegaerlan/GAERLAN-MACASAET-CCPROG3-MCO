@@ -96,4 +96,13 @@ public void setProfession( String Profession)
           this.setWallet(this.getWallet()+ bounty);
  }
 
+
+    @Override
+     public String FileFormat()
+     {
+
+        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet()  + "| PROFESSION: " + getProfession() + "| RESIDENCE: " + getResidence();
+
+     }
 }

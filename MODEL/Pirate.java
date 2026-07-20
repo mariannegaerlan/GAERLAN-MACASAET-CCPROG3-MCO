@@ -178,4 +178,21 @@ public class Pirate extends Character{
     
     }
 
+    @Override
+     public String FileFormat()
+     {
+        if (this.getPirateCrew()!=null)
+        {
+        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| BOUNTY: " + getBounty() + "| CREW: "
+        + getPirateCrew();
+        }
+        else
+        {
+        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| BOUNTY: " + getBounty();
+        }
+
+     }
+
 }

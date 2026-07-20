@@ -122,4 +122,20 @@ public class Marine extends Character implements Captor{
                 this.setWallet(this.getWallet() + bounty);
             }
  }
+
+    @Override
+     public String FileFormat()
+     {
+        if (this.getMarineCorps()!= null)
+        {
+        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| RANK: " + getRank() + "| CORP: " + getMarineCorps();
+
+        }
+        else
+        {
+        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| RANK: " + getRank();
+        }
+     }
 }

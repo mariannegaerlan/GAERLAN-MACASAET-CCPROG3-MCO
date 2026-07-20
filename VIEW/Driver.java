@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.io.File;
 import java.io.IOException;
 
 
@@ -22,7 +21,6 @@ public class Driver {
     private static boolean isCaptain;
 
     private static String CombatStyle;
-    private static int ConfirmedCaptures;
 
     private static String Rank;
 

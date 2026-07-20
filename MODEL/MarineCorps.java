@@ -247,4 +247,17 @@ public class MarineCorps
         System.out.println(member.getName() + " is no longer in the corps.");
     }
 
+
+     public String FileFormat()
+     {
+
+        ArrayList<String> memberNames = new ArrayList<>();
+        for (Marine m: marineMembers)
+        {
+            memberNames.add(m.getName());
+        }
+        String members = String.join(",", memberNames);
+        return "AFFILIATION: MARINE CORP | ID: " + getCorpsID() + "| CORP NAME: " + getcorpsName() + "| OPERATIONAL FUNDS: " + getOperationalFunds() + "| BASE LOCATION: " + getBaseLocation() + "| MEMBERS: " + members;
+
+     }
 }

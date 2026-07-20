@@ -249,7 +249,19 @@ public class PirateCrew {
         System.out.println(member.getName() + " is no longer in the crew.");
     }
 
+     public String FileFormat()
+     {
 
+        ArrayList<String> memberNames = new ArrayList<>();
+        for (Pirate p: crewMembers)
+        {
+            memberNames.add(p.getName());
+        }
+        String members = String.join(",", memberNames);
+        return "AFFILIATION: PIRATE CREW | ID: " + getCrewID() + "| CREW NAME: " + getCrewName() + "| SHIP NAME" + getShipName() + "| TOTAL BOUNTY: " + getTotalBounty() + "| CAPTAIN: " + getCaptain() + "| MEMBERS: " + members;
+
+     }
 }
+
 
 
