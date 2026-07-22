@@ -126,16 +126,8 @@ public class Marine extends Character implements Captor{
     @Override
      public String FileFormat()
      {
-        if (this.getMarineCorps()!= null)
-        {
-        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
-        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| RANK: " + getRank() + "| CORP: " + getMarineCorps();
-
-        }
-        else
-        {
-        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
-        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| RANK: " + getRank();
-        }
+        return "ROLE: MARINE | ID: " + getCharacterID() + " | NAME: " + getName() + " | ALIAS: " + getAlias() + " | ORIGIN: " + getOrigin()
+                + " | STATUS: " + getStatus() + " | WALLET: " + getWallet() + " | RANK: " + getRank()
+                + " | CORP: " + (getMarineCorps() != null ? getMarineCorps() : "NONE") + "| DEVIL FRUIT: " + getDFPower() == null ? "NONE" : (getDFPower().getFruitName());
      }
 }

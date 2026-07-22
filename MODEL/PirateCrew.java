@@ -253,13 +253,19 @@ public class PirateCrew {
      {
 
         ArrayList<String> memberNames = new ArrayList<>();
-        for (Pirate p: crewMembers)
+
+      for (Pirate p: crewMembers)
         {
             memberNames.add(p.getName());
         }
         String members = String.join(",", memberNames);
-        return "AFFILIATION: PIRATE CREW | ID: " + getCrewID() + "| CREW NAME: " + getCrewName() + "| SHIP NAME" + getShipName() + "| TOTAL BOUNTY: " + getTotalBounty() + "| CAPTAIN: " + getCaptain() + "| MEMBERS: " + members;
-
+        return "AFFILIATION: PIRATE CREW | ID: " + getCrewID() + 
+        "| CREW NAME: " + getCrewName() + 
+        "| SHIP NAME: " + getShipName() +
+         "| TOTAL BOUNTY: " + getTotalBounty() +
+          "| CAPTAIN: " + (getCaptain() == null ? "NONE": getCaptain().getName()) +
+           "| MEMBERS: " + (getPirates() == null ||getPirates().isEmpty() ? "NONE": members);
+  
      }
 }
 

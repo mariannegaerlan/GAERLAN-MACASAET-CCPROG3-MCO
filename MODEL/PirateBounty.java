@@ -136,5 +136,12 @@ public class PirateBounty {
         System.out.println(captor.getName() + " has captured " + capturedPirate.getName());
         
     }
-    
+
+    public String FileFormat()
+     {
+
+        return "| ID: " + getCaptureID() + "| CAPTOR: " + this.getCaptor().getAlias() + "| CAPTURED: " + this.getCapturedPirate().getName();
+
+     }
+
 }

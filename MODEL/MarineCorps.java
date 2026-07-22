@@ -20,12 +20,11 @@ public class MarineCorps
 
     // This is the Marine Corp constructor
 
-    MarineCorps(String baseLocation, String corpsName, int operationalFunds)
+    MarineCorps(String baseLocation, String corpsName)
     {
         this.corpsID = ++count;
         this.baseLocation = baseLocation;
         this.corpsName = corpsName;
-        this.operationalFunds = operationalFunds;
     }
 
 /** setBaseLocation lets the user mutate the base location
@@ -257,7 +256,12 @@ public class MarineCorps
             memberNames.add(m.getName());
         }
         String members = String.join(",", memberNames);
-        return "AFFILIATION: MARINE CORP | ID: " + getCorpsID() + "| CORP NAME: " + getcorpsName() + "| OPERATIONAL FUNDS: " + getOperationalFunds() + "| BASE LOCATION: " + getBaseLocation() + "| MEMBERS: " + members;
-
+   
+        return "AFFILIATION: MARINE CORP | ID: " + getCorpsID() + 
+        "| CORP NAME: " + getcorpsName() + 
+        "| OPERATIONAL FUNDS: " + getOperationalFunds() +
+         "| BASE LOCATION: " + getBaseLocation() +
+          "| COMMANDER: " + (getcorpsCommander() == null ? "NONE": getcorpsCommander().getName()) +
+           "| MEMBERS: " + (getMarines() == null ||getMarines().isEmpty() ? "NONE": members);
      }
 }

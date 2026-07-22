@@ -112,7 +112,8 @@ public class Driver {
         System.out.println("[2] View Character");
         System.out.println("[3] Update Character");
         System.out.println("[4] Delete Character");
-        System.out.println("[5] Back to Main Menu");
+        System.out.println("[5] View Dead Characters");
+        System.out.println("[6] Back to Main Menu");
         System.out.print("Choice: ");
 
         if (scanner.hasNextInt())
@@ -120,7 +121,7 @@ public class Driver {
             choice = scanner.nextInt();
             scanner.nextLine();
 
-            if(checkIfValidOption(1,5,choice)==false) displayCharacterMenu();
+            if(checkIfValidOption(1,6,choice)==false) displayCharacterMenu();
 
             switch(choice)
             {
@@ -136,20 +137,22 @@ public class Driver {
                 case 4:
                     deleteCharacter();
                     break;
-                case 5:
-                    Driver.displayMenu();
+
+                case 5: 
+                    viewDeletedCharacters();
                     break;
+                case 6:
+                    Driver.displayMenu();
+                    return;
                 default:
                     System.out.println("Invalid Choice. Please try again.");
                     return;
                 
-
             }
         } else {
             System.out.println("Invalid choice. Please pick again.");
             displayCharacterMenu();
         }
-
 
 
 
@@ -383,7 +386,7 @@ public class Driver {
 
                     // scanner.nextLine();
 
-                    newPirate = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, isCaptain, PirateRole);
+                    newPirate = new Pirate(CharacterName, Alias, Origin, Status, Wallet, Bounty, PirateRole);
 
                     characterDB.addCharacter(newPirate);
                     characterDB.addPirate(newPirate);
@@ -654,7 +657,7 @@ public class Driver {
                     return;
 
             }
-
+            characterDB.rewriteCharacterFile();
         }
         else
         {
@@ -681,9 +684,36 @@ public class Driver {
             if (character != null)
             {
 
+                if (character.getStatus().equalsIgnoreCase("DEAD"))
+                {
+                    System.out.println(character.getName() + " is already Dead!");
+                }
+                else
+                {
                 System.out.println(character.getName() + " has been Deleted.");
-                characterDB.removeCharacter(character);
-           
+               characterDB.removeCharacter(character);
+                    if (character instanceof Marine)
+                    {
+                        Marine marine = (Marine) character;
+
+                        if (marine.getMarineCorps()!=null)
+                        {
+                           marine.getMarineCorps().removeMarineMember(marine);
+                        }
+                        affiliationDB.rewriteCorpFile();
+                    }
+                    else if ( character instanceof Pirate)
+                    {
+                        Pirate pirate = (Pirate) character;
+                        if (pirate.getPirateCrew()!=null)
+                        {
+                           pirate.getPirateCrew().removeCrewMember(pirate);
+                        }
+                        affiliationDB.rewriteCrewFile();
+                    }
+                devilFruitDB.rewriteFruitFile();
+                }
+
             }
             else
             {
@@ -719,7 +749,7 @@ private static void viewDeletedCharacters()
 
     private static void createGroup(){
 
-        int choice, money;
+        int choice;
         PirateCrew newCrew;
         MarineCorps newCorps;
         String groupName, baseOfOperations;
@@ -778,17 +808,10 @@ private static void viewDeletedCharacters()
 
                 System.out.print("Enter the Marine Corps' base location: ");
                 baseOfOperations = scanner.nextLine();
-                System.out.print("Enter the operational funds of the Marine Crops: ");
-                    while (!scanner.hasNextInt())
-                    {
-                        System.out.println("Invalid Input. Please Enter a Whole Number");
-                        scanner.nextLine();
-                        System.out.print("Enter the operational funds of the Marine Crops: ");
-                    }
-                money = scanner.nextInt();
+        
 
                 System.out.println(  "Marine Corps: " + groupName + " has been created!");
-                newCorps = new MarineCorps(baseOfOperations, groupName, money);
+                newCorps = new MarineCorps(baseOfOperations, groupName);
                 affiliationDB.addMarineCorp(newCorps);
 
                 break;
@@ -857,7 +880,7 @@ private static void viewDeletedCharacters()
 
     private static void editGroups(){ 
 
-        int choice, mChoice, eChoice, newMoney, captainInt;
+        int choice, mChoice, eChoice, captainInt;
         String newName, newBase;
 
         if ( affiliationDB.getCrewMap().isEmpty() && affiliationDB.getCorpsMap().isEmpty())
@@ -969,8 +992,7 @@ private static void viewDeletedCharacters()
                 System.out.println("[1] Change Base Location");
                 System.out.println("[2] Change Commander");
                 System.out.println("[3] Change Name");
-                System.out.println("[4] Change Operational Funds");
-                System.out.println("[5] Delete " + affiliationDB.getCorps(mChoice).getcorpsName());
+                System.out.println("[4] Delete " + affiliationDB.getCorps(mChoice).getcorpsName());
                 System.out.print("Choice: ");
                 eChoice = scanner.nextInt();
                 scanner.nextLine();
@@ -1024,19 +1046,6 @@ private static void viewDeletedCharacters()
                     break;
                     case 4: 
                         
-                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + " currently has a total of "
-                        + affiliationDB.getCorps(mChoice).getOperationalFunds() + " in operational funds.\n");
-                        
-                        System.out.println("How much operational funds does " + affiliationDB.getCorps(mChoice).getcorpsName() + " now have?");
-                        newMoney = scanner.nextInt();
-                        affiliationDB.getCorps(mChoice).setOperationalFunds(newMoney);
-
-                        System.out.println(affiliationDB.getCorps(mChoice).getcorpsName() + " now has a total of "
-                        + affiliationDB.getCorps(mChoice).getOperationalFunds() + " in operational funds.\n");
-                        
-                    break;
-                    case 5:
-                        
                         System.out.println("Deleting " + affiliationDB.getCorps(mChoice).getcorpsName() + "...\n");
                         
                         affiliationDB.removeCorps(mChoice);
@@ -1055,6 +1064,8 @@ private static void viewDeletedCharacters()
                 System.out.println("Invalid choice.");
                 break;
         }
+
+        affiliationDB.rewriteCrewFile();
     }
 
     
@@ -1075,9 +1086,17 @@ private static void viewDeletedCharacters()
         choice = scanner.nextInt();
 
         if(checkIfValidOption(1, 3, choice)==false) 
+        {
             addMembers();
+            return;
+
+        }
         if(choice == 3) 
+        {
             displayAffiliationMenu();
+            return;
+
+        }
 
         switch(choice){
             case 1: 
@@ -1099,6 +1118,7 @@ private static void viewDeletedCharacters()
                     System.out.println("The Pirate is already in a crew."); 
                 else {
                     affiliationDB.getCrew(mChoice).recruitCrewMember(characterDB.getPirate(eChoice));
+                    affiliationDB.rewriteCrewFile();
                 }
 
             break;
@@ -1126,6 +1146,9 @@ private static void viewDeletedCharacters()
             System.out.println("Invalid choice."); 
             break;
         }
+            affiliationDB.rewriteCrewFile();
+            characterDB.rewriteCharacterFile();
+
     }
     
     private static void removeMembers(){
@@ -1145,10 +1168,16 @@ private static void viewDeletedCharacters()
         choice = scanner.nextInt();
 
         if(checkIfValidOption(1, 3, choice)==false) 
+        {
             removeMembers();
-        if(choice == 3) 
-            displayAffiliationMenu();
+            return;
 
+        }
+        if(choice == 3) 
+            {
+              displayAffiliationMenu();
+
+            }
         switch(choice){
             case 1: 
                 affiliationDB.displayCrews();
@@ -1164,11 +1193,14 @@ private static void viewDeletedCharacters()
                 if (removedPirate != null)
                 {
                 affiliationDB.getCrew(mChoice).removeCrewMember(removedPirate);
+                affiliationDB.rewriteCrewFile();
+                characterDB.rewriteCharacterFile();
                 }
                 else
                 {
                     System.out.println("Pirate does not exist");
                     removeMembers();
+                    return;
                 }
                 
 
@@ -1189,16 +1221,20 @@ private static void viewDeletedCharacters()
                 if (removedMarine != null)
                 {
                 affiliationDB.getCorps(mChoice).removeMarineMember(removedMarine);
+                affiliationDB.rewriteCorpFile();
+                characterDB.rewriteCharacterFile();
                 }
                 else
                 {
                     System.out.println("Marine does not exist");
                     removeMembers();
+                    return;
                 }
             break;
             default: System.out.println("Invalid choice."); 
             break;
         }
+
     }  
 
     //Devil Fruit Functions
@@ -1227,10 +1263,11 @@ private static void viewDeletedCharacters()
         System.out.println("[2] Zoan");
         System.out.println("[3] Logia");
 
-        choice = scanner.nextInt();
 
         if (scanner.hasNextInt())
         {
+        choice = scanner.nextInt();
+        scanner.nextLine();
             switch(choice)
             {
                 case 1: fruitCategory = "Paramecia"; 
@@ -1243,6 +1280,12 @@ private static void viewDeletedCharacters()
                 return;
 
             }
+        }
+        else
+        {
+            scanner.nextLine();
+            System.out.println("Please enter a number");
+            return;
         }
 
 
@@ -1314,6 +1357,8 @@ private static void viewDeletedCharacters()
             {
             devilFruitDB.assignFruitToUser(fruitID, characterDB.getCharacter(charID));
             characterDB.getCharacter(charID).setDFPower(devilFruitDB.getDevilFruit(fruitID));
+            characterDB.rewriteCharacterFile();
+            devilFruitDB.rewriteFruitFile();
             }
             else
             {
@@ -1338,7 +1383,7 @@ private static void viewDeletedCharacters()
     int charID=0;
     int charID2=0;
 
-    System.out.println(" --- Register a Devil Fruit ---");
+    System.out.println(" --- Register a Bounty ---");
     characterDB.displayCharacters();
     System.out.println("Enter Character ID of the Captor: ");
     charID = scanner.nextInt();
@@ -1351,24 +1396,40 @@ private static void viewDeletedCharacters()
         if (captured.getStatus().equalsIgnoreCase("Captured"))
         {
             System.out.println(captured.getName()+ " has already been Captured!");
+            return;
         }
         else if (captured.getStatus().equalsIgnoreCase("Dead"))
         {
             System.out.println(captured.getName()+ " is already dead!");
+            return;
+
         }
         else if (!PirateBounty.validateCaptor(captor))
         {
         System.out.println("Invalid Captor. A Pirate cannot capture another Pirate #traitor lol");
+        return;
         }
+        else if (charID == charID2)
+          {
+        System.out.println("Why are we trying to capture ourselves now.");
+        return;
+        }  
         else
         {
         PirateBounty bounty = new PirateBounty();
         bounty.setCaptor(captor);
         bounty.setCaptured(captured);
-        bountyDB.registerCapture(bounty);
         bounty.processTargetStatus();
         bounty.routeFinancialRewards();
         bounty.logTransaction();
+
+        bountyDB.registerCapture(bounty);
+        characterDB.rewriteCharacterFile();
+
+        if (captor instanceof PirateHunter)
+        {
+            characterDB.rewriteCharacterFile();
+        }
         }
         
 

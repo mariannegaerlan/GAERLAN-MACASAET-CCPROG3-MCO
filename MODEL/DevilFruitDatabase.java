@@ -4,8 +4,13 @@
  */
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 
 public class DevilFruitDatabase {
@@ -15,6 +20,7 @@ public class DevilFruitDatabase {
     public DevilFruitDatabase()
     {
         this.dfMap = new HashMap<>();
+        loadFruitFile();
     }
 /** getDFMap lets the user access the devil fruit hashmap
 *
@@ -46,6 +52,7 @@ public class DevilFruitDatabase {
         }
 
         dfMap.put(devilFruit.getFruitId(), devilFruit);
+        saveFruittoFile(devilFruit);
 
     }
 /** getDevilFruit lets the user access the devil fruit
@@ -133,4 +140,107 @@ public class DevilFruitDatabase {
             System.out.println("----------------------------");
         }
     }
+
+
+
+/** saveFruittoFile utilizes file writer to save the logged devil fruit into a text file
+    * 
+    *@param corp
+    *@return void
+
+*/  
+
+
+    public static void saveFruittoFile(DevilFruit fruit)
+    {
+        if (fruit == null)
+        {
+            return;
+        }
+
+        try (FileWriter writer = new FileWriter ("DevilFruits.txt", true))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+
+            pWriter.println(fruit.FileFormat());
+            
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+    }
+
+/** rewriteFruitFile utilizes file writer to overwrite the current devil fruit text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+
+    public void rewriteFruitFile()
+    {
+        try (FileWriter writer = new FileWriter ("DevilFruits.txt", false))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+        
+            for (DevilFruit d: dfMap.values())
+            {
+                pWriter.println(d.FileFormat());
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+        
+    }
+
+
+/** loadFruitFile utilizes file to load the devil fruit text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+        public void loadFruitFile()
+    {
+        File file = new File("DevilFruits.txt");
+
+        if (!file.exists())
+        {
+            System.out.println("Devil fruit file doesn't contain anything");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            while (scanner.hasNextLine())
+            {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+
+                String[] segments = line.split("\\s*\\|\\s*");
+
+                    String category = segments[0].split(":")[1].trim();
+                    String name = segments[2].split(":")[1].trim();
+                    String ability = segments[3].split(":")[1].trim();
+
+                       DevilFruit d = new DevilFruit(name, category, ability);
+                       dfMap.put(d.getFruitId(),d);
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println("Error loading Devil Fruit file: " + e.getMessage());
+        }
+    }
+        
+
+
 }

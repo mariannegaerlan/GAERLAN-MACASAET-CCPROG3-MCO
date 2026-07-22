@@ -14,11 +14,10 @@ public class Pirate extends Character{
 
 
     // This is the constructor of the Pirate
-    public Pirate( String Name, String Alias, String Origin, String Status, int Wallet, int Bounty, boolean isCaptain, String PirateRole )
+    public Pirate( String Name, String Alias, String Origin, String Status, int Wallet, int Bounty, String PirateRole )
     {
         super(Name, Alias, Origin, Status, Wallet, "Pirate");
         this.Bounty = Bounty;
-        this.isCaptain = isCaptain;
         this.PirateRole = PirateRole;
         
 
@@ -181,18 +180,19 @@ public class Pirate extends Character{
     @Override
      public String FileFormat()
      {
-        if (this.getPirateCrew()!=null)
-        {
-        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
-        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| BOUNTY: " + getBounty() + "| CREW: "
-        + getPirateCrew();
-        }
-        else
-        {
-        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
-        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| BOUNTY: " + getBounty();
-        }
-
+        return String.format(
+            "ROLE: PIRATE | ID: %d | NAME: %s | ALIAS: %s | ORIGIN: %s | STATUS: %s | WALLET: %d | BOUNTY: %d | PIRATE ROLE: %s | CREW: %s | DEVIL FRUIT: %s",
+            getCharacterID(),
+            getName(),
+            getAlias(),
+            getOrigin(),
+            getStatus(),
+            getWallet(),
+            getBounty(),
+            this.getPirateRole(),
+            getPirateCrew() == null ? "NONE" : getPirateCrew().getCrewName(),
+            (getDFPower() == null ? "NONE" : getDFPower().getFruitName())
+        );
      }
 
 }

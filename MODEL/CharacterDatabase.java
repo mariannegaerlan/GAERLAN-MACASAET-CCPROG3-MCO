@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,6 +30,7 @@ public class CharacterDatabase {
         this.pirateMap = new HashMap<>();
         this.pirhunMap = new HashMap<>();
         this.civilianMap = new HashMap<>();
+        loadCharacterFile();
     }
 
     public List<Character> getdeadCharacters()
@@ -86,7 +88,9 @@ public class CharacterDatabase {
         }
         if (characterMap.containsKey(character.getCharacterID()))
         {
-            throw new IllegalArgumentException("Character ID already exists");
+            System.out.println("Character already exists!");
+            return;
+
         }
 
         characterMap.put(character.getCharacterID(), character);
@@ -240,8 +244,13 @@ public class CharacterDatabase {
         {
         removedCharacter.getDFPower().triggerReincarnation();
         }
+        if (!deadCharacters.contains(removedCharacter))
+        {
         deadCharacters.add(removedCharacter);
-        characterMap.remove(removedCharacter.getCharacterID());
+
+        }
+        // characterMap.remove(removedCharacter.getCharacterID());
+        rewriteCharacterFile();
     }
 
     /** displayCharacters displays the list of characters
@@ -255,6 +264,8 @@ public class CharacterDatabase {
     {
 
         System.out.println("\n====== ONE PIECE CHARACTERS ======");
+
+
         for (Character c: characterMap.values())
         {
            System.out.println("ID: " + c.getCharacterID() + "| Name: " +  c.getName());
@@ -321,6 +332,13 @@ public class CharacterDatabase {
     }
     
 
+/** saveCharacterToFile utilizes file writer to save the logged characters into a text file
+    * 
+    *@param character
+    *@return void
+
+*/  
+
 
     public static void saveCharacterToFile(Character character)
     {
@@ -343,5 +361,113 @@ public class CharacterDatabase {
 
         }
     }
-    
+
+/** rewriteCharacterFile utilizes file writer to overwrite the current text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+
+    public void rewriteCharacterFile()
+    {
+        try (FileWriter writer = new FileWriter ("CharacterList.txt", false))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+        
+            for (Character c: characterMap.values())
+            {
+                pWriter.println(c.FileFormat());
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+        
+    }
+
+/** loadCharacterFile utilizes file to load the character text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+        public void loadCharacterFile()
+    {
+        File file = new File("CharacterList.txt");
+
+        if (!file.exists())
+        {
+            System.out.println("Character file doesn't contain anything");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            while (scanner.hasNextLine())
+            {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+
+                String[] segments = line.split("\\s*\\|\\s*");
+
+                    String role = segments[0].split(":")[1].trim();
+                    String name = segments[2].split(":")[1].trim();
+                    String alias = segments[3].split(":")[1].trim();
+                    String origin = segments[4].split(":")[1].trim();
+                    String status = segments[5].split(":")[1].trim();
+                    int wallet = Integer.parseInt(segments[6].split(":")[1].trim());
+
+
+                    if (role.equalsIgnoreCase("PIRATE"))
+                    {
+                        int bounty = Integer.parseInt(segments[7].split(":")[1].trim());
+                        String pirateRole = segments[8].split(":")[1].trim();
+
+                       Pirate c = new Pirate(name, alias, origin, status, wallet, bounty, pirateRole);
+                       characterMap.put(c.getCharacterID(),c);
+                       pirateMap.put(c.getCharacterID(),c);
+
+                    }
+                    else if (role.equalsIgnoreCase("MARINE"))
+                    {
+                        String rank = segments[7].split(":")[1].trim();
+                        
+                       Marine c = new Marine(name, alias, origin, status, wallet, rank); 
+                        characterMap.put(c.getCharacterID(),c);
+                        marineMap.put(c.getCharacterID(),c);
+            
+                    }
+                    else if (role.equalsIgnoreCase("PIRATE HUNTER"))
+                    {
+                      String combatstyle = segments[7].split(":")[1].trim();
+                        
+                       PirateHunter c = new PirateHunter(name, alias, origin, status, wallet, combatstyle);    
+                            characterMap.put(c.getCharacterID(),c);
+                            pirhunMap.put(c.getCharacterID(),c);
+
+                    }
+                    else if (role.equalsIgnoreCase("CIVILIAN"))
+                    {
+                      String residence = segments[7].split(":")[1].trim();
+                      String profession = segments[8].split(":")[1].trim();
+
+                       Civilian c = new Civilian(name, alias, origin, status, wallet, profession, residence);  
+                        characterMap.put(c.getCharacterID(),c);
+                        civilianMap.put(c.getCharacterID(),c);
+               
+                    }
+
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println("Error loading character file: " + e.getMessage());
+        }
+    }
 }

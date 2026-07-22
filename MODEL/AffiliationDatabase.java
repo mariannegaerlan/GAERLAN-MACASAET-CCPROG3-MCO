@@ -3,8 +3,13 @@
  * Contributed by: Marco Macasaet
 */
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class AffiliationDatabase {
 
@@ -17,6 +22,8 @@ public class AffiliationDatabase {
     {
         this.crewMap = new HashMap<>();
         this.corpMap = new HashMap<>();
+        loadCrewFile();
+        loadCorpFile();
     }
 
 
@@ -36,6 +43,7 @@ public class AffiliationDatabase {
         }
 
         crewMap.put(crew.getCrewID(), crew);
+        savePirateCrewtoFile(crew);
 
     }
 
@@ -63,6 +71,8 @@ public class AffiliationDatabase {
     {
         PirateCrew removedPirateCrew = crewMap.remove(crewID);
         System.out.println(removedPirateCrew.getCrewName() + " has been removed.");
+
+        rewriteCrewFile();
     }
 
 
@@ -115,6 +125,7 @@ public class AffiliationDatabase {
         }
 
         corpMap.put(corps.getCorpsID(), corps);
+        saveCorptoFile(corps);
 
     }
 
@@ -154,6 +165,7 @@ public class AffiliationDatabase {
     {
         MarineCorps removedMarineCorps = corpMap.remove(corpsID);
         System.out.println(removedMarineCorps.getcorpsName() + " has been removed.");
+        rewriteCrewFile();
     }
 
 /**  displayCorps display the list of corps existing in the system
@@ -179,5 +191,198 @@ public class AffiliationDatabase {
         }
     }
 
+
+/** savePirateCrewtoFile utilizes file writer to save the logged pirate crew into a text file
+    * 
+    *@param crew
+    *@return void
+
+*/  
+
+
+    public static void savePirateCrewtoFile(PirateCrew crew)
+    {
+        if (crew == null)
+        {
+            return;
+        }
+
+        try (FileWriter writer = new FileWriter ("PirateCrews.txt", true))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+
+            pWriter.println(crew.FileFormat());
+            
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+    }
+
+
+/** saveCorptoFile utilizes file writer to save the logged marine corp into a text file
+    * 
+    *@param corp
+    *@return void
+
+*/  
+
+
+    public static void saveCorptoFile(MarineCorps corp)
+    {
+        if (corp == null)
+        {
+            return;
+        }
+
+        try (FileWriter writer = new FileWriter ("MarineCorps.txt", true))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+
+            pWriter.println(corp.FileFormat());
+            
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+    }
+
+
+
+/** rewriteCrewFile utilizes file writer to overwrite the current crew text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+
+    public void rewriteCrewFile()
+    {
+        try (FileWriter writer = new FileWriter ("PirateCrews.txt", false))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+        
+            for (PirateCrew p: crewMap.values())
+            {
+                pWriter.println(p.FileFormat());
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+        
+    }
+
+
+/** rewriteCorpFile utilizes file writer to overwrite the current corp text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+
+    public void rewriteCorpFile()
+    {
+        try (FileWriter writer = new FileWriter ("MarineCorps.txt", false))
+        {
+            PrintWriter pWriter = new PrintWriter(writer);
+        
+            for (MarineCorps m: corpMap.values())
+            {
+                pWriter.println(m.FileFormat());
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println("Erorr: " + e.getMessage());
+
+        }
+        
+    }
+
+
+/** loadCrewFile utilizes file to load the pirate crew text file
+    * 
+    *@param none
+    *@return void
+
+*/  
+
+        public void loadCrewFile()
+    {
+        File file = new File("PirateCrews.txt");
+
+        if (!file.exists())
+        {
+            System.out.println("Pirate Crew file doesn't contain anything");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            while (scanner.hasNextLine())
+            {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+
+                String[] segments = line.split("\\s*\\|\\s*");
+
+                    String name = segments[2].split(":")[1].trim();
+                    String ship = segments[3].split(":")[1].trim();
+                    // int bounty = Integer.parseInt(segments[4].split(":")[1].trim());
+                    // String captain = segments[5].split(":")[1].trim();
+                    // String members = segments[6].split(":")[1].trim();
+
+                    PirateCrew p = null;
+                       p = new PirateCrew(name, ship);
+                       crewMap.put(p.getCrewID(),p);
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println("Error loading Crew file: " + e.getMessage());
+        }
+    }
+        public void loadCorpFile()
+    {
+        File file = new File("MarineCorps.txt");
+
+        if (!file.exists())
+        {
+            System.out.println("Marine Corp file doesn't contain anything");
+            return;
+        }
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            while (scanner.hasNextLine())
+            {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+
+                String[] segments = line.split("\\s*\\|\\s*");
+
+                    String name = segments[2].split(":")[1].trim();
+                    String location = segments[4].split(":")[1].trim();
+
+                       MarineCorps m = new MarineCorps(name, location);
+                       corpMap.put(m.getCorpsID(),m);
+            }
+        }
+
+        catch (Exception e)
+        {
+            System.out.println("Error loading Corp file: " + e.getMessage());
+        }
+    }
 }
 

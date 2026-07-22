@@ -111,8 +111,7 @@ public class PirateHunter extends Character implements Captor{
      public String FileFormat()
      {
 
-        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
-        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| COMBAT STLYE: " + getCombatStyle() + "| CONFIRMED CAPTURES: " + getConfirmedCaptures();
-
+        return "ROLE: PIRATE HUNTER | ID: " +getCharacterID() + " | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet() + "| COMBAT STLYE: " + getCombatStyle() + "| CONFIRMED CAPTURES: " + getConfirmedCaptures() + "| DEVIL FRUIT: " + (getDFPower() == null ? "NONE" : getDFPower().getFruitName());
      }
 }

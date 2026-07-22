@@ -101,8 +101,7 @@ public void setProfession( String Profession)
      public String FileFormat()
      {
 
-        return "ROLE: PIRATE | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
-        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet()  + "| PROFESSION: " + getProfession() + "| RESIDENCE: " + getResidence();
-
+        return "ROLE: CIVILIAN | ID: " +getCharacterID() + " | NAME: " + getName() + "| ALIAS: " + getAlias() + "| ORIGIN: " + getOrigin()
+        + "| STATUS: " + getStatus() + "| WALLET: " + getWallet()  + "| PROFESSION: " + getProfession() + "| RESIDENCE: " + getResidence() +"| DEVIL FRUIT: " + (getDFPower() == null ? "NONE" : getDFPower().getFruitName());
      }
 }

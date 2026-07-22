@@ -193,7 +193,7 @@ public class DevilFruit
             ownerNames.add(o.getName());
         }
         String members = String.join(",", ownerNames);
-        return "DEVIL FRUIT: " + getCategory() + "| ID: " + getFruitId() + "| FRUIT NAME: " + getFruitName() + "| ABILITY" + getPrimaryAbility() + "| CURRENT OWNER: " + getcurrentOwner()  + "| MEMBERS: " + members;
+        return "DEVIL FRUIT: " + getCategory() + "| ID: " + getFruitId() + "| FRUIT NAME: " + getFruitName() + "| ABILITY: " + getPrimaryAbility() + "| CURRENT OWNER: " + (getcurrentOwner() == null ? "NONE": getcurrentOwner().getName())  + "| HISTORICAL OWNERS: " + (getHistoricalOwners() == null ||getHistoricalOwners().isEmpty() ? "NONE": members);
 
      }
 
