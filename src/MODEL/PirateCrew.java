@@ -1,3 +1,4 @@
+package MODEL;
 
 /**
  * The PirateCrew is a class that facilitates the behavior of the pirate crew
@@ -20,7 +21,7 @@ public class PirateCrew {
 
     // This is the pirate crew constructor
 
-    PirateCrew(String crewName, String shipName)
+    public PirateCrew(String crewName, String shipName)
     {
         this.crewID = ++count;
         this.crewName = crewName;

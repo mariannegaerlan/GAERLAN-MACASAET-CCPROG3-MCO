@@ -3,7 +3,7 @@
  * The Pirate class is a child of the Character Class and facilitates the creation of the pirate
  * Contributed by: Marianne Gaerlan
 */
-
+package MODEL;
 
 public class Pirate extends Character{
 

@@ -2,6 +2,7 @@
  * This class holds the behavior of the devil fruit database and facilitates the registering of a new devil fruit
  * Contributed by: Marco Macasaet
  */
+package MODEL;
 
 
 import java.io.File;

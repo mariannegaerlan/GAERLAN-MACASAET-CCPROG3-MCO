@@ -3,6 +3,7 @@
  * The Marine class is a child of the Character Class and facilitates the creation of the marine
  * Contributed by: Marianne Gaerlan
 */
+package MODEL;
 
 
 

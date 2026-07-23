@@ -3,6 +3,7 @@
  * Contributed by: Marianne Gaerlan
  */
 
+package MODEL;
 
 import java.io.File;
 import java.io.FileWriter;

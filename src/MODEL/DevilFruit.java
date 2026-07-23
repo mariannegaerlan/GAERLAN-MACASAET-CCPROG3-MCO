@@ -3,6 +3,7 @@
  * Contributed by: Marianne Gaerlan
 */
 
+package MODEL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class DevilFruit
 
 
 // Devil Fruit Constructor
-    DevilFruit(String fruitName, String category, String primaryAbility)
+    public DevilFruit(String fruitName, String category, String primaryAbility)
     {
         this.fruitID = ++count;
         this.fruitName = fruitName;

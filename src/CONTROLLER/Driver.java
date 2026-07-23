@@ -1,5 +1,15 @@
+package CONTROLLER;
+
 import java.util.Scanner;
 import java.io.IOException;
+
+// import MODEL.CharacterDatabase;
+// import MODEL.AffiliationDatabase;
+// import MODEL.DevilFruitDatabase;
+// import MODEL.BountyDatabase;
+
+import MODEL.*;
+import MODEL.Character;
 
 
 public class Driver {

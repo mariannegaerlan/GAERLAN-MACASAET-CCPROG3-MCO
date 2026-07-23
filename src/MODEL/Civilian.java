@@ -3,6 +3,7 @@
  * The Civilian class is a child of the Character Class and facilitates the creation of the Civilian
  * Contributed by: Marianne Gaerlan
 */
+package MODEL;
 
 public class Civilian extends Character implements Captor{
 

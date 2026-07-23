@@ -2,6 +2,7 @@
  * The MarineCorps is a class that facilitates the behavior of the marine corp
  * Contributed by: Marianne Gaerlan
 */
+package MODEL;
 
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class MarineCorps
 
     // This is the Marine Corp constructor
 
-    MarineCorps(String baseLocation, String corpsName)
+    public MarineCorps(String baseLocation, String corpsName)
     {
         this.corpsID = ++count;
         this.baseLocation = baseLocation;

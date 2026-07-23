@@ -1,3 +1,4 @@
+package MODEL;
 
 /**
  * The Pirate Hunter class is a child of the Character Class and facilitates the creation of the Pirate Hunter

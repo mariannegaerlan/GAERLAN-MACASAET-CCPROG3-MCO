@@ -2,6 +2,7 @@
  * This class is the Character class which is the blueprint for the Character objects
  * Contributed by: Marianne Gaerlan and Marco Macasaet
  */
+package MODEL;
 
 public abstract class Character {
 

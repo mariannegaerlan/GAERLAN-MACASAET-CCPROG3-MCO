@@ -2,6 +2,7 @@
  * This class holds the behavior of the affiliation database and facilitates the registering of a new pirate crew or marine corp
  * Contributed by: Marco Macasaet
 */
+package MODEL;
 
 import java.io.File;
 import java.io.FileWriter;
